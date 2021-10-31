@@ -3,7 +3,11 @@ import secrets
 import string
 import hashlib
 import requests
-
+import json
+from cortex.api.models.requests import RequestData, Sort, Filter
+from cortex.api.models.alerts import GetAlertsResponseItem
+from cortex.api.models.incidents import GetIncidentsResponseItem, GetExtraIncidentDataResponseItem
+from cortex.api.models.endpoints import GetEndpointResponseItem, GetAllEndpointsResponse, ResponseActionResponseItem
 
 class CortexXDRClient(object):
 
@@ -13,7 +17,7 @@ class CortexXDRClient(object):
         self._fqdn = fqdn
         self._requests_timeout = default_timeout
 
-    def _get_headers_(self):
+    def _get_headers(self):
         # Generate a 64 bytes random string
         nonce = "".join([secrets.choice(string.ascii_letters + string.digits) for _ in range(64)])
         # Get the current timestamp as milliseconds.
@@ -32,15 +36,18 @@ class CortexXDRClient(object):
             "Authorization": api_key_hash
         }
 
-    def _execute_call_(self, method, url, headers=None, params=None, json=None):
-        if method == 'get':
-            response = requests.get(url, headers=headers, params=params, timeout=self._requests_timeout)
-        elif method == 'post':
-            response = requests.post(url, headers=headers, json=json, timeout=self._requests_timeout)
-        elif method == 'put':
-            response = requests.put(url, headers=headers, json=json, timeout=self._requests_timeout)
-        elif method == 'delete':
-            response = requests.delete(url, headers=headers, timeout=self._requests_timeout)
+    def _execute_call(self, api_name, call_name, request_data: RequestData = None):
+        url = self._get_url(api_name=api_name, call_name=call_name)
+        headers = self._get_headers()
+        json_data = {"request_data": {}}
+        if request_data is not None:
+            json_data = json.dumps(request_data, default=lambda o: o.__dict__, indent=4)
+
+        return requests.post(url, headers=headers, json=json, timeout=self._requests_timeout)
+
+    def _get_url(self, api_name, call_name):
+        return f"https://api-{self._fqdn}/public_api/v1/{api_name}/{call_name}"
+        return Constants.API_URL % (self._fqdn, api_name, call_name)
 
     def test_advanced_authentication(self, api_key_id, api_key):
         # Generate a 64 bytes random string

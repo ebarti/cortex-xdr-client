@@ -185,6 +185,10 @@ class Event:
         self.dst_action_external_port = dst_action_external_port
         self.user_name = user_name
 
+    @classmethod
+    def from_json(cls, data: dict) -> "Event":
+        return cls(**data)
+
 
 class Alert:
     external_id: str
@@ -268,8 +272,12 @@ class Alert:
         self.action = action
         self.action_pretty = action_pretty
 
+    @classmethod
+    def from_json(cls, data: dict) -> "Alert":
+        return cls(**data)
 
-class Reply:
+
+class GetAlertsResponseItem:
     total_count: int
     result_count: int
     alerts: List[Alert]
@@ -279,9 +287,20 @@ class Reply:
         self.result_count = result_count
         self.alerts = alerts
 
+    @classmethod
+    def from_json(cls, data: dict) -> "GetAlertsResponseItem":
+        total_count = data["total_count"]
+        result_count = data["result_count"]
+        alerts = list(map(Alert.from_json, data["alerts"]))
+        return cls(total_count=total_count, result_count=result_count, alerts=alerts)
 
-class Welcome4:
-    reply: Reply
 
-    def __init__(self, reply: Reply) -> None:
+class GetAlertsResponse:
+    reply: GetAlertsResponseItem
+
+    def __init__(self, reply: GetAlertsResponseItem) -> None:
         self.reply = reply
+
+    @classmethod
+    def from_json(cls, data: dict) -> "GetAlertsResponse":
+        return cls(**data)
