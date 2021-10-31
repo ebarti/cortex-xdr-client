@@ -21,7 +21,7 @@ class Sort:
         self.keyword = keyword
 
 
-class RequestData:
+class RequestDataItem:
     search_from: int
     search_to: int
     sort: Sort
@@ -32,3 +32,13 @@ class RequestData:
         self.search_to = search_to
         self.sort = sort
         self.filters = filters
+
+
+class RequestData:
+    request_data: RequestDataItem
+
+    def __init__(self, request_data: RequestDataItem = None) -> None:
+        if request_data is None:
+            self.request_data = {}
+        else:
+            self.request_data = request_data
