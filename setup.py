@@ -1,7 +1,7 @@
 from setuptools import setup
 
 version = {}
-with open("src/cortex/api/version.py") as fp:
+with open("src/cortex/version.py") as fp:
     exec(fp.read(), version)
 
 setup(

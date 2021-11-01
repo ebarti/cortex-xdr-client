@@ -27,7 +27,11 @@ class FilterRequestDataItem:
     sort: Sort
     filters: List[Filter]
 
-    def __init__(self, search_from: int = None, search_to: int = None, sort: Sort = None, filters: List[Filter] = None) -> None:
+    def __init__(self,
+                 search_from: int = None,
+                 search_to: int = None,
+                 sort: Sort = None,
+                 filters: List[Filter] = None) -> None:
         self.search_from = search_from
         self.search_to = search_to
         self.sort = sort
@@ -44,20 +48,9 @@ class FilterRequestData:
             self.request_data = request_data
 
 
-class GetIncidentExtraDataItem:
-    incident_id: str
-    alerts_limit: int
+def new_filter_request_data(search_from: int = None,
+                            search_to: int = None,
+                            sort: Sort = None,
+                            filters: List[Filter] = None) -> FilterRequestData:
+    return FilterRequestData(FilterRequestDataItem(search_from, search_to, sort, filters))
 
-    def __init__(self, incident_id: str, alerts_limit: int) -> None:
-        self.incident_id = incident_id
-        self.alerts_limit = alerts_limit
-
-
-class GetIncidentExtraDataRequestData:
-    request_data: GetIncidentExtraDataItem
-
-    def __init__(self, request_data: GetIncidentExtraDataItem = None) -> None:
-        if request_data is None:
-            self.request_data = {}
-        else:
-            self.request_data = request_data
