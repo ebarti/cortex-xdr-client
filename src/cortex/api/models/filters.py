@@ -4,9 +4,9 @@ from typing import List
 class Filter:
     field: str
     operator: str
-    value: List[str]
+    value: object
 
-    def __init__(self, field: str, operator: str, value: List[str]) -> None:
+    def __init__(self, field: str, operator: str, value: object) -> None:
         self.field = field
         self.operator = operator
         self.value = value

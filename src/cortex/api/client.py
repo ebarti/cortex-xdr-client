@@ -4,7 +4,7 @@ import secrets
 import string
 import hashlib
 import requests
-from cortex.api.models.requests import (
+from cortex.api.models.filters import (
     FilterRequestData,
     FilterRequestDataItem,
     Filter,
