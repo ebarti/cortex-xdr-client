@@ -43,7 +43,6 @@ class BaseAPI:
 
         return self._execute_call(url=url,
                                   method=method,
-                                  timeout=self._requests_timeout,
                                   params=params,
                                   headers=headers,
                                   data=data)
@@ -56,11 +55,11 @@ class BaseAPI:
                       data: object = None) -> requests.Response:
         response = None
         if method == 'get':
-            response = requests.get(url, headers=headers, params=params, timeout=self.requests_timeout)
+            response = requests.get(url, headers=headers, params=params, timeout=self._requests_timeout)
         elif method == 'post':
-            response = requests.post(url, headers=headers, data=data, timeout=self.requests_timeout)
+            response = requests.post(url, headers=headers, data=data, timeout=self._requests_timeout)
         elif method == 'put':
-            response = requests.put(url, headers=headers, data=data, timeout=self.requests_timeout)
+            response = requests.put(url, headers=headers, data=data, timeout=self._requests_timeout)
         elif method == 'delete':
-            response = requests.delete(url, headers=headers, timeout=self.requests_timeout)
+            response = requests.delete(url, headers=headers, timeout=self._requests_timeout)
         return response

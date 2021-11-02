@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "cortex-xdr-client"
+version = "0.1.0"
+description = "API client for Cortex XDR Prevent"
+authors = ["ebarti <eloi.barti@glovoapp.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.26.0"
+
+[tool.poetry.dev-dependencies]
+requests-mock = "^1.9.3"
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

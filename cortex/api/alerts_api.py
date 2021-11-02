@@ -8,8 +8,8 @@ from cortex.api.utils.constants import Constants
 
 
 class AlertsAPI(BaseAPI):
-    def __init__(self, api_key_id: str, api_key: str, fqdn: str, default_timeout: tuple[int, int]) -> None:
-        super(AlertsAPI, self).__init__(api_key_id, api_key, fqdn, "alerts", default_timeout)
+    def __init__(self, api_key_id: str, api_key: str, fqdn: str, timeout: tuple[int, int]) -> None:
+        super(AlertsAPI, self).__init__(api_key_id, api_key, fqdn, "alerts", timeout)
 
     @staticmethod
     def _alert_id_filter(value: List[str]) -> Filter:
@@ -58,8 +58,7 @@ class AlertsAPI(BaseAPI):
 
         request_data = new_filter_request_data(filters=filters)
 
-        response = self._call(api_name="alerts",
-                              call_name="get_alerts_multi_events",
+        response = self._call(call_name="get_alerts_multi_events",
                               request_data=request_data)
         if response.ok:
             return response.json()

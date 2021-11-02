@@ -1,1 +1,10 @@
-.idea
+.idea/
+/*.eg
+*.egg-info
+/eggs
+/.eggs
+/build
+/dist
+/venv
+/venv3
+virtualenv

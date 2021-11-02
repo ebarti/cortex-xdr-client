@@ -37,8 +37,7 @@ class IncidentsAPI(BaseAPI):
     def get_incident_extra_data(self, incident_id: str, alerts_limit: int) -> Optional[dict]:
 
         request_data = GetIncidentExtraDataRequestData(GetIncidentExtraDataItem(incident_id, alerts_limit))
-        response = self._call(api_name="incidents",
-                              call_name="get_incident_extra_data",
+        response = self._call(call_name="get_incident_extra_data",
                               request_data=request_data)
         if response.ok:
             return response.json()

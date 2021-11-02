@@ -9,6 +9,9 @@ class CortexXDRClient(object):
     endpoints_api: EndpointsAPI
 
     def __init__(self, api_key_id, api_key, fqdn, default_timeout=(10, 60)):
+        self._api_key_id = api_key_id
+        self._api_key = api_key
+        self._fqdn = fqdn
         self.incidents_api = IncidentsAPI(api_key_id=api_key_id,
                                           api_key=api_key,
                                           fqdn=fqdn,
