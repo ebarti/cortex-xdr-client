@@ -9,14 +9,14 @@ setup(
     version=version['__version__'],
     url='',
     license='MIT',
-    author='eloibarti',
+    author='Eloi Barti',
     author_email='me@eloibarti.com',
-    description='API client for Cortex XDR',
+    description='API client for Cortex XDR Prevent',
     packages=[
-        'onelogin',
-        'onelogin/api',
-        'onelogin/api/util',
-        'onelogin/api/models'
+        'cortex',
+        'cortex/api',
+        'cortex/api/util',
+        'cortex/api/models'
     ],
     package_dir={
         '': 'src',
