@@ -2,7 +2,7 @@
 name = "cortex-xdr-client"
 version = "0.1.0"
 description = "API client for Cortex XDR Prevent"
-authors = ["ebarti <eloi.barti@glovoapp.com>"]
+authors = ["ebarti <me@eloibarti.com"]
 license = "MIT"
 
 [tool.poetry.dependencies]
