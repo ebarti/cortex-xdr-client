@@ -6,36 +6,36 @@ class Incident:
     incident_name: str
     creation_time: int
     modification_time: int
-    detection_time: None
+    detection_time: int
     status: str
     severity: str
     description: str
-    assigned_user_mail: None
-    assigned_user_pretty_name: None
+    assigned_user_mail: str
+    assigned_user_pretty_name: str
     alert_count: int
     low_severity_alert_count: int
     med_severity_alert_count: int
     high_severity_alert_count: int
     user_count: int
     host_count: int
-    notes: None
-    resolve_comment: None
-    manual_severity: None
-    manual_description: None
+    notes: str
+    resolve_comment: str
+    manual_severity: str
+    manual_description: str
     xdr_url: str
     starred: bool
     hosts: List[str]
     users: List[str]
     incident_sources: List[str]
     rule_based_score: int
-    manual_score: None
+    manual_score: int
     wildfire_hits: int
     alerts_grouping_status: str
     mitre_techniques_ids_and_names: List[str]
     mitre_tactics_ids_and_names: List[str]
     alert_categories: List[str]
 
-    def __init__(self, incident_id: str, incident_name: str, creation_time: int, modification_time: int, detection_time: None, status: str, severity: str, description: str, assigned_user_mail: None, assigned_user_pretty_name: None, alert_count: int, low_severity_alert_count: int, med_severity_alert_count: int, high_severity_alert_count: int, user_count: int, host_count: int, notes: None, resolve_comment: None, manual_severity: None, manual_description: None, xdr_url: str, starred: bool, hosts: List[str], users: List[str], incident_sources: List[str], rule_based_score: int, manual_score: None, wildfire_hits: int, alerts_grouping_status: str, mitre_techniques_ids_and_names: List[str], mitre_tactics_ids_and_names: List[str], alert_categories: List[str]) -> None:
+    def __init__(self, incident_id: str, incident_name: str, creation_time: int, modification_time: int, detection_time: int, status: str, severity: str, description: str, assigned_user_mail: str, assigned_user_pretty_name: str, alert_count: int, low_severity_alert_count: int, med_severity_alert_count: int, high_severity_alert_count: int, user_count: int, host_count: int, notes: str, resolve_comment: str, manual_severity: str, manual_description: str, xdr_url: str, starred: bool, hosts: List[str], users: List[str], incident_sources: List[str], rule_based_score: int, manual_score: str, wildfire_hits: int, alerts_grouping_status: str, mitre_techniques_ids_and_names: List[str], mitre_tactics_ids_and_names: List[str], alert_categories: List[str]) -> None:
         self.incident_id = incident_id
         self.incident_name = incident_name
         self.creation_time = creation_time

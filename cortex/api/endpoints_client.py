@@ -173,7 +173,7 @@ class EndpointsAPI(BaseAPI):
             return response.json()
         return None
 
-    def scan_all_endpoint(self) -> Optional[dict]:
+    def scan_all_endpoints(self) -> Optional[dict]:
         request_data = {
             "request_data": {
                 "filters": "all"
