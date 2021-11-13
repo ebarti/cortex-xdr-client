@@ -9,7 +9,7 @@ from cortex.api.utils.utils import dump_json
 
 
 class BaseAPI:
-    def __init__(self, api_key_id: str, api_key: str, fqdn: str, api_name: str, timeout: tuple[int, int]):
+    def __init__(self, api_key_id: str, api_key: str, fqdn: str, api_name: str, timeout: tuple[int, int]) -> None:
         self._api_key_id = api_key_id
         self._api_key = api_key
         self._fqdn = fqdn

@@ -7,7 +7,7 @@ from cortex.api.utils.constants import Constants
 
 # noinspection DuplicatedCode
 class EndpointsAPI(BaseAPI):
-    def __init__(self, api_key_id: str, api_key: str, fqdn: str, timeout: tuple[int, int]):
+    def __init__(self, api_key_id: str, api_key: str, fqdn: str, timeout: tuple[int, int]) -> None:
         super().__init__(api_key_id, api_key, fqdn, "endpoints", timeout)
 
     @staticmethod

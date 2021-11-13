@@ -23,7 +23,7 @@ class GetIncidentExtraDataRequestData:
 
 
 class IncidentsAPI(BaseAPI):
-    def __init__(self, api_key_id: str, api_key: str, fqdn: str, timeout: tuple[int, int]):
+    def __init__(self, api_key_id: str, api_key: str, fqdn: str, timeout: tuple[int, int]) -> None:
         super().__init__(api_key_id, api_key, fqdn, "incidents", timeout)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-incidents.html
