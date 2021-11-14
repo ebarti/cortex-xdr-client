@@ -1,4 +1,5 @@
 import hashlib
+import json
 import secrets
 import string
 from datetime import timezone, datetime
@@ -9,7 +10,7 @@ from cortex.api.utils.utils import dump_json
 
 
 class BaseAPI:
-    def __init__(self, api_key_id: str, api_key: str, fqdn: str, api_name: str, timeout: tuple[int, int]) -> None:
+    def __init__(self, api_key_id: int, api_key: str, fqdn: str, api_name: str, timeout: tuple[int, int]) -> None:
         self._api_key_id = api_key_id
         self._api_key = api_key
         self._fqdn = fqdn
@@ -36,30 +37,29 @@ class BaseAPI:
               call_name: str,
               method: str = "post",
               params: dict = None,
-              request_data: object = None) -> requests.Response:
+              json_value: object = None) -> requests.Response:
         url = self._get_url(call_name)
         headers = self._get_headers()
-        data = dump_json(request_data)
 
         return self._execute_call(url=url,
                                   method=method,
                                   params=params,
                                   headers=headers,
-                                  data=data)
+                                  json_value=json_value)
 
     def _execute_call(self,
                       url: str,
                       method: str,
                       params: dict = None,
                       headers: dict = None,
-                      data: object = None) -> requests.Response:
+                      json_value: object = None) -> requests.Response:
         response = None
         if method == 'get':
             response = requests.get(url, headers=headers, params=params, timeout=self._requests_timeout)
         elif method == 'post':
-            response = requests.post(url, headers=headers, data=data, timeout=self._requests_timeout)
+            response = requests.post(url, headers=headers, json=json_value, timeout=self._requests_timeout)
         elif method == 'put':
-            response = requests.put(url, headers=headers, data=data, timeout=self._requests_timeout)
+            response = requests.put(url, headers=headers, json=json_value, timeout=self._requests_timeout)
         elif method == 'delete':
             response = requests.delete(url, headers=headers, timeout=self._requests_timeout)
         return response

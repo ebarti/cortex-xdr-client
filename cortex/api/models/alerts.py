@@ -1,4 +1,15 @@
 from typing import List
+from enum import Enum
+
+
+class AlertSeverity(Enum):
+    """
+    Severity of an alert.
+    """
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    UNKNOWN = "unknown"
 
 
 class Event:

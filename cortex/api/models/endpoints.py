@@ -1,4 +1,45 @@
 from typing import List, Any
+from enum import Enum
+
+
+class EndpointStatus(Enum):
+    """
+    Enum for endpoint status
+    """
+    CONNECTED = "connected"
+    DISCONNECTED = "disconnected"
+
+
+class EndpointPlatform(Enum):
+    """
+    Enum for endpoint platform
+    """
+    ANDROID = "android"
+    LINUX = "linux"
+    WINDOWS = "windows"
+    MACOS = "macos"
+
+
+class IsolateStatus(Enum):
+    """
+    Enum for isolate status
+    """
+    ISOLATED = "isolated"
+    UNISOLATED = "unisolated"
+
+
+class ScanStatus(Enum):
+    """
+    Enum for scan status
+    """
+    NONE = "none"
+    PENDING = "pending"
+    IN_PROGRESS = "in_progress"
+    CANCELED = "canceled"
+    ABORTED = "aborted"
+    PENDING_CANCELLATION = "pending_cancellation"
+    SUCCESS = "success"
+    ERROR = "error"
 
 
 class LightEndpoint:
