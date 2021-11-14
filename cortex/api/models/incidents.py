@@ -1,4 +1,19 @@
 from typing import List
+from enum import Enum
+
+
+class IncidentStatus(Enum):
+    """
+    Incident Status Enum
+    Represents the status of the incident.
+    """
+    NEW = "new"
+    UNDER_INVESTIGATION = "under_investigation"
+    RESOLVED_THREAD_HANDLED = "resolved_threat_handled"
+    RESOLVED_KNOWN_ISSUE = "resolved_known_issue"
+    RESOLVED_DUPLICATE_INCIDENT = "resolved_duplicate_incident"
+    RESOLVED_FALSE_POSITIVE = "resolved_false_positive"
+    RESOLVED_AUTO_RESOLVE = "resolved_auto_resolve"
 
 
 class Incident:
