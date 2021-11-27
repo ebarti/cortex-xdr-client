@@ -59,7 +59,7 @@ class IncidentsAPI(BaseAPI):
         return None
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html
-    def get_incident_extra_data(self, incident_id: str, alerts_limit: int) -> Optional[dict]:
+    def get_incident_extra_data(self, incident_id: str, alerts_limit: int = 1000) -> Optional[dict]:
         request_data = new_request_data(other=self._get_incident_extra_data_filter(incident_id, alerts_limit))
         response = self._call(call_name="get_incident_extra_data",
                               json_value=request_data)
