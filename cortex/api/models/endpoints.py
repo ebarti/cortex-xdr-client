@@ -1,5 +1,5 @@
-from typing import List, Any
 from enum import Enum
+from typing import List, Any
 
 
 class EndpointStatus(Enum):
@@ -73,52 +73,75 @@ class GetAllEndpointsResponse:
 
 
 class Endpoint:
+    active_directory: str
+    alias: str
+    content_version: str
+    domain: str
     endpoint_id: str
     endpoint_name: str
-    endpoint_type: str
     endpoint_status: str
-    os_type: str
-    ip: List[str]
-    users: List[str]
-    domain: str
-    alias: str
-    first_seen: int
-    last_seen: int
-    content_version: str
-    installation_package: str
-    active_directory: None
-    install_date: int
+    endpoint_type: str
     endpoint_version: str
-    is_isolated: str
-    isolated_date: None
+    first_seen: int
     group_name: List[Any]
+    install_date: int
+    installation_package: str
+    ip: List[str]
+    is_isolated: str
+    isolated_date: str
+    last_seen: int
     operational_status: str
     operational_status_description: str
+    os_type: str
     scan_status: str
+    users: List[str]
 
-    def __init__(self, endpoint_id: str, endpoint_name: str, endpoint_type: str, endpoint_status: str, os_type: str, ip: List[str], users: List[str], domain: str, alias: str, first_seen: int, last_seen: int, content_version: str, installation_package: str, active_directory: None, install_date: int, endpoint_version: str, is_isolated: str, isolated_date: None, group_name: List[Any], operational_status: str, operational_status_description: str, scan_status: str) -> None:
+    def __init__(self,
+                 alias: str,
+                 content_version: str,
+                 domain: str,
+                 endpoint_id: str,
+                 endpoint_name: str,
+                 endpoint_status: str,
+                 endpoint_type: str,
+                 endpoint_version: str,
+                 first_seen: int,
+                 group_name: List[Any],
+                 install_date: int,
+                 installation_package: str,
+                 ip: List[str],
+                 is_isolated: str,
+                 last_seen: int,
+                 operational_status: str,
+                 operational_status_description: str,
+                 os_type: str,
+                 scan_status: str,
+                 users: List[str],
+                 active_directory: str = None,
+                 isolated_date: str = None,
+                 ) -> None:
+        self.active_directory = active_directory
+        self.alias = alias
+        self.content_version = content_version
+        self.domain = domain
         self.endpoint_id = endpoint_id
         self.endpoint_name = endpoint_name
-        self.endpoint_type = endpoint_type
         self.endpoint_status = endpoint_status
-        self.os_type = os_type
-        self.ip = ip
-        self.users = users
-        self.domain = domain
-        self.alias = alias
-        self.first_seen = first_seen
-        self.last_seen = last_seen
-        self.content_version = content_version
-        self.installation_package = installation_package
-        self.active_directory = active_directory
-        self.install_date = install_date
+        self.endpoint_type = endpoint_type
         self.endpoint_version = endpoint_version
+        self.first_seen = first_seen
+        self.group_name = group_name
+        self.install_date = install_date
+        self.installation_package = installation_package
+        self.ip = ip
         self.is_isolated = is_isolated
         self.isolated_date = isolated_date
-        self.group_name = group_name
+        self.last_seen = last_seen
         self.operational_status = operational_status
         self.operational_status_description = operational_status_description
+        self.os_type = os_type
         self.scan_status = scan_status
+        self.users = users
 
     @classmethod
     def from_json(cls, data: dict) -> "Endpoint":

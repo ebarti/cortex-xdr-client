@@ -2,12 +2,30 @@ import json
 
 import pytest
 
+from cortex.api.incidents_api import IncidentsAPI
+from cortex.api.alerts_api import AlertsAPI
+from cortex.api.endpoints_api import EndpointsAPI
 from cortex.client import CortexXDRClient
 
 
 @pytest.fixture
 def cortex_client():
     return CortexXDRClient("a_key_id", "a_key", "a_fqdn")
+
+
+@pytest.fixture
+def incidents_api():
+    return IncidentsAPI("a_key_id", "a_key", "a_fqdn")
+
+
+@pytest.fixture
+def alerts_api():
+    return AlertsAPI("a_key_id", "a_key", "a_fqdn")
+
+
+@pytest.fixture
+def endpoints_api():
+    return EndpointsAPI("a_key_id", "a_key", "a_fqdn")
 
 
 @pytest.fixture
