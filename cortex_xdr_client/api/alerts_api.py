@@ -1,13 +1,13 @@
 from typing import List, Optional
 
-from cortex.api.base_api import BaseAPI
-from cortex.api.models.alerts import AlertSeverity
-from cortex.api.models.filters import (
+from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.models.alerts import AlertSeverity
+from cortex_xdr_client.api.models.filters import (
     new_request_data,
     request_filter,
     request_gte_lte_filter,
 )
-from cortex.api.utils.utils import get_enum_values
+from cortex_xdr_client.api.utils.utils import get_enum_values
 
 
 class AlertsAPI(BaseAPI):

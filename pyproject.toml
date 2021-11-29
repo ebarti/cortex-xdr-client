@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "cortex-xdr-client"
-version = "0.1.0"
+packages= [
+    { include = "cortex_xdr_client", from="." },
+]
+version = "1.0.3"
 description = "API client for Cortex XDR Prevent"
-authors = ["ebarti <me@eloibarti.com"]
+authors = ["ebarti <me@eloibarti.com>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/ebarti/cortex-xdr-client"

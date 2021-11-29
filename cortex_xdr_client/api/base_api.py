@@ -6,7 +6,7 @@ from datetime import timezone, datetime
 
 import requests
 
-from cortex.api.utils.utils import dump_json
+from cortex_xdr_client.api.utils.utils import dump_json
 
 
 class BaseAPI:

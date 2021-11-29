@@ -1,8 +1,8 @@
 from typing import List, Optional
 
-from cortex.api.base_api import BaseAPI
-from cortex.api.models.endpoints import EndpointStatus, IsolateStatus, ScanStatus, EndpointPlatform
-from cortex.api.models.filters import (
+from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.models.endpoints import EndpointStatus, IsolateStatus, ScanStatus, EndpointPlatform
+from cortex_xdr_client.api.models.filters import (
     new_request_data,
     request_gte_lte_filter,
     request_filter

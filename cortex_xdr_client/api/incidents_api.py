@@ -1,14 +1,14 @@
 from typing import Optional, List
 
-from cortex.api.base_api import BaseAPI
-from cortex.api.models.filters import (
+from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.models.filters import (
     new_request_data,
     request_eq_neq_filter,
     request_gte_lte_filter,
     request_in_contains_filter,
     request_filter
 )
-from cortex.api.models.incidents import IncidentStatus
+from cortex_xdr_client.api.models.incidents import IncidentStatus
 
 
 class IncidentsAPI(BaseAPI):

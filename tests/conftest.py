@@ -2,10 +2,10 @@ import json
 
 import pytest
 
-from cortex.api.incidents_api import IncidentsAPI
-from cortex.api.alerts_api import AlertsAPI
-from cortex.api.endpoints_api import EndpointsAPI
-from cortex.client import CortexXDRClient
+from cortex_xdr_client.api.incidents_api import IncidentsAPI
+from cortex_xdr_client.api.alerts_api import AlertsAPI
+from cortex_xdr_client.api.endpoints_api import EndpointsAPI
+from cortex_xdr_client.client import CortexXDRClient
 
 
 @pytest.fixture
