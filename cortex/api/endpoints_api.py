@@ -77,6 +77,8 @@ class EndpointsAPI(BaseAPI):
                      isolate: List[IsolateStatus] = None,
                      scan_status: List[ScanStatus] = None,
                      username: List[str] = None,
+                     search_from: int = None,
+                     search_to: int = None,
                      ) -> Optional[dict]:
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
@@ -95,7 +97,7 @@ class EndpointsAPI(BaseAPI):
         if endpoint_status is not None:
             filters.append(request_filter("endpoint_status", "in", endpoint_status))
 
-        request_data = new_request_data(filters=filters)
+        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
 
         response = self._call(call_name="get_endpoint",
                               json_value=request_data)

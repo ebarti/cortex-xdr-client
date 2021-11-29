@@ -33,7 +33,10 @@ class IncidentsAPI(BaseAPI):
                       description_contains: bool = False,
                       alert_sources: List[str] = None,
                       status: IncidentStatus = None,
-                      status_equal: bool = True) -> Optional[dict]:
+                      status_equal: bool = True,
+                      search_from: int = None,
+                      search_to: int = None,
+                      ) -> Optional[dict]:
         filters = []
         if modification_time is not None:
             filters.append(request_gte_lte_filter("modification_time", modification_time, after_modification))
@@ -53,7 +56,8 @@ class IncidentsAPI(BaseAPI):
         if status is not None:
             filters.append(request_eq_neq_filter("status", status, status_equal))
 
-        response = self._call(call_name="get_incidents")
+        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
+        response = self._call(call_name="get_incidents", json_value=request_data)
         if response.ok:
             return response.json()
         return None

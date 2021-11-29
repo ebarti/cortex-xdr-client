@@ -22,6 +22,8 @@ class AlertsAPI(BaseAPI):
                    severities: List[AlertSeverity] = None,
                    creation_time: int = None,
                    after_creation: bool = False,
+                   search_from: int = None,
+                   search_to: int = None,
                    ) -> Optional[dict]:
         filters = []
 
@@ -37,7 +39,7 @@ class AlertsAPI(BaseAPI):
         if creation_time is not None:
             filters.append(request_gte_lte_filter("creation_time", creation_time, after_creation))
 
-        request_data = new_request_data(filters=filters)
+        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
 
         response = self._call(call_name="get_alerts_multi_events",
                               json_value=request_data)
