@@ -8,7 +8,7 @@ class CortexXDRClient(object):
     alerts_api: AlertsAPI
     endpoints_api: EndpointsAPI
 
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, default_timeout: tuple[int, int] =(10, 60)) -> None:
+    def __init__(self, api_key_id: int, api_key: str, fqdn: str, default_timeout: tuple[int, int] = (10, 60)) -> None:
         self._api_key_id = api_key_id
         self._api_key = api_key
         self._fqdn = fqdn
@@ -24,4 +24,3 @@ class CortexXDRClient(object):
                                           api_key=api_key,
                                           fqdn=fqdn,
                                           timeout=default_timeout)
-

@@ -1,7 +1,15 @@
 from typing import List, Optional
 
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.endpoints import EndpointStatus, IsolateStatus, ScanStatus, EndpointPlatform
+from cortex_xdr_client.api.models.endpoints import (
+    EndpointStatus,
+    IsolateStatus,
+    ScanStatus,
+    EndpointPlatform,
+    GetEndpointResponse,
+    GetAllEndpointsResponse,
+    ResponseActionResponse,
+)
 from cortex_xdr_client.api.models.filters import (
     new_request_data,
     request_gte_lte_filter,
@@ -55,10 +63,10 @@ class EndpointsAPI(BaseAPI):
             filters.append(request_filter("username", "in", username))
         return filters
 
-    def get_all_endpoints(self) -> Optional[dict]:
+    def get_all_endpoints(self) -> Optional[GetAllEndpointsResponse]:
         response = self._call(call_name="get_endpoints")
         if response.ok:
-            return response.json()
+            return GetAllEndpointsResponse.parse_obj(response.json())
         return None
 
     def get_endpoint(self,
@@ -79,7 +87,7 @@ class EndpointsAPI(BaseAPI):
                      username: List[str] = None,
                      search_from: int = None,
                      search_to: int = None,
-                     ) -> Optional[dict]:
+                     ) -> Optional[GetEndpointResponse]:
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
                                                     first_seen=first_seen,
@@ -102,18 +110,18 @@ class EndpointsAPI(BaseAPI):
         response = self._call(call_name="get_endpoint",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return GetEndpointResponse.parse_obj(response.json())
         return None
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/isolate-endpoints.html
     def isolate_endpoints(self,
                           endpoint_id_list: List[str] = None,
-                          ) -> Optional[dict]:
+                          ) -> Optional[ResponseActionResponse]:
         request_data = new_request_data(filters=[request_filter("endpoint_id_list", "in", endpoint_id_list)])
         response = self._call(call_name="isolate",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return ResponseActionResponse.parse_obj(response.json())
         return None
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/scan-endpoints.html
@@ -132,7 +140,7 @@ class EndpointsAPI(BaseAPI):
                        isolate: List[IsolateStatus] = None,
                        scan_status: List[ScanStatus] = None,
                        username: List[str] = None,
-                       ) -> Optional[dict]:
+                       ) -> Optional[ResponseActionResponse]:
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
                                                     first_seen=first_seen,
@@ -153,10 +161,10 @@ class EndpointsAPI(BaseAPI):
         response = self._call(call_name="scan",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return ResponseActionResponse.parse_obj(response.json())
         return None
 
-    def scan_all_endpoints(self) -> Optional[dict]:
+    def scan_all_endpoints(self) -> Optional[ResponseActionResponse]:
         request_data = {
             "request_data": {
                 "filters": "all"
@@ -165,5 +173,5 @@ class EndpointsAPI(BaseAPI):
         response = self._call(call_name="scan",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return ResponseActionResponse.parse_obj(response.json())
         return None
