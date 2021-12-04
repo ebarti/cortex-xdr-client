@@ -1,12 +1,9 @@
 import hashlib
-import json
 import secrets
 import string
 from datetime import timezone, datetime
 
 import requests
-
-from cortex_xdr_client.api.utils.utils import dump_json
 
 
 class BaseAPI:

@@ -8,7 +8,11 @@ from cortex_xdr_client.api.models.filters import (
     request_in_contains_filter,
     request_filter
 )
-from cortex_xdr_client.api.models.incidents import IncidentStatus
+from cortex_xdr_client.api.models.incidents import (
+    IncidentStatus,
+    GetIncidentsResponse,
+    GetExtraIncidentDataResponse,
+)
 
 
 class IncidentsAPI(BaseAPI):
@@ -36,7 +40,7 @@ class IncidentsAPI(BaseAPI):
                       status_equal: bool = True,
                       search_from: int = None,
                       search_to: int = None,
-                      ) -> Optional[dict]:
+                      ) -> Optional[GetIncidentsResponse]:
         filters = []
         if modification_time is not None:
             filters.append(request_gte_lte_filter("modification_time", modification_time, after_modification))
@@ -59,14 +63,17 @@ class IncidentsAPI(BaseAPI):
         request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
         response = self._call(call_name="get_incidents", json_value=request_data)
         if response.ok:
-            return response.json()
+            return GetIncidentsResponse.parse_obj(response.json())
         return None
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html
-    def get_incident_extra_data(self, incident_id: str, alerts_limit: int = 1000) -> Optional[dict]:
+    def get_incident_extra_data(self,
+                                incident_id: str,
+                                alerts_limit: int = 1000,
+                                ) -> Optional[GetExtraIncidentDataResponse]:
         request_data = new_request_data(other=self._get_incident_extra_data_filter(incident_id, alerts_limit))
         response = self._call(call_name="get_incident_extra_data",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return GetExtraIncidentDataResponse.parse_obj(response.json())
         return None

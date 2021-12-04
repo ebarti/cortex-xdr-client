@@ -14,6 +14,7 @@ repository = "https://github.com/ebarti/cortex-xdr-client"
 [tool.poetry.dependencies]
 python = "^3.9"
 requests = "^2.26.0"
+pydantic = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
 requests-mock = "^1.9.3"

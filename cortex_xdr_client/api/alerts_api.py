@@ -1,13 +1,16 @@
+from enum import Enum
 from typing import List, Optional
 
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.alerts import AlertSeverity
+from cortex_xdr_client.api.models.alerts import (
+    AlertSeverity,
+    GetAlertsResponse,
+)
 from cortex_xdr_client.api.models.filters import (
     new_request_data,
     request_filter,
     request_gte_lte_filter,
 )
-from cortex_xdr_client.api.utils.utils import get_enum_values
 
 
 class AlertsAPI(BaseAPI):
@@ -24,7 +27,7 @@ class AlertsAPI(BaseAPI):
                    after_creation: bool = False,
                    search_from: int = None,
                    search_to: int = None,
-                   ) -> Optional[dict]:
+                   ) -> Optional[GetAlertsResponse]:
         filters = []
 
         if alert_id_list is not None:
@@ -44,5 +47,9 @@ class AlertsAPI(BaseAPI):
         response = self._call(call_name="get_alerts_multi_events",
                               json_value=request_data)
         if response.ok:
-            return response.json()
+            return GetAlertsResponse.parse_obj(response.json())
         return None
+
+
+def get_enum_values(p: List[Enum]) -> List[str]:
+    return [e.name for e in p]
