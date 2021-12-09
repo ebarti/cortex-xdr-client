@@ -45,7 +45,7 @@ class Incident(BaseModel):
     resolve_comment: Optional[str]
     rule_based_score: Optional[int]
     severity: Optional[str]
-    starred: bool
+    starred: Optional[bool]
     status: IncidentStatus
     user_count: Optional[int]
     users: Optional[List[str]]
@@ -166,7 +166,7 @@ class AlertsDatum(BaseModel):
     fw_xff: Optional[str]
     host_ip: Optional[str]
     host_name: Optional[str]
-    is_whitelisted: bool
+    is_whitelisted: Optional[bool]
     local_insert_ts: Optional[int]
     mac: Optional[str]
     matching_service_rule_id: Optional[str]
@@ -189,14 +189,14 @@ class AlertsDatum(BaseModel):
     os_actor_thread_thread_id: Optional[str]
     severity: Optional[str]
     source: Optional[str]
-    starred: bool
+    starred: Optional[bool]
     story_id: Optional[str]
     user_name: Optional[str]
 
 
 class NetworkArtifactsDatum(BaseModel):
     alert_count: Optional[int]
-    is_manual: bool
+    is_manual: Optional[bool]
     network_country: Optional[str]
     network_domain: Optional[str]
     network_remote_ip: Optional[str]

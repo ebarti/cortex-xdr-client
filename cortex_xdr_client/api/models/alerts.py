@@ -110,7 +110,7 @@ class Event(BaseModel):
 class Alert(BaseModel):
     action: Optional[str]
     action_pretty: Optional[str]
-    agent_data_collection_status: bool
+    agent_data_collection_status: Optional[bool]
     agent_device_domain: Optional[str]
     agent_fqdn: Optional[str]
     agent_is_vdi: Optional[str]
@@ -122,9 +122,9 @@ class Alert(BaseModel):
     bioc_category_enum_key: Optional[str]
     bioc_indicator: Optional[str]
     category: Optional[str]
-    contains_featured_host: bool
-    contains_featured_ip: bool
-    contains_featured_user: bool
+    contains_featured_host: Optional[bool]
+    contains_featured_ip: Optional[bool]
+    contains_featured_user: Optional[bool]
     deduplicate_tokens: Optional[str]
     description: Optional[str]
     detection_timestamp: Optional[int]
@@ -135,7 +135,7 @@ class Alert(BaseModel):
     filter_rule_id: Optional[str]
     host_ip: Optional[List[str]]
     host_name: Optional[str]
-    is_whitelisted: bool
+    is_whitelisted: Optional[bool]
     local_insert_ts: Optional[int]
     mac: Optional[str]
     mac_address: Optional[List[str]]
@@ -144,9 +144,9 @@ class Alert(BaseModel):
     mitre_tactic_id_and_name: Optional[List[str]]
     mitre_technique_id_and_name: Optional[List[str]]
     name: Optional[str]
-    severity: AlertSeverity
+    severity: Optional[AlertSeverity]
     source: Optional[str]
-    starred: bool
+    starred: Optional[bool]
 
     class Config:
         use_enum_values = True
