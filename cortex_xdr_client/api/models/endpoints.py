@@ -77,12 +77,13 @@ class Endpoint(BaseModel):
     last_content_update_time: Optional[int]
     operational_status: Optional[str]
     operational_status_description: Optional[str]
-    os_type: EndpointPlatform
-    scan_status: ScanStatus
+    os_type: Optional[EndpointPlatform]
+    scan_status: Optional[ScanStatus]
     users: Optional[List[str]]
 
     class Config:
         use_enum_names = True
+
 
 class GetEndpointResponseItem(BaseModel):
     total_count: Optional[int]
