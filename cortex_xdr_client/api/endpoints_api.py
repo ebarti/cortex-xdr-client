@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.endpoints import (
@@ -18,7 +18,7 @@ from cortex_xdr_client.api.models.filters import (
 
 
 class EndpointsAPI(BaseAPI):
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: tuple[int, int]) -> None:
+    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
         super(EndpointsAPI, self).__init__(api_key_id, api_key, fqdn, "endpoints", timeout)
 
     @staticmethod
