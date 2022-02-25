@@ -1,10 +1,13 @@
+import gzip
 import json
 
 import pytest
 
-from cortex_xdr_client.api.incidents_api import IncidentsAPI
 from cortex_xdr_client.api.alerts_api import AlertsAPI
 from cortex_xdr_client.api.endpoints_api import EndpointsAPI
+from cortex_xdr_client.api.incidents_api import IncidentsAPI
+from cortex_xdr_client.api.scripts_api import ScriptsAPI
+from cortex_xdr_client.api.xql_api import XQLAPI
 from cortex_xdr_client.client import CortexXDRClient
 
 
@@ -26,6 +29,16 @@ def alerts_api():
 @pytest.fixture
 def endpoints_api():
     return EndpointsAPI("a_key_id", "a_key", "a_fqdn")
+
+
+@pytest.fixture
+def scripts_api():
+    return ScriptsAPI("a_key_id", "a_key", "a_fqdn")
+
+
+@pytest.fixture
+def xql_api():
+    return XQLAPI("a_key_id", "a_key", "a_fqdn")
 
 
 @pytest.fixture
@@ -183,6 +196,7 @@ def get_alerts_response():
 }
     """
     return json.loads(response)
+
 
 @pytest.fixture
 def get_incidents_response():
@@ -607,3 +621,266 @@ def get_scan_endpoints_response():
     }
     """
     return json.loads(response)
+
+
+@pytest.fixture
+def get_scripts_response():
+    response = r"""
+    {
+   "reply":{
+      "total_count": 129,
+      "result_count":24,
+      "scripts":[
+         {
+            "script_id":1,
+            "name":"list_directories",
+            "description":"List all directories under path",
+            "modification_date":1585074627259,
+            "created_by":"Palo Alto Networks",
+            "is_high_risk":false,
+            "windows_supported":true,
+            "linux_supported":true,
+            "macos_supported":true,
+            "script_uid":"<unique ID>"
+         },
+         {
+            "script_id":4,
+            "name":"test 1",
+            "description":"test",
+            "modification_date":1583052236449,
+            "created_by":"User 1",
+            "is_high_risk":false,
+            "windows_supported":true,
+            "linux_supported":false,
+            "macos_supported":false,
+            "script_uid":"<unique ID>"
+         },
+         {
+            "script_id":8,
+            "name":"test 2",
+            "description":"test 2",
+            "modification_date":1582709343498,
+            "created_by":"User 2",
+            "is_high_risk":false,
+            "windows_supported":true,
+            "linux_supported":true,
+            "macos_supported":true,
+            "script_uid":"<unique ID>"
+         }
+      ]
+   }
+}
+    """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_script_metadata_response():
+    response = r"""
+       {
+   "reply":{
+      "script_id":2,
+      "name":"list_directories",
+      "description":"List all directories under path",
+      "modification_date":1585074627259,
+      "created_by":"Palo Alto Networks",
+      "is_high_risk":false,
+      "windows_supported":true,
+      "linux_supported":true,
+      "macos_supported":true,
+      "script_uid":"<unique ID>",
+      "entry_point":"run",
+      "script_input":[
+         {
+            "name":"path",
+            "type":"string"
+         },
+         {
+            "friendly_name":"Number of levels",
+            "name":"num_levels",
+            "type":"number"
+         }
+      ],
+      "script_output_type":   "dictionary",
+   	  "script_output_dictionary_definitions":   [
+         {
+            "friendly_name":"Number Of Processes",
+            "name":"output_2",
+            "type":"number"
+         },
+         {
+            "friendly_name":"Name",
+            "name":"output_1",
+            "type":"string"
+         }
+      ]
+   }
+}
+
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_script_execution_status_response():
+    response = r"""
+    {
+   "reply":{
+      "general_status":"PENDING",
+      "endpoints_pending":1,
+      "endpoints_canceled":0,
+      "endpoints_in_progress":0,
+      "endpoints_timeout":0,
+      "endpoints_failed":0,
+      "endpoints_completed_successfully":0,
+      "endpoints_pending_abort":0,
+      "endpoints_aborted":0,
+      "endpoints_expired":0
+   }
+}
+    """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_script_execution_results_response():
+    response = r"""
+       {
+   "reply":{
+      "script_name":"snippet script",
+      "script_description":null,
+      "script_parameters":[
+
+      ],
+      "date_created":"2020-03-29 13:21:59",
+      "scope":"win_10and 21 other endpoints",
+      "error_message":"",
+      "results":[
+         {
+            "endpoint_name":"<name>",
+            "endpoint_ip_address":[
+               "<IP address>"
+            ],
+            "endpoint_status":"LOST",
+            "domain":"aaaa",
+            "endpoint_id":"<endpoint ID>",
+            "execution_status":"PENDING",
+            "standard_output":null,
+            "retrieved_files":0,
+            "failed_files":0,
+            "retention_date":null
+         },
+         {
+            "endpoint_name":"<name>",
+            "endpoint_ip_address":[
+               "<IP address>"
+            ],
+            "endpoint_status":"LOST",
+            "domain":"<domain name>",
+            "endpoint_id":"<endpoint ID>",
+            "execution_status":"PENDING",
+            "standard_output":null,
+            "retrieved_files":0,
+            "failed_files":0,
+            "retention_date":null
+         },
+         {
+            "endpoint_name":"<name>",
+            "endpoint_ip_address":[
+               "<IP address>"
+            ],
+            "endpoint_status":"DISCONNECTED",
+            "domain":"WORKGROUP",
+            "endpoint_id":"<endpoint ID>",
+            "execution_status":"PENDING",
+            "standard_output":null,
+            "retrieved_files":0,
+            "failed_files":0,
+            "retention_date":null
+         }
+      ]
+   }
+}
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_script_execution_result_files_response():
+    response = r"""
+       {
+    "reply": {
+        "DATA": "https://example-link"
+        }
+}
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def run_script_response():
+    response = r"""
+       {
+   "reply":{
+      "action_id":22519813685366,
+      "status":1,
+      "endpoints_count":1
+   }
+}
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def run_snippet_code_script_response():
+    response = r"""
+       {
+   "reply":{
+      "action_id":434,
+      "endpoints_count":21
+   }
+}
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def start_xql_response():
+    response = r"""
+       {
+           "reply": "543gdf"
+       }
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_xql_results_response():
+    response = r"""
+       {
+    "reply": {
+        "status": "SUCCESS",
+        "number_of_results": 3,
+        "query_cost": {"tenant_id_1": 0.001596388888888889},
+        "remaining_quota": 4.998403611111111,
+        "results": {
+            "data": [
+                {"event_id": "eventID1", "_vendor": "PANW", "_product": "Fusion", "insert_timestamp": 1621541825324, "_time": 1621541523000, "event_type": "STORY", "event_sub_type": "NULL"},
+                {"event_id": "eventID2", "_vendor": "PANW", "_product": "Fusion", "insert_timestamp": 1621541825326, "_time": 1621541528000, "event_type": "STORY", "event_sub_type": "NULL"},
+                {"event_id": "eventID3", "_vendor": "PANW", "_product": "Fusion", "insert_timestamp": 1621541825325, "_time": 1621541517000, "event_type": "STORY", "event_sub_type": "NULL"}
+            ]
+        }
+    }
+}
+       """
+    return json.loads(response)
+
+
+@pytest.fixture
+def get_xql_result_stream_response():
+    response = r"""
+       {"event_id":"eventID","insert_timestamp":"2021-05-18 14:24:51.681 UTC","_time":"2021-05-18 09:59:28 UTC","_vendor":"PANW","_product":"Fusion","event_type":"STORY","event_sub_type":"NULL"}
+       {"event_id":"eventID","insert_timestamp":"2021-05-18 14:24:34.779 UTC","_time":"2021-05-18 09:59:28 UTC","_vendor":"PANW","_product":"Fusion","event_type":"STORY","event_sub_type":"NULL"}
+       {"event_id":"eventID","insert_timestamp":"2021-05-18 14:24:49.664 UTC","_time":"2021-05-18 09:59:28 UTC","_vendor":"PANW","_product":"Fusion","event_type":"STORY","event_sub_type":"NULL"}
+       """
+    return gzip.compress(response.encode('utf-8'))

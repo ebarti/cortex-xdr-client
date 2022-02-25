@@ -1,3 +1,4 @@
+import collections
 import hashlib
 import secrets
 import string
@@ -35,9 +36,11 @@ class BaseAPI:
               call_name: str,
               method: str = "post",
               params: dict = None,
-              json_value: object = None) -> requests.Response:
+              json_value: object = None,
+              header_params: dict = {}) -> requests.Response:
         url = self._get_url(call_name)
         headers = self._get_headers()
+        self.extend(headers, header_params)
 
         return self._execute_call(url=url,
                                   method=method,
@@ -61,3 +64,16 @@ class BaseAPI:
         elif method == 'delete':
             response = requests.delete(url, headers=headers, timeout=self._requests_timeout)
         return response
+
+    @staticmethod
+    def extend(*args):
+        if args is not None:
+            result = None
+            if type(args[0]) is collections.OrderedDict:
+                result = collections.OrderedDict()
+            else:
+                result = {}
+            for arg in args:
+                result.update(arg)
+            return result
+        return {}
