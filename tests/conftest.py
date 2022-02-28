@@ -500,49 +500,49 @@ def get_all_endpoints_response():
              "agent_status":"LOST",
              "host_name":"EX2",
              "agent_type":"Server",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"LOST",
              "host_name":"EX1",
              "agent_type":"Server",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"CONNECTED",
              "host_name":"<host name>",
              "agent_type":"Workstation",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"CONNECTED",
              "host_name":"<host name>",
              "agent_type":"Workstation",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"CONNECTED",
              "host_name":"<host Name>",
              "agent_type":"Workstation",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"LOST",
              "host_name":"<host name>",
              "agent_type":"Workstation",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           },
           { 
              "agent_id":"<agent ID>",
              "agent_status":"DISCONNECTED",
              "host_name":"<host name>",
              "agent_type":"Workstation",
-             "ip":"127.0.0.1"
+             "ip":["127.0.0.1"]
           }
        ]
     }
