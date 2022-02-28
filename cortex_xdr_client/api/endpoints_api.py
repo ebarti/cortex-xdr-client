@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict
 
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.endpoints import (
@@ -167,13 +167,14 @@ class EndpointsAPI(BaseAPI):
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
     def retrieve_file(self,
                       endpoint_id_list: List[str] = None,
-                      **files
+                      files: Dict[str, List[str]] = None
                       ) -> Optional[ResponseActionResponse]:
 
         filters = [request_filter("endpoint_id_list", "in", endpoint_id_list)]
 
         # Check if the dictionary contains anything other than supported Os.
         acceptable_oses = list(["windows", "linux", "macos"])
+
         for os in set(acceptable_oses).intersection(files):
             if os not in acceptable_oses:
                 return None
