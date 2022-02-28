@@ -164,6 +164,28 @@ class EndpointsAPI(BaseAPI):
             return ResponseActionResponse.parse_obj(response.json())
         return None
 
+    # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
+    def retrieve_file(self,
+                      endpoint_id_list: List[str] = None,
+                      **files
+                      ) -> Optional[ResponseActionResponse]:
+
+        filters = [request_filter("endpoint_id_list", "in", endpoint_id_list)]
+
+        # Check if the dictionary contains anything other than supported Os.
+        acceptable_oses = list(["windows", "linux", "macos"])
+        for os in set(acceptable_oses).intersection(files):
+            if os not in acceptable_oses:
+                return None
+
+        request_data = new_request_data(filters=filters, other=files)
+
+        response = self._call(call_name="file_retrieval",
+                              json_value=request_data)
+        if response.ok:
+            return ResponseActionResponse.parse_obj(response.json())
+        return None
+
     def scan_all_endpoints(self) -> Optional[ResponseActionResponse]:
         request_data = {
             "request_data": {
