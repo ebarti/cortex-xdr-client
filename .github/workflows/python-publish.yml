@@ -1,7 +1,10 @@
-name: Test and Upload Python Package
+name: Upload Python Package
 env:
-  python-version: '3.8.12'
-on: push
+  python_version: 3.8.12
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   test:
@@ -14,7 +17,7 @@ jobs:
         name: Setup python
         uses: actions/setup-python@v2
         with:
-          python-version: env.python-version
+          python-version: ${{ env.python_version }}
       -
         name: Install dependencies
         run: |
@@ -38,7 +41,7 @@ jobs:
       name: Setup python
       uses: actions/setup-python@v2
       with:
-        python-version: env.python-version
+        python-version: ${{ env.python_version }}
     -
       name: Install dependencies
       run: |
