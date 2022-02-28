@@ -49,7 +49,7 @@ class LightEndpoint(BaseModel):
     agent_status: Optional[str]
     host_name: Optional[str]
     agent_type: Optional[str]
-    ip: Optional[str]
+    ip: Optional[List[str]]
 
 
 class GetAllEndpointsResponse(BaseModel):
