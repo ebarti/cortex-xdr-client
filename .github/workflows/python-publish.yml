@@ -59,4 +59,3 @@ jobs:
         poetry version $(git describe --tags --abbrev=0)
         poetry build
         poetry publish --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
-        python -m build
