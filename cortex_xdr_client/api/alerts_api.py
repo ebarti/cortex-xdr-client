@@ -12,6 +12,8 @@ from cortex_xdr_client.api.models.filters import (
     request_gte_lte_filter,
 )
 
+from cortex_xdr_client.api.models.errors import GetAllErrors
+
 
 class AlertsAPI(BaseAPI):
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
@@ -48,7 +50,7 @@ class AlertsAPI(BaseAPI):
                               json_value=request_data)
         if response.ok:
             return GetAlertsResponse.parse_obj(response.json())
-        return None
+        return GetAllErrors.parse_obj(response.json())
 
 
 def get_enum_values(p: List[Enum]) -> List[str]:

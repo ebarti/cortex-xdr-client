@@ -14,6 +14,7 @@ from cortex_xdr_client.api.models.incidents import (
     GetExtraIncidentDataResponse,
 )
 
+from cortex_xdr_client.api.models.errors import GetAllErrors
 
 class IncidentsAPI(BaseAPI):
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
@@ -64,7 +65,7 @@ class IncidentsAPI(BaseAPI):
         response = self._call(call_name="get_incidents", json_value=request_data)
         if response.ok:
             return GetIncidentsResponse.parse_obj(response.json())
-        return None
+        return GetAllErrors.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html
     def get_incident_extra_data(self,
@@ -76,4 +77,4 @@ class IncidentsAPI(BaseAPI):
                               json_value=request_data)
         if response.ok:
             return GetExtraIncidentDataResponse.parse_obj(response.json())
-        return None
+        return GetAllErrors.parse_obj(response.json())

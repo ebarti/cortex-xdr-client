@@ -5,6 +5,8 @@ from cortex_xdr_client.api.models.filters import request_gte_lte_filter, request
 from cortex_xdr_client.api.models.scripts import GetScriptsResponse, GetScriptsExecutionStatus, \
     GetScriptExecutionResults, GetScriptMetadataResponse
 
+from cortex_xdr_client.api.models.errors import GetAllErrors
+
 
 class ScriptsAPI(BaseAPI):
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
@@ -62,7 +64,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(filters=filters)
         response = self._call("get_scripts", json_value=request_data)
         if not response.ok:
-            return None
+            return GetAllErrors.parse_obj(response.json())
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -74,7 +76,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"script_uid": script_uid})
         response = self._call("get_script_metadata", json_value=request_data)
         if not response.ok:
-            return None
+            return GetAllErrors.parse_obj(response.json())
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -91,7 +93,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_status", json_value=request_data)
         if not response.ok:
-            return None
+            return GetAllErrors.parse_obj(response.json())
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -108,7 +110,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_results", json_value=request_data)
         if not response.ok:
-            return None
+            return GetAllErrors.parse_obj(response.json())
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -125,8 +127,8 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id, "endpoint_id": endpoint_id})
         response = self._call("get_script_execution_results_files", json_value=request_data)
-        if not response.ok:
-            return None
+        # if not response.ok:
+        #    return None
         resp_json = response.json()
         if "reply" not in resp_json or "DATA" not in resp_json["reply"]:
             return None
@@ -145,11 +147,12 @@ class ScriptsAPI(BaseAPI):
         :return: A dict containing action_id, status and endpoints_count.
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
-        request_data = new_request_data(filters=filters, other={"script_uid": script_uid, "parameters_values": parameters_values,
-                                                               "timeout": timeout, "incident_id": incident_id})
+        request_data = new_request_data(filters=filters,
+                                        other={"script_uid": script_uid, "parameters_values": parameters_values,
+                                               "timeout": timeout, "incident_id": incident_id})
         response = self._call("run_script", json_value=request_data)
-        if not response.ok:
-            return None
+        # if not response.ok:
+        #    return None
         resp_json = response.json()
         return resp_json["reply"]
 
@@ -166,9 +169,9 @@ class ScriptsAPI(BaseAPI):
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
         request_data = new_request_data(filters=filters, other={"snippet_code": snippet_code, "timeout": timeout,
-                                                               "incident_id": incident_id})
+                                                                "incident_id": incident_id})
         response = self._call("run_snippet_code_script", json_value=request_data)
         if not response.ok:
-            return None
+            return GetAllErrors.parse_obj(response.json())
         resp_json = response.json()
         return resp_json["reply"]

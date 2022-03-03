@@ -6,6 +6,7 @@ from typing import Tuple, List, Optional
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.filters import new_request_data
 
+from cortex_xdr_client.api.models.errors import GetAllErrors
 
 class XQLAPI(BaseAPI):
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
@@ -49,7 +50,7 @@ class XQLAPI(BaseAPI):
         response = self._call(call_name="start_xql_query", json_value=request_data)
         if response.ok:
             return response.json()["reply"]
-        return None
+        return GetAllErrors.parse_obj(response.json())["reply"]
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/xql-apis/get-xql-query-results.html
     def get_query_results(self, query_id: str, limit: int = None, params: dict = {}) -> Optional[dict]:
