@@ -50,6 +50,7 @@ class AlertsAPI(BaseAPI):
                               json_value=request_data)
         if response.ok:
             return GetAlertsResponse.parse_obj(response.json())
+
         return GetAllErrors.parse_obj(response.json())
 
 

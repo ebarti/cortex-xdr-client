@@ -69,6 +69,7 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             return None
         reply = resp_json["reply"]
+
         return GetScriptsResponse.parse_obj(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-metadata.html

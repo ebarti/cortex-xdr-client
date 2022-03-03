@@ -113,6 +113,7 @@ class EndpointsAPI(BaseAPI):
                               json_value=request_data)
         if response.ok:
             return GetEndpointResponse.parse_obj(response.json())
+
         return GetAllErrors.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/isolate-endpoints.html

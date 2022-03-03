@@ -65,6 +65,7 @@ class IncidentsAPI(BaseAPI):
         response = self._call(call_name="get_incidents", json_value=request_data)
         if response.ok:
             return GetIncidentsResponse.parse_obj(response.json())
+
         return GetAllErrors.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html

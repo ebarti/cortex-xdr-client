@@ -8,6 +8,7 @@ from cortex_xdr_client.api.models.filters import new_request_data
 
 from cortex_xdr_client.api.models.errors import GetAllErrors
 
+
 class XQLAPI(BaseAPI):
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
         super(XQLAPI, self).__init__(api_key_id, api_key, fqdn, "xql", timeout)
@@ -33,7 +34,7 @@ class XQLAPI(BaseAPI):
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/xql-apis/start-xql-query.html
     def start_xql_query(self, query: str, time_period: int = None, from_date: int = None,
-                  to_date: int = None, tenants: List[str] = None, params: dict = {}) -> Optional[str]:
+                        to_date: int = None, tenants: List[str] = None, params: dict = {}) -> Optional[str]:
         """
         Starts an XQL Query.
         :param query: String of the XQL query.
@@ -91,7 +92,8 @@ class XQLAPI(BaseAPI):
                 "is_gzip_compressed": True,
             }
         }
-        response = self._call(call_name="get_query_results_stream", json_value=request_data, header_params={"Accept-Encoding": "gzip"})
+        response = self._call(call_name="get_query_results_stream", json_value=request_data,
+                              header_params={"Accept-Encoding": "gzip"})
         if not response.ok:
             return None
         buffer = BytesIO(response.content)
