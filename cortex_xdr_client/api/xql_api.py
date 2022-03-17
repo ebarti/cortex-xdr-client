@@ -6,7 +6,7 @@ from typing import Tuple, List, Optional
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.filters import new_request_data
 
-from cortex_xdr_client.api.models.errors import GetAllErrors
+from cortex_xdr_client.api.models.exceptions import XQLException
 
 
 class XQLAPI(BaseAPI):
@@ -27,7 +27,7 @@ class XQLAPI(BaseAPI):
         return self.extend(filter, params)
 
     def _get_xql_results_filter(self, query_id: str, limit: int = None, params: dict = {}) -> dict:
-        filter = {"queryId": query_id}
+        filter = {"query_id": query_id}
         if limit is not None and limit <= 1000:
             filter["limit"] = limit
         return self.extend(filter, params)
@@ -47,11 +47,11 @@ class XQLAPI(BaseAPI):
         """
         """Starts an XQL Query and returns the ID of the query. """
         filters = self._get_start_xql_filter(query, time_period, from_date, to_date, tenants, params)
-        request_data = new_request_data(filters=[filters])
+        request_data = new_request_data(other=filters)
         response = self._call(call_name="start_xql_query", json_value=request_data)
         if response.ok:
             return response.json()["reply"]
-        return GetAllErrors.parse_obj(response.json())["reply"]
+        raise XQLException(response)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/xql-apis/get-xql-query-results.html
     def get_query_results(self, query_id: str, limit: int = None, params: dict = {}) -> Optional[dict]:
@@ -63,21 +63,21 @@ class XQLAPI(BaseAPI):
         :return: Dictionary of results
         """
         filters = self._get_xql_results_filter(query_id, limit, params)
-        request_data = new_request_data(filters=[filters])
+        request_data = new_request_data(other=filters)
         response = self._call(call_name="get_query_results", json_value=request_data)
         resp_json = response.json()
         if not response.ok or "reply" not in resp_json.keys():
-            return None
+            raise XQLException(response)
 
         reply = response.json()["reply"]
         if "status" not in reply.keys() or reply["status"] != "SUCCESS" or "number_of_results" not in reply.keys():
-            return None
+            raise XQLException(response)
 
         if reply["number_of_results"] <= 1000:
             return reply["results"]
 
         stream_id = reply["results"]["stream_id"]
-        return self.get_xql_result_stream(stream_id)
+        return self.get_query_results_stream(stream_id)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/xql-apis/get-xql-query-exported-data.html
     def get_query_results_stream(self, stream_id: str) -> Optional[dict]:
@@ -95,7 +95,7 @@ class XQLAPI(BaseAPI):
         response = self._call(call_name="get_query_results_stream", json_value=request_data,
                               header_params={"Accept-Encoding": "gzip"})
         if not response.ok:
-            return None
+            raise XQLException(response)
         buffer = BytesIO(response.content)
         data = gzip.GzipFile(fileobj=buffer).read().decode("utf-8")
         logs = [json.loads(line) for line in data.splitlines() if line.strip() != ""]

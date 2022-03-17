@@ -5,7 +5,7 @@ from cortex_xdr_client.api.models.filters import request_gte_lte_filter, request
 from cortex_xdr_client.api.models.scripts import GetScriptsResponse, GetScriptsExecutionStatus, \
     GetScriptExecutionResults, GetScriptMetadataResponse
 
-from cortex_xdr_client.api.models.errors import GetAllErrors
+from cortex_xdr_client.api.models.exceptions import ScriptException
 
 
 class ScriptsAPI(BaseAPI):
@@ -64,7 +64,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(filters=filters)
         response = self._call("get_scripts", json_value=request_data)
         if not response.ok:
-            return GetAllErrors.parse_obj(response.json())
+            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -77,7 +77,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"script_uid": script_uid})
         response = self._call("get_script_metadata", json_value=request_data)
         if not response.ok:
-            return GetAllErrors.parse_obj(response.json())
+            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -94,7 +94,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_status", json_value=request_data)
         if not response.ok:
-            return GetAllErrors.parse_obj(response.json())
+            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -111,7 +111,7 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_results", json_value=request_data)
         if not response.ok:
-            return GetAllErrors.parse_obj(response.json())
+            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
             return None
@@ -128,8 +128,8 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id, "endpoint_id": endpoint_id})
         response = self._call("get_script_execution_results_files", json_value=request_data)
-        # if not response.ok:
-        #    return None
+        if not response.ok:
+            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json or "DATA" not in resp_json["reply"]:
             return None
@@ -152,8 +152,8 @@ class ScriptsAPI(BaseAPI):
                                         other={"script_uid": script_uid, "parameters_values": parameters_values,
                                                "timeout": timeout, "incident_id": incident_id})
         response = self._call("run_script", json_value=request_data)
-        # if not response.ok:
-        #    return None
+        if not response.ok:
+            raise ScriptException(response)
         resp_json = response.json()
         return resp_json["reply"]
 
@@ -173,6 +173,6 @@ class ScriptsAPI(BaseAPI):
                                                                 "incident_id": incident_id})
         response = self._call("run_snippet_code_script", json_value=request_data)
         if not response.ok:
-            return GetAllErrors.parse_obj(response.json())
+            raise ScriptException(response)
         resp_json = response.json()
         return resp_json["reply"]
