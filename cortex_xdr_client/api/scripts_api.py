@@ -1,11 +1,19 @@
 from typing import Tuple, List, Optional
 
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.filters import request_gte_lte_filter, request_in_contains_filter, new_request_data
-from cortex_xdr_client.api.models.scripts import GetScriptsResponse, GetScriptsExecutionStatus, \
-    GetScriptExecutionResults, GetScriptMetadataResponse
+from cortex_xdr_client.api.models.filters import (
+    request_gte_lte_filter,
+    request_in_contains_filter,
+    new_request_data,
+)
+from cortex_xdr_client.api.models.scripts import (
+    GetScriptsResponse,
+    GetScriptsExecutionStatus,
+    GetScriptExecutionResults,
+    GetScriptMetadataResponse,
+)
 
-from cortex_xdr_client.api.models.exceptions import ScriptException
+from cortex_xdr_client.api.models.exceptions import ScriptException, InvalidResponseException
 
 
 class ScriptsAPI(BaseAPI):
@@ -67,7 +75,7 @@ class ScriptsAPI(BaseAPI):
             raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
-            return None
+            raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
 
         return GetScriptsResponse.parse_obj(reply)
@@ -76,11 +84,10 @@ class ScriptsAPI(BaseAPI):
     def get_script_metadata(self, script_uid: str) -> Optional[GetScriptMetadataResponse]:
         request_data = new_request_data(other={"script_uid": script_uid})
         response = self._call("get_script_metadata", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
-            return None
+            raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
         return GetScriptMetadataResponse.parse_obj(reply)
 
@@ -93,11 +100,10 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_status", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
-            return None
+            raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
         return GetScriptsExecutionStatus.parse_obj(reply)
 
@@ -110,11 +116,10 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_results", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
-            return None
+            raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
         return GetScriptExecutionResults.parse_obj(reply)
 
@@ -128,11 +133,12 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id, "endpoint_id": endpoint_id})
         response = self._call("get_script_execution_results_files", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
-        if "reply" not in resp_json or "DATA" not in resp_json["reply"]:
-            return None
+        if "reply" not in resp_json:
+            raise InvalidResponseException(response, ["reply"])
+        if "DATA" not in resp_json["reply"]:
+            raise InvalidResponseException(response, ["DATA"])
         return resp_json["reply"]["DATA"]
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/run-script.html
@@ -152,9 +158,10 @@ class ScriptsAPI(BaseAPI):
                                         other={"script_uid": script_uid, "parameters_values": parameters_values,
                                                "timeout": timeout, "incident_id": incident_id})
         response = self._call("run_script", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
+        if "reply" not in resp_json:
+            raise InvalidResponseException(response, ["reply"])
         return resp_json["reply"]
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/run-snippet-code-script.html
@@ -172,7 +179,8 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(filters=filters, other={"snippet_code": snippet_code, "timeout": timeout,
                                                                 "incident_id": incident_id})
         response = self._call("run_snippet_code_script", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
+        response.raise_for_status()
         resp_json = response.json()
+        if "reply" not in resp_json:
+            raise InvalidResponseException(response, ["reply"])
         return resp_json["reply"]
