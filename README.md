@@ -33,3 +33,7 @@ Currently, it supports the following Cortex XDR **Prevent & Pro** APIs:
 - [Get Script Execution Results](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-results.html)
 - [Get Script Execution Result Files](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-result-files.html)
 - [Run Script](https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/run-script.html)
+
+
+## Contributing
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
