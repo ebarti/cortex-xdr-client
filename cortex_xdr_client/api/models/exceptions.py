@@ -1,41 +1,22 @@
-from typing import List, Optional
-from pydantic import BaseModel
+from typing import List
+
+import requests
 
 
-class GetError(BaseModel):
-    err_code: Optional[int]
-    err_msg: Optional[str]
-    err_extra: Optional[str]
-
-
-class GetAllErrors(BaseModel):
-    reply: GetError
-
-
-class BaseException(Exception):
-    def __init__(self, response):
+class InvalidResponseException(Exception):
+    def __init__(self, response: requests.Response, missing_items: List[str]):
         self.response = response
-        super().__init__(self.response)
+        self.missing_items = missing_items
+        super().__init__(self.response, self.missing_items)
 
     def __str__(self):
-        return f'{GetAllErrors.parse_obj(self.response.json())}'
+        return f'Invalid response from server. \n Got: {self.response.json()}. Missing items: {self.missing_items}'
 
 
-class EndpointException(BaseException):
-    pass
+class UnsuccessfulQueryStatusException(Exception):
+    def __init__(self, status: str):
+        self.status = status
+        super().__init__(self.status)
 
-
-class IncidentException(BaseException):
-    pass
-
-
-class AlertException(BaseException):
-    pass
-
-
-class ScriptException(BaseException):
-    pass
-
-
-class XQLException(BaseException):
-    pass
+    def __str__(self):
+        return f'Query status was not successful. Got: {self.status}'
