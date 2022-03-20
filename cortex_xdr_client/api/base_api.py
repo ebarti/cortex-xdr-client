@@ -63,6 +63,7 @@ class BaseAPI:
             response = requests.put(url, headers=headers, json=json_value, timeout=self._requests_timeout)
         elif method == 'delete':
             response = requests.delete(url, headers=headers, timeout=self._requests_timeout)
+        response.raise_for_status()
         return response
 
     @staticmethod

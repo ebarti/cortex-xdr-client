@@ -13,7 +13,7 @@ from cortex_xdr_client.api.models.scripts import (
     GetScriptMetadataResponse,
 )
 
-from cortex_xdr_client.api.models.exceptions import ScriptException, InvalidResponseException
+from cortex_xdr_client.api.models.exceptions import InvalidResponseException
 
 
 class ScriptsAPI(BaseAPI):
@@ -84,7 +84,6 @@ class ScriptsAPI(BaseAPI):
     def get_script_metadata(self, script_uid: str) -> Optional[GetScriptMetadataResponse]:
         request_data = new_request_data(other={"script_uid": script_uid})
         response = self._call("get_script_metadata", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -100,7 +99,6 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_status", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -116,7 +114,6 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_results", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -133,7 +130,6 @@ class ScriptsAPI(BaseAPI):
         """
         request_data = new_request_data(other={"action_id": action_id, "endpoint_id": endpoint_id})
         response = self._call("get_script_execution_results_files", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -158,7 +154,6 @@ class ScriptsAPI(BaseAPI):
                                         other={"script_uid": script_uid, "parameters_values": parameters_values,
                                                "timeout": timeout, "incident_id": incident_id})
         response = self._call("run_script", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -179,7 +174,6 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(filters=filters, other={"snippet_code": snippet_code, "timeout": timeout,
                                                                 "incident_id": incident_id})
         response = self._call("run_snippet_code_script", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])

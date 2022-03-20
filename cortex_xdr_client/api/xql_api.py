@@ -6,8 +6,7 @@ from typing import Tuple, List, Optional
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.filters import new_request_data
 
-from cortex_xdr_client.api.models.exceptions import XQLException, InvalidResponseException, \
-    UnsuccessfulQueryStatusException
+from cortex_xdr_client.api.models.exceptions import InvalidResponseException, UnsuccessfulQueryStatusException
 
 
 class XQLAPI(BaseAPI):
@@ -50,7 +49,6 @@ class XQLAPI(BaseAPI):
         filters = self._get_start_xql_filter(query, time_period, from_date, to_date, tenants, params)
         request_data = new_request_data(other=filters)
         response = self._call(call_name="start_xql_query", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -68,7 +66,6 @@ class XQLAPI(BaseAPI):
         filters = self._get_xql_results_filter(query_id, limit, params)
         request_data = new_request_data(other=filters)
         response = self._call(call_name="get_query_results", json_value=request_data)
-        response.raise_for_status()
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -104,7 +101,6 @@ class XQLAPI(BaseAPI):
         }
         response = self._call(call_name="get_query_results_stream", json_value=request_data,
                               header_params={"Accept-Encoding": "gzip"})
-        response.raise_for_status()
         buffer = BytesIO(response.content)
         data = gzip.GzipFile(fileobj=buffer).read().decode("utf-8")
         logs = [json.loads(line) for line in data.splitlines() if line.strip() != ""]
