@@ -1,8 +1,10 @@
+from typing import List
+
 import requests
 
 
 class InvalidResponseException(Exception):
-    def __init__(self, response: requests.Response, missing_items: list[str]):
+    def __init__(self, response: requests.Response, missing_items: List[str]):
         self.response = response
         self.missing_items = missing_items
         super().__init__(self.response, self.missing_items)
