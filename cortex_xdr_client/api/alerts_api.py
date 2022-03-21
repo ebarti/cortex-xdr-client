@@ -1,4 +1,5 @@
 from enum import Enum
+
 from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -46,9 +47,7 @@ class AlertsAPI(BaseAPI):
 
         response = self._call(call_name="get_alerts_multi_events",
                               json_value=request_data)
-        if response.ok:
-            return GetAlertsResponse.parse_obj(response.json())
-        return None
+        return GetAlertsResponse.parse_obj(response.json())
 
 
 def get_enum_values(p: List[Enum]) -> List[str]:

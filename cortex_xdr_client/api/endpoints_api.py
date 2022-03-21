@@ -65,9 +65,7 @@ class EndpointsAPI(BaseAPI):
 
     def get_all_endpoints(self) -> Optional[GetAllEndpointsResponse]:
         response = self._call(call_name="get_endpoints")
-        if response.ok:
-            return GetAllEndpointsResponse.parse_obj(response.json())
-        return None
+        return GetAllEndpointsResponse.parse_obj(response.json())
 
     def get_endpoint(self,
                      endpoint_id_list: List[str] = None,
@@ -109,9 +107,7 @@ class EndpointsAPI(BaseAPI):
 
         response = self._call(call_name="get_endpoint",
                               json_value=request_data)
-        if response.ok:
-            return GetEndpointResponse.parse_obj(response.json())
-        return None
+        return GetEndpointResponse.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/isolate-endpoints.html
     def isolate_endpoints(self,
@@ -120,9 +116,7 @@ class EndpointsAPI(BaseAPI):
         request_data = new_request_data(filters=[request_filter("endpoint_id_list", "in", endpoint_id_list)])
         response = self._call(call_name="isolate",
                               json_value=request_data)
-        if response.ok:
-            return ResponseActionResponse.parse_obj(response.json())
-        return None
+        return ResponseActionResponse.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/scan-endpoints.html
     def scan_endpoints(self,
@@ -160,9 +154,7 @@ class EndpointsAPI(BaseAPI):
 
         response = self._call(call_name="scan",
                               json_value=request_data)
-        if response.ok:
-            return ResponseActionResponse.parse_obj(response.json())
-        return None
+        return ResponseActionResponse.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
     def retrieve_file(self,
@@ -183,9 +175,7 @@ class EndpointsAPI(BaseAPI):
 
         response = self._call(call_name="file_retrieval",
                               json_value=request_data)
-        if response.ok:
-            return ResponseActionResponse.parse_obj(response.json())
-        return None
+        return ResponseActionResponse.parse_obj(response.json())
 
     def scan_all_endpoints(self) -> Optional[ResponseActionResponse]:
         request_data = {
@@ -195,6 +185,4 @@ class EndpointsAPI(BaseAPI):
         }
         response = self._call(call_name="scan",
                               json_value=request_data)
-        if response.ok:
-            return ResponseActionResponse.parse_obj(response.json())
-        return None
+        return ResponseActionResponse.parse_obj(response.json())
