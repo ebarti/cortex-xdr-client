@@ -9,3 +9,4 @@
 /venv3
 virtualenv
 */.pytest_cache
+docs/build/
