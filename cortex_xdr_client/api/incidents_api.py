@@ -41,6 +41,24 @@ class IncidentsAPI(BaseAPI):
                       search_from: int = None,
                       search_to: int = None,
                       ) -> Optional[GetIncidentsResponse]:
+        """
+        Get a list of incidents filtered by a list of incident IDs, modification time, or creation time.
+        :param modification_time: Time the incident has been modified.
+        :param after_modification: If the modification date will be the upper or lower bound limit.
+        :param creation_time: Incident's creation time.
+        :param after_creation: If the creation date will be the upper or lower bound limit.
+        :param incident_id_list: List of incident IDs.
+        :param description: Incident description.
+        :param description_contains: If the description will contain the search string.
+        :param alert_sources: Source which detected the alert.
+        :param status: Represents the status of the incident.
+        :param status_equal: If the status will be equal to the given status.
+        :param search_from: Integer representing the starting offset within the query result set from which you
+        want incidents returned.
+        :param search_to: Integer representing the end offset within the result set after which you do not
+        want incidents returned.
+        :return: Returns a GetIncidentsResponse object if successful.
+        """
         filters = []
         if modification_time is not None:
             filters.append(request_gte_lte_filter("modification_time", modification_time, after_modification))
@@ -69,6 +87,12 @@ class IncidentsAPI(BaseAPI):
                                 incident_id: str,
                                 alerts_limit: int = 1000,
                                 ) -> Optional[GetExtraIncidentDataResponse]:
+        """
+        Get extra data fields of a specific incident including alerts and key artifacts.
+        :param incident_id: The ID of the incident for which you want to retrieve extra data.
+        :param alerts_limit: Maximum number of related alerts in the incident that you want to retrieve (default 1000).
+        :return: Returns a GetExtraIncidentDataResponse object if successful.
+        """
         request_data = new_request_data(other=self._get_incident_extra_data_filter(incident_id, alerts_limit))
         response = self._call(call_name="get_incident_extra_data",
                               json_value=request_data)
