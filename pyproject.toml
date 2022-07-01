@@ -7,7 +7,7 @@ version = "1.4.0"
 description = "API client for Cortex XDR Prevent"
 authors = ["ebarti <me@eloibarti.com>"]
 license = "MIT"
-readme = "README.md"
+readme = "README.rst"
 homepage = "https://github.com/ebarti/cortex-xdr-client"
 repository = "https://github.com/ebarti/cortex-xdr-client"
 
