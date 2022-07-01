@@ -21,11 +21,17 @@ class ScriptsAPI(BaseAPI):
         super(ScriptsAPI, self).__init__(api_key_id, api_key, fqdn, "scripts", timeout)
 
     @staticmethod
-    def _get_scripts_filters(name: List[str] = None, description: List[str] = None, created_by: List[str] = None,
-                             script_uid: List[str] = None, modification_time: int = None,
-                             after_modification: bool = False, windows_supported: bool = None,
-                             linux_supported: bool = None, macos_supported: bool = None,
-                             is_high_risk: bool = None) -> List[dict]:
+    def _get_scripts_filters(name: List[str] = None,
+                             description: List[str] = None,
+                             created_by: List[str] = None,
+                             script_uid: List[str] = None,
+                             modification_time: int = None,
+                             after_modification: bool = False,
+                             windows_supported: bool = None,
+                             linux_supported: bool = None,
+                             macos_supported: bool = None,
+                             is_high_risk: bool = None,
+                             ) -> List[dict]:
         filters = []
         if name:
             filters.append(request_in_contains_filter("name", name, False))
@@ -48,15 +54,23 @@ class ScriptsAPI(BaseAPI):
         return filters
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-scripts.html
-    def get_scripts(self, name: List[str] = None, description: List[str] = None, created_by: List[str] = None,
-                    script_uid: List[str] = None, modification_time: int = None, after_modification: bool = False,
-                    windows_supported: bool = None, linux_supported: bool = None, macos_supported: bool = None,
-                    is_high_risk: bool = None) -> Optional[GetScriptsResponse]:
+    def get_scripts(self,
+                    name: List[str] = None,
+                    description: List[str] = None,
+                    created_by: List[str] = None,
+                    script_uid: List[str] = None,
+                    modification_time: int = None,
+                    after_modification: bool = False,
+                    windows_supported: bool = None,
+                    linux_supported: bool = None,
+                    macos_supported: bool = None,
+                    is_high_risk: bool = None,
+                    ) -> Optional[GetScriptsResponse]:
         """
         Get scripts
         :param name: Script names
         :param description: Script descriptions
-        :param created_by: User name(s) of who created the script(s).
+        :param created_by: Username(s) of who created the script(s).
         :param script_uid: GUID, global ID of the script(s), used to identify the script(s) when executing.
         :param modification_time: Datetime of when the script was last modified.
         :param after_modification: If the modification date will be the upper or lower bound limit.
@@ -71,8 +85,6 @@ class ScriptsAPI(BaseAPI):
                                             is_high_risk)
         request_data = new_request_data(filters=filters)
         response = self._call("get_scripts", json_value=request_data)
-        if not response.ok:
-            raise ScriptException(response)
         resp_json = response.json()
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
@@ -138,15 +150,22 @@ class ScriptsAPI(BaseAPI):
         return resp_json["reply"]["DATA"]
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/run-script.html
-    def run_script(self, script_uid: str, parameters_values: dict, endpoint_id_list: List[str], timeout: int = 600,
-                   incident_id: str = None) -> Optional[dict]:
+    def run_script(self,
+                   script_uid: str,
+                   parameters_values: dict,
+                   endpoint_id_list: List[str],
+                   timeout: int = 600,
+                   incident_id: str = None,
+                   ) -> Optional[dict]:
         """
         Initiate a new endpoint script execution action using a script from the script library.
         :param script_uid: GUID, unique identifier of the script, returned by the Get Scripts API per script
-        :param parameters_values: Dictionary, contains the parameter name, key and its value for this execution, value. You can locate these values by running Get Script Metadata
+        :param parameters_values: Dictionary, contains the parameter name, key and its value for this execution, value.
+        You can locate these values by running Get Script Metadata
         :param endpoint_id_list: List of endpoint IDs.
         :param timeout: Integer, represents the timeout in seconds for this execution. Default value is 600.
-        :param incident_id: String representing the incident ID. When included in the request, the Run Script action will appear in the Cortex XDR Incident View Timeline tab.
+        :param incident_id: String representing the incident ID. When included in the request, the Run Script action
+        will appear in the Cortex XDR Incident View Timeline tab.
         :return: A dict containing action_id, status and endpoints_count.
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
@@ -160,14 +179,19 @@ class ScriptsAPI(BaseAPI):
         return resp_json["reply"]
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/run-snippet-code-script.html
-    def run_snippet_code_script(self, snippet_code: str, endpoint_id_list: List[str], timeout: int = 600,
-                                incident_id: str = None) -> Optional[dict]:
+    def run_snippet_code_script(self,
+                                snippet_code: str,
+                                endpoint_id_list: List[str],
+                                timeout: int = 600,
+                                incident_id: str = None,
+                                ) -> Optional[dict]:
         """
         Initiate a new endpoint script execution action using a snippet code.
         :param snippet_code: String, contains the snippet code to be executed.
         :param endpoint_id_list: List of endpoint IDs.
         :param timeout: Integer, represents the timeout in seconds for this execution. Default value is 600.
-        :param incident_id: String representing the incident ID. When included in the request, the Run Script action will appear in the Cortex XDR Incident View Timeline tab.
+        :param incident_id: String representing the incident ID. When included in the request, the Run Script action
+        will appear in the Cortex XDR Incident View Timeline tab.
         :return: A dict containing action_id and endpoints_count.
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
