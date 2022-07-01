@@ -7,7 +7,7 @@ version = "1.4.0"
 description = "API client for Cortex XDR Prevent"
 authors = ["ebarti <me@eloibarti.com>"]
 license = "MIT"
-readme = "README.md"
+readme = "README.rst"
 homepage = "https://github.com/ebarti/cortex-xdr-client"
 repository = "https://github.com/ebarti/cortex-xdr-client"
 
@@ -21,6 +21,8 @@ requests-mock = "^1.9.3"
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
 pytest-mock = "^3.6.1"
+Sphinx = "5.0.2"
+sphinx-autodoc-typehints = "1.18.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

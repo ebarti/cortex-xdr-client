@@ -35,7 +35,8 @@ class EndpointsAPI(BaseAPI):
                                      hostname: List[str] = None,
                                      isolate: List[IsolateStatus] = None,
                                      scan_status: List[ScanStatus] = None,
-                                     username: List[str] = None) -> List[dict]:
+                                     username: List[str] = None,
+                                     ) -> List[dict]:
         filters = []
         if endpoint_id_list is not None:
             filters.append(request_filter("endpoint_id_list", "in", endpoint_id_list))
@@ -64,6 +65,10 @@ class EndpointsAPI(BaseAPI):
         return filters
 
     def get_all_endpoints(self) -> Optional[GetAllEndpointsResponse]:
+        """
+        Gets a list of your endpoints.
+        :return: A GetAllEndpointsResponse object if successful.
+        """
         response = self._call(call_name="get_endpoints")
         return GetAllEndpointsResponse.parse_obj(response.json())
 
@@ -86,6 +91,29 @@ class EndpointsAPI(BaseAPI):
                      search_from: int = None,
                      search_to: int = None,
                      ) -> Optional[GetEndpointResponse]:
+        """
+        Gets a list of filtered endpoints.
+        :param endpoint_id_list: List of endpoint IDs.
+        :param endpoint_status: Status of the endpoint ID.
+        :param dist_name: Distribution / Installation Package name.
+        :param first_seen: When the agent was first seen.
+        :param after_first_seen: If the first seen date will be the upper or lower bound limit.
+        :param last_seen: When the agent was last seen.
+        :param after_last_seen: If the last seen date will be the upper or lower bound limit.
+        :param ip_list: List of IP addresses.
+        :param group_name: Group name the agent belongs to.
+        :param platform: Platform name.
+        :param alias: Alias name.
+        :param hostname: Hostname.
+        :param isolate: If the endpoint was isolated.
+        :param scan_status: A list of ScanStatus
+        :param username: Username.
+        :param search_from: Integer representing the starting offset within the query result set from which you
+        want incidents returned.
+        :param search_to: Integer representing the end offset within the result set after which you do not
+        want incidents returned.
+        :return: A GetEndpointResponse object if successful.
+        """
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
                                                     first_seen=first_seen,
@@ -113,6 +141,11 @@ class EndpointsAPI(BaseAPI):
     def isolate_endpoints(self,
                           endpoint_id_list: List[str] = None,
                           ) -> Optional[ResponseActionResponse]:
+        """
+
+        :param endpoint_id_list:
+        :return: A ResponseActionResponse object if successful.
+        """
         request_data = new_request_data(filters=[request_filter("endpoint_id_list", "in", endpoint_id_list)])
         response = self._call(call_name="isolate",
                               json_value=request_data)
@@ -135,6 +168,24 @@ class EndpointsAPI(BaseAPI):
                        scan_status: List[ScanStatus] = None,
                        username: List[str] = None,
                        ) -> Optional[ResponseActionResponse]:
+        """
+
+        :param endpoint_id_list: List of endpoint IDs.
+        :param dist_name: Name of the distribution list.
+        :param first_seen: When an endpoint was first seen.
+        :param after_first_seen: If the first seen date will be the upper or lower bound limit.
+        :param last_seen: When an endpoint was last seen.
+        :param after_last_seen: If the last seen date will be the upper or lower bound limit.
+        :param ip_list: List of IP addresses.
+        :param group_name: Name of the endpoint group.
+        :param platform: Platform name.
+        :param alias: Endpoint alias name.
+        :param hostname: Name of host.
+        :param isolate: If the endpoint has been isolated.
+        :param scan_status: The scan status.
+        :param username: Username.
+        :return: A ResponseActionResponse object if successful.
+        """
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
                                                     first_seen=first_seen,
@@ -159,8 +210,18 @@ class EndpointsAPI(BaseAPI):
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
     def retrieve_file(self,
                       endpoint_id_list: List[str] = None,
-                      files: Dict[str, List[str]] = None
+                      files: Dict[str, List[str]] = None,
+                      incident_id: str = None,
                       ) -> Optional[ResponseActionResponse]:
+        """
+        Retrieve files from selected endpoints. You can retrieve up to 20 files, from no more than 10 endpoints.
+        :param endpoint_id_list: List of endpoint IDs.
+        :param files: dictionary containing the type of platform and list of file paths you want to retrieve.
+        Valid platform type keywords are: ["windows", "linux", "macos"].
+        :param incident_id: When included in the request, the Retrieve File action will appear in the Cortex XDR
+        Incident View Timeline tab.
+        :return: A ResponseActionResponse object if successful.
+        """
 
         filters = [request_filter("endpoint_id_list", "in", endpoint_id_list)]
 
@@ -172,12 +233,18 @@ class EndpointsAPI(BaseAPI):
                 return None
 
         request_data = new_request_data(filters=filters, other=files)
+        if incident_id is not None:
+            request_data["incident_id"] = incident_id
 
         response = self._call(call_name="file_retrieval",
                               json_value=request_data)
         return ResponseActionResponse.parse_obj(response.json())
 
     def scan_all_endpoints(self) -> Optional[ResponseActionResponse]:
+        """
+        Scan all endpoints.
+        :return: A ResponseActionResponse object if successful.
+        """
         request_data = {
             "request_data": {
                 "filters": "all"
