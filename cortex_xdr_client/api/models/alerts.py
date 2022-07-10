@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import Any, List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -107,6 +107,15 @@ class Event(BaseModel):
     user_name: Optional[str]
 
 
+class AlertDescriptionItem(BaseModel):
+    pretty_name: str
+    data_type: Optional[Any]
+    render_type: str
+    entity_map: Optional[Any]
+    dml_ui: Optional[bool] = None
+    dml_type: Optional[Any] = None
+
+
 class Alert(BaseModel):
     action: Optional[str]
     action_pretty: Optional[str]
@@ -126,7 +135,7 @@ class Alert(BaseModel):
     contains_featured_ip: Optional[bool]
     contains_featured_user: Optional[bool]
     deduplicate_tokens: Optional[str]
-    description: Optional[str]
+    description: Union[str, List[AlertDescriptionItem]]
     detection_timestamp: Optional[int]
     end_match_attempt_ts: Optional[int]
     endpoint_id: Optional[str]
