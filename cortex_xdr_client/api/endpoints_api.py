@@ -67,6 +67,7 @@ class EndpointsAPI(BaseAPI):
     def get_all_endpoints(self) -> Optional[GetAllEndpointsResponse]:
         """
         Gets a list of your endpoints.
+
         :return: A GetAllEndpointsResponse object if successful.
         """
         response = self._call(call_name="get_endpoints")
@@ -93,6 +94,7 @@ class EndpointsAPI(BaseAPI):
                      ) -> Optional[GetEndpointResponse]:
         """
         Gets a list of filtered endpoints.
+
         :param endpoint_id_list: List of endpoint IDs.
         :param endpoint_status: Status of the endpoint ID.
         :param dist_name: Distribution / Installation Package name.
@@ -108,10 +110,8 @@ class EndpointsAPI(BaseAPI):
         :param isolate: If the endpoint was isolated.
         :param scan_status: A list of ScanStatus
         :param username: Username.
-        :param search_from: Integer representing the starting offset within the query result set from which you
-        want incidents returned.
-        :param search_to: Integer representing the end offset within the result set after which you do not
-        want incidents returned.
+        :param search_from: Integer representing the starting offset within the query result set from which you want incidents returned.
+        :param search_to: Integer representing the end offset within the result set after which you do not want incidents returned.
         :return: A GetEndpointResponse object if successful.
         """
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
@@ -142,8 +142,9 @@ class EndpointsAPI(BaseAPI):
                           endpoint_id_list: List[str] = None,
                           ) -> Optional[ResponseActionResponse]:
         """
+        Isolate one or more endpoints in a single request. Request is limited to 1000 endpoints.
 
-        :param endpoint_id_list:
+        :param endpoint_id_list: List of endpoint IDs.
         :return: A ResponseActionResponse object if successful.
         """
         request_data = new_request_data(filters=[request_filter("endpoint_id_list", "in", endpoint_id_list)])
@@ -169,6 +170,7 @@ class EndpointsAPI(BaseAPI):
                        username: List[str] = None,
                        ) -> Optional[ResponseActionResponse]:
         """
+        Run a scan on selected endpoints.
 
         :param endpoint_id_list: List of endpoint IDs.
         :param dist_name: Name of the distribution list.
@@ -215,11 +217,10 @@ class EndpointsAPI(BaseAPI):
                       ) -> Optional[ResponseActionResponse]:
         """
         Retrieve files from selected endpoints. You can retrieve up to 20 files, from no more than 10 endpoints.
+
         :param endpoint_id_list: List of endpoint IDs.
-        :param files: dictionary containing the type of platform and list of file paths you want to retrieve.
-        Valid platform type keywords are: ["windows", "linux", "macos"].
-        :param incident_id: When included in the request, the Retrieve File action will appear in the Cortex XDR
-        Incident View Timeline tab.
+        :param files: dictionary containing the type of platform and list of file paths you want to retrieve. Valid platform type keywords are: ["windows", "linux", "macos"].
+        :param incident_id: When included in the request, the Retrieve File action will appear in the Cortex XDR Incident View Timeline tab.
         :return: A ResponseActionResponse object if successful.
         """
 
@@ -242,7 +243,8 @@ class EndpointsAPI(BaseAPI):
 
     def scan_all_endpoints(self) -> Optional[ResponseActionResponse]:
         """
-        Scan all endpoints.
+        Scans all endpoints.
+
         :return: A ResponseActionResponse object if successful.
         """
         request_data = {

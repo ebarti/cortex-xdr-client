@@ -31,15 +31,14 @@ class AlertsAPI(BaseAPI):
                    ) -> Optional[GetAlertsResponse]:
         """
         Get a list of alerts with multiple events.
+
         :param alert_id_list: List of integers of the Alert ID
         :param alert_source_list: List of strings of the Alert source
         :param severities: List of strings of the Alert severity
         :param creation_time: Timestamp of the Creation time
         :param after_creation: If the creation date will be the upper or lower bound limit.
-        :param search_from: Integer representing the starting offset within the query result set from which you
-        want incidents returned.
-        :param search_to: Integer representing the end offset within the result set after which you do not
-        want incidents returned.
+        :param search_to: Integer representing the end offset within the result set after which you do not want incidents returned.
+        :param search_from: Integer representing the starting offset within the query result set from which you want incidents returned.
         :return: Returns a GetAlertsResponse object if successful.
         """
         filters = []

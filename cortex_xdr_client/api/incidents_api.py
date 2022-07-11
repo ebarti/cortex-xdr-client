@@ -43,6 +43,7 @@ class IncidentsAPI(BaseAPI):
                       ) -> Optional[GetIncidentsResponse]:
         """
         Get a list of incidents filtered by a list of incident IDs, modification time, or creation time.
+
         :param modification_time: Time the incident has been modified.
         :param after_modification: If the modification date will be the upper or lower bound limit.
         :param creation_time: Incident's creation time.
@@ -53,10 +54,8 @@ class IncidentsAPI(BaseAPI):
         :param alert_sources: Source which detected the alert.
         :param status: Represents the status of the incident.
         :param status_equal: If the status will be equal to the given status.
-        :param search_from: Integer representing the starting offset within the query result set from which you
-        want incidents returned.
-        :param search_to: Integer representing the end offset within the result set after which you do not
-        want incidents returned.
+        :param search_from: Integer representing the starting offset within the query result set from which you want incidents returned.
+        :param search_to: Integer representing the end offset within the result set after which you do not want incidents returned.
         :return: Returns a GetIncidentsResponse object if successful.
         """
         filters = []
@@ -89,6 +88,7 @@ class IncidentsAPI(BaseAPI):
                                 ) -> Optional[GetExtraIncidentDataResponse]:
         """
         Get extra data fields of a specific incident including alerts and key artifacts.
+
         :param incident_id: The ID of the incident for which you want to retrieve extra data.
         :param alerts_limit: Maximum number of related alerts in the incident that you want to retrieve (default 1000).
         :return: Returns a GetExtraIncidentDataResponse object if successful.

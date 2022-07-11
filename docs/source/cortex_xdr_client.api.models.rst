@@ -1,61 +1,38 @@
-cortex\_xdr\_client.api.models package
+CortexXDRClient API Data Models
 ======================================
 
-Submodules
-----------
 
-cortex\_xdr\_client.api.models.alerts module
+Alerts
 --------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.alerts
    :members:
    :undoc-members:
-   :show-inheritance:
 
-cortex\_xdr\_client.api.models.endpoints module
+Endpoints
 -----------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.endpoints
    :members:
    :undoc-members:
-   :show-inheritance:
 
-cortex\_xdr\_client.api.models.exceptions module
+Exceptions
 ------------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.exceptions
    :members:
    :undoc-members:
-   :show-inheritance:
 
-cortex\_xdr\_client.api.models.filters module
----------------------------------------------
-
-.. automodule:: cortex_xdr_client.api.models.filters
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-cortex\_xdr\_client.api.models.incidents module
+Incidents
 -----------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.incidents
    :members:
    :undoc-members:
-   :show-inheritance:
 
-cortex\_xdr\_client.api.models.scripts module
+Scripts
 ---------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.scripts
    :members:
    :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: cortex_xdr_client.api.models
-   :members:
-   :undoc-members:
-   :show-inheritance:

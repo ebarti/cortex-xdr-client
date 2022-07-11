@@ -3,16 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to cortex-xdr-client's documentation!
-=============================================
+Welcome to the cortex-xdr-client's documentation!
+=================================================
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    readme
-   modules
+   cortex_xdr_client
+   cortex_xdr_client.api
+   cortex_xdr_client.api.models
 
 
 

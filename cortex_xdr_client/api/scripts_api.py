@@ -67,7 +67,8 @@ class ScriptsAPI(BaseAPI):
                     is_high_risk: bool = None,
                     ) -> Optional[GetScriptsResponse]:
         """
-        Get scripts
+        Get a list of scripts available in the scripts library.
+
         :param name: Script names
         :param description: Script descriptions
         :param created_by: Username(s) of who created the script(s).
@@ -78,7 +79,7 @@ class ScriptsAPI(BaseAPI):
         :param linux_supported: Whether the script can be executed on Linux operating system.
         :param macos_supported: Whether the script can be executed on Mac operating system.
         :param is_high_risk: Whether the script has a high-risk outcome.
-        :return: An object of type GetScriptsResponse
+        :return: An object of type GetScriptsResponse if successful.
         """
         filters = self._get_scripts_filters(name, description, created_by, script_uid, modification_time,
                                             after_modification, windows_supported, linux_supported, macos_supported,
@@ -94,6 +95,12 @@ class ScriptsAPI(BaseAPI):
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-metadata.html
     def get_script_metadata(self, script_uid: str) -> Optional[GetScriptMetadataResponse]:
+        """
+        Get the full definitions of a specific script in the scripts library.
+
+        :param script_uid: Unique identifier of the script, returned by the Get Scripts API per script.
+        :return: An object of type GetScriptMetadataResponse if successful.
+        """
         request_data = new_request_data(other={"script_uid": script_uid})
         response = self._call("get_script_metadata", json_value=request_data)
         resp_json = response.json()
@@ -106,8 +113,9 @@ class ScriptsAPI(BaseAPI):
     def get_script_execution_status(self, action_id: int) -> Optional[GetScriptsExecutionStatus]:
         """
         Retrieve the status of a script execution action.
+
         :param action_id: Integer, identifier of the action
-        :return: The status of a script execution action.
+        :return: An object of type GetScriptsExecutionStatus if successful.
         """
         request_data = new_request_data(other={"action_id": action_id})
         response = self._call("get_script_execution_status", json_value=request_data)
@@ -136,6 +144,7 @@ class ScriptsAPI(BaseAPI):
     def get_script_execution_result_files(self, action_id: int, endpoint_id: int) -> Optional[str]:
         """
         Get the files retrieved from a specific endpoint during a script execution.
+
         :param action_id: Integer, identifier of the action
         :param endpoint_id: Integer, endpoint ID.
         :return: A signed public link to a zip file containing the retrieved files. Link expires after 10 minutes.
@@ -159,13 +168,12 @@ class ScriptsAPI(BaseAPI):
                    ) -> Optional[dict]:
         """
         Initiate a new endpoint script execution action using a script from the script library.
+
         :param script_uid: GUID, unique identifier of the script, returned by the Get Scripts API per script
-        :param parameters_values: Dictionary, contains the parameter name, key and its value for this execution, value.
-        You can locate these values by running Get Script Metadata
+        :param parameters_values: Dictionary, contains the parameter name, key and its value for this execution, value. You can locate these values by running Get Script Metadata
         :param endpoint_id_list: List of endpoint IDs.
         :param timeout: Integer, represents the timeout in seconds for this execution. Default value is 600.
-        :param incident_id: String representing the incident ID. When included in the request, the Run Script action
-        will appear in the Cortex XDR Incident View Timeline tab.
+        :param incident_id: String representing the incident ID. When included in the request, the Run Script action will appear in the Cortex XDR Incident View Timeline tab.
         :return: A dict containing action_id, status and endpoints_count.
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
@@ -187,11 +195,11 @@ class ScriptsAPI(BaseAPI):
                                 ) -> Optional[dict]:
         """
         Initiate a new endpoint script execution action using a snippet code.
+
         :param snippet_code: String, contains the snippet code to be executed.
         :param endpoint_id_list: List of endpoint IDs.
         :param timeout: Integer, represents the timeout in seconds for this execution. Default value is 600.
-        :param incident_id: String representing the incident ID. When included in the request, the Run Script action
-        will appear in the Cortex XDR Incident View Timeline tab.
+        :param incident_id: String representing the incident ID. When included in the request, the Run Script action will appear in the Cortex XDR Incident View Timeline tab.
         :return: A dict containing action_id and endpoints_count.
         """
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]

@@ -1,18 +1,7 @@
-cortex\_xdr\_client.api package
+CortexXDRClient APIs
 ===============================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   cortex_xdr_client.api.models
-
-Submodules
-----------
-
-cortex\_xdr\_client.api.alerts\_api module
+Alerts API
 ------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.alerts_api
@@ -20,15 +9,7 @@ cortex\_xdr\_client.api.alerts\_api module
    :undoc-members:
    :show-inheritance:
 
-cortex\_xdr\_client.api.base\_api module
-----------------------------------------
-
-.. automodule:: cortex_xdr_client.api.base_api
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-cortex\_xdr\_client.api.endpoints\_api module
+Endpoints API
 ---------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.endpoints_api
@@ -36,7 +17,7 @@ cortex\_xdr\_client.api.endpoints\_api module
    :undoc-members:
    :show-inheritance:
 
-cortex\_xdr\_client.api.incidents\_api module
+Incidents API
 ---------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.incidents_api
@@ -44,7 +25,7 @@ cortex\_xdr\_client.api.incidents\_api module
    :undoc-members:
    :show-inheritance:
 
-cortex\_xdr\_client.api.scripts\_api module
+Scripts API
 -------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.scripts_api
@@ -52,7 +33,7 @@ cortex\_xdr\_client.api.scripts\_api module
    :undoc-members:
    :show-inheritance:
 
-cortex\_xdr\_client.api.xql\_api module
+XQL API
 ---------------------------------------
 
 .. automodule:: cortex_xdr_client.api.xql_api
@@ -60,10 +41,4 @@ cortex\_xdr\_client.api.xql\_api module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: cortex_xdr_client.api
-   :members:
-   :undoc-members:
-   :show-inheritance:
