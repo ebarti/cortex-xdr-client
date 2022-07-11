@@ -1,5 +1,5 @@
 About the cortex-xdr-client
-##########################
+###########################
 
 A python-based API client for `Cortex XDR
 API <https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api>`__.

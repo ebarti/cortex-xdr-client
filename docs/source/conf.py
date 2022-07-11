@@ -22,7 +22,7 @@ copyright = '2022, Eloi Barti <me@eloibarti.com>'
 author = 'Eloi Barti <me@eloibarti.com>'
 
 # The full version, including alpha/beta/rc tags
-release = '1.5.0'
+release = '1.5.2'
 
 
 # -- General configuration ---------------------------------------------------
