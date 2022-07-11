@@ -112,8 +112,8 @@ class AlertDescriptionItem(BaseModel):
     data_type: Optional[Any]
     render_type: str
     entity_map: Optional[Any]
-    dml_ui: Optional[bool] = None
-    dml_type: Optional[Any] = None
+    dml_ui: Optional[bool]
+    dml_type: Optional[Any]
 
 
 class Alert(BaseModel):
