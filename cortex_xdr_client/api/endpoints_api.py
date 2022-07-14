@@ -152,6 +152,21 @@ class EndpointsAPI(BaseAPI):
                               json_value=request_data)
         return ResponseActionResponse.parse_obj(response.json())
 
+    # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/unisolate-endpoints.html
+    def unisolate_endpoints(self,
+                            endpoint_id_list: List[str] = None,
+                            ) -> Optional[ResponseActionResponse]:
+        """
+        Unisolate one or more endpoints in a single request. Request is limited to 1000 endpoints.
+
+        :param endpoint_id_list: List of endpoint IDs.
+        :return: A ResponseActionResponse object if successful.
+        """
+        request_data = new_request_data(filters=[request_filter("endpoint_id_list", "in", endpoint_id_list)])
+        response = self._call(call_name="unisolate",
+                              json_value=request_data)
+        return ResponseActionResponse.parse_obj(response.json())
+
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/scan-endpoints.html
     def scan_endpoints(self,
                        endpoint_id_list: List[str] = None,
@@ -232,12 +247,37 @@ class EndpointsAPI(BaseAPI):
         for os in set(acceptable_oses).intersection(files):
             if os not in acceptable_oses:
                 return None
-
         request_data = new_request_data(filters=filters, other=files)
         if incident_id is not None:
             request_data["incident_id"] = incident_id
 
         response = self._call(call_name="file_retrieval",
+                              json_value=request_data)
+        return ResponseActionResponse.parse_obj(response.json())
+
+    # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/quarantine-files.html
+    def quarantine_file(self,
+                        endpoint_id_list: List[str] = None,
+                        file_path: str = None,
+                        file_hash: str = None,
+                        incident_id: str = None,
+                        ) -> Optional[ResponseActionResponse]:
+        """
+        Quarantine file on selected endpoints. You can select up to 1000 endpoints.
+
+        :param endpoint_id_list: List of endpoint IDs.
+        :param file_path: String that represents the path of the file you want to quarantine. You must enter a proper path and not symbolic links.
+        :param file_hash: String that represents the file’s hash. Hash must be a valid SHA256.
+        :return: A ResponseActionResponse object if successful.
+        """
+
+        filters = [request_filter("endpoint_id_list", "in", endpoint_id_list)]
+
+        request_data = new_request_data(filters=filters, other={"file_path": file_path, "file_hash": file_hash})
+        if incident_id is not None:
+            request_data["incident_id"] = incident_id
+
+        response = self._call(call_name="quarantine",
                               json_value=request_data)
         return ResponseActionResponse.parse_obj(response.json())
 
