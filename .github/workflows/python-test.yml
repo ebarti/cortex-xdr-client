@@ -5,8 +5,17 @@ on:
   push:
     branches:
       - master
+    paths:
+      - cortex_xdr_client/**
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/python-test.yml
   pull_request:
-
+    paths:
+      - cortex_xdr_client/**
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/python-test.yml
 jobs:
   test:
     runs-on: ubuntu-latest
