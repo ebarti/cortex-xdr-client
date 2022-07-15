@@ -1,5 +1,5 @@
 CortexXDRClient
-===========================
+============================
 
 
 .. automodule:: cortex_xdr_client.client

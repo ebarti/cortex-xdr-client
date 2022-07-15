@@ -41,4 +41,12 @@ XQL API
    :undoc-members:
    :show-inheritance:
 
+Actions API
+---------------------------------------
+
+.. automodule:: cortex_xdr_client.api.actions_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 

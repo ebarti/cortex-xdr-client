@@ -5,6 +5,7 @@ from cortex_xdr_client.api.endpoints_api import EndpointsAPI
 from cortex_xdr_client.api.incidents_api import IncidentsAPI
 from cortex_xdr_client.api.scripts_api import ScriptsAPI
 from cortex_xdr_client.api.xql_api import XQLAPI
+from cortex_xdr_client.api.actions_api import ActionsAPI
 
 
 class CortexXDRClient(object):
@@ -13,6 +14,7 @@ class CortexXDRClient(object):
     endpoints_api: EndpointsAPI
     scripts_api: ScriptsAPI
     xql_api: XQLAPI
+    actions_api: ActionsAPI
 
     def __init__(self, api_key_id: int, api_key: str, fqdn: str, default_timeout: Tuple[int, int] = (10, 60)) -> None:
         """
@@ -42,6 +44,10 @@ class CortexXDRClient(object):
                                           fqdn=fqdn,
                                           timeout=default_timeout)
         self.xql_api = XQLAPI(api_key_id=api_key_id,
+                                          api_key=api_key,
+                                          fqdn=fqdn,
+                                          timeout=default_timeout)
+        self.actions_api = ActionsAPI(api_key_id=api_key_id,
                                           api_key=api_key,
                                           fqdn=fqdn,
                                           timeout=default_timeout)
