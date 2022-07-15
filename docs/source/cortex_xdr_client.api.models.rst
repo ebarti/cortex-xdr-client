@@ -36,3 +36,10 @@ Scripts
 .. automodule:: cortex_xdr_client.api.models.scripts
    :members:
    :undoc-members:
+
+Actions
+---------------------------------------------
+
+.. automodule:: cortex_xdr_client.api.models.action_status
+   :members:
+   :undoc-members:
