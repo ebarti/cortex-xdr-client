@@ -1,6 +1,4 @@
-from enum import Enum
-
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.action_status import (
@@ -17,15 +15,15 @@ class ActionsAPI(BaseAPI):
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/get-action-status.html
     def get_action_status(self,
-                   group_action_id: int
-                   ) -> Optional[GetActionStatus]:
+                          group_action_id: int
+                          ) -> Optional[GetActionStatus]:
         """
         Retrieve the status of the requested actions according to the action ID.
 
         :param group_action_id: String the represents the Action ID of the selected request.
         :return: Returns a GetActionStatus object if successful.
         """
-        request_data = new_request_data(other={'group_action_id':group_action_id})
+        request_data = new_request_data(other={'group_action_id': group_action_id})
 
         response = self._call(call_name="get_action_status",
                               json_value=request_data)
