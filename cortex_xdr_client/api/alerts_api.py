@@ -25,6 +25,7 @@ class AlertsAPI(BaseAPI):
                    alert_source_list: List[str] = None,
                    severities: List[AlertSeverity] = None,
                    creation_time: int = None,
+                   server_creation_time: int = None,
                    after_creation: bool = False,
                    search_from: int = None,
                    search_to: int = None,
@@ -54,6 +55,9 @@ class AlertsAPI(BaseAPI):
 
         if creation_time is not None:
             filters.append(request_gte_lte_filter("creation_time", creation_time, after_creation))
+
+        if server_creation_time is not None:
+            filters.append(request_gte_lte_filter("server_creation_time", server_creation_time, after_creation))
 
         request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
 
