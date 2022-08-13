@@ -16,6 +16,7 @@ on:
       - cortex_xdr_client/**
       - poetry.lock
       - pyproject.toml
+      - .github/workflows/codeql-analysis.yml
 
 jobs:
   analyze:
@@ -39,8 +40,7 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+        queries: security-extended
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
