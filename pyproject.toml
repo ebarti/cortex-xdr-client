@@ -3,7 +3,7 @@ name = "cortex-xdr-client"
 packages= [
     { include = "cortex_xdr_client", from="." },
 ]
-version = "1.6.1"
+version = "1.7.0"
 description = "API client for Cortex XDR Prevent"
 authors = ["ebarti"]
 license = "MIT"
