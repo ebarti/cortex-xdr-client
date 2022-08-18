@@ -10,3 +10,5 @@
 virtualenv
 */.pytest_cache
 docs/build/
+**/__pycache__
+**/.DS_Store
