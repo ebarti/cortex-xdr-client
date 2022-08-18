@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union, Any
 
 from pydantic import BaseModel
 
@@ -57,7 +57,7 @@ class GetAllEndpointsResponse(BaseModel):
 
 
 class Endpoint(BaseModel):
-    active_directory: Optional[str]
+    active_directory: Union[List[str], Optional[str]]
     alias: Optional[str]
     content_version: Optional[str]
     domain: Optional[str]
@@ -80,6 +80,7 @@ class Endpoint(BaseModel):
     os_type: Optional[EndpointPlatform]
     scan_status: Optional[ScanStatus]
     users: Optional[List[str]]
+    mac_address: Optional[List[str]]
 
     class Config:
         use_enum_names = True
