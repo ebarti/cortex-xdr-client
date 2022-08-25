@@ -10,7 +10,7 @@ poetry version $VERSION
 echo "Commiting version change"
 git add pyproject.toml
 git commit -m "Bump to v$VERSION"
-git push
+git push origin master
 echo "Updating tag to v$VERSION"
 git tag v$VERSION
 echo "Pushing tag to origin"
