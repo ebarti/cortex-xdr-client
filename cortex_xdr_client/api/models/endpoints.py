@@ -10,6 +10,7 @@ class EndpointStatus(Enum):
     """
     connected = "CONNECTED"
     disconnected = "DISCONNECTED"
+    lost = "LOST"
 
 
 class EndpointPlatform(Enum):
