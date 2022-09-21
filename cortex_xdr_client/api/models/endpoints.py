@@ -40,6 +40,7 @@ class ScanStatus(Enum):
     pending = "SCAN_STATUS_PENDING"
     in_progress = "SCAN_STATUS_IN_PROGRESS"
     canceled = "SCAN_STATUS_CANCELED"
+    cancel = "SCAN_STATUS_CANCEL"
     aborted = "SCAN_STATUS_ABORTED"
     pending_cancellation = "SCAN_STATUS_PENDING_CANCELLATION"
     success = "SCAN_STATUS_SUCCESS"
@@ -81,7 +82,7 @@ class Endpoint(BaseModel):
     operational_status_description: Optional[str]
     os_type: Optional[EndpointPlatform]
     scan_status: Optional[ScanStatus]
-    users: Optional[List[str]]
+    users: Union[Optional[List[str]], Optional[str]]
     mac_address: Optional[List[str]]
 
     class Config:
