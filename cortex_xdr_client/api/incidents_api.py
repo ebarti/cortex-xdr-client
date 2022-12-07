@@ -1,28 +1,24 @@
-from typing import Optional, List, Tuple
+from typing import List, Optional, Tuple
 
+from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.filters import (
-    new_request_data,
-    request_eq_neq_filter,
-    request_gte_lte_filter,
-    request_in_contains_filter,
-    request_filter
-)
-from cortex_xdr_client.api.models.incidents import (
-    IncidentStatus,
-    GetIncidentsResponse,
-    GetExtraIncidentDataResponse,
-)
+from cortex_xdr_client.api.models.filters import (new_request_data,
+                                                  request_eq_neq_filter,
+                                                  request_filter,
+                                                  request_gte_lte_filter,
+                                                  request_in_contains_filter,
+                                                  )
+from cortex_xdr_client.api.models.incidents import (GetExtraIncidentDataResponse, GetIncidentsResponse, IncidentStatus)
 
 
 class IncidentsAPI(BaseAPI):
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(IncidentsAPI, self).__init__(api_key_id, api_key, fqdn, "incidents", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
+        super(IncidentsAPI, self).__init__(auth, fqdn, "incidents", timeout)
 
     @staticmethod
     def _get_incident_extra_data_filter(incident_id: str, alerts_limit: int) -> dict:
         return {
-            "incident_id": incident_id,
+            "incident_id":  incident_id,
             "alerts_limit": alerts_limit
         }
 
