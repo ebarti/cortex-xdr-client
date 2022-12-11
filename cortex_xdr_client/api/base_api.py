@@ -1,33 +1,17 @@
 import collections
-import hashlib
-import secrets
-import string
-from datetime import timezone, datetime
+from typing import Tuple
 
 import requests
-from typing import Tuple
+
+from cortex_xdr_client.api.authentication import Authentication
 
 
 class BaseAPI:
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, api_name: str, timeout: Tuple[int, int]) -> None:
-        self._api_key_id = api_key_id
-        self._api_key = api_key
+    def __init__(self, auth: Authentication, fqdn: str, api_name: str, timeout: Tuple[int, int]) -> None:
+        self._auth = auth
         self._fqdn = fqdn
         self._requests_timeout = timeout
         self._api_name = api_name
-
-    def _get_headers(self) -> dict:
-        nonce = "".join([secrets.choice(string.ascii_letters + string.digits) for _ in range(64)])
-        timestamp = int(datetime.now(timezone.utc).timestamp()) * 1000
-        auth_key = "%s%s%s" % (self._api_key, nonce, timestamp)
-        auth_key = auth_key.encode("utf-8")
-        api_key_hash = hashlib.sha256(auth_key).hexdigest()
-        return {
-            "x-xdr-timestamp": str(timestamp),
-            "x-xdr-nonce": nonce,
-            "x-xdr-auth-id": str(self._api_key_id),
-            "Authorization": api_key_hash
-        }
 
     def _get_url(self, call_name: str) -> str:
         return f"https://api-{self._fqdn}/public_api/v1/{self._api_name}/{call_name}"
@@ -37,9 +21,11 @@ class BaseAPI:
               method: str = "post",
               params: dict = None,
               json_value: object = None,
-              header_params: dict = {}) -> requests.Response:
+              header_params=None) -> requests.Response:
+        if header_params is None:
+            header_params = {}
         url = self._get_url(call_name)
-        headers = self._get_headers()
+        headers = self._auth.get_headers()
         self.extend(headers, header_params)
 
         return self._execute_call(url=url,
@@ -69,7 +55,6 @@ class BaseAPI:
     @staticmethod
     def extend(*args):
         if args is not None:
-            result = None
             if type(args[0]) is collections.OrderedDict:
                 result = collections.OrderedDict()
             else:
