@@ -1,5 +1,5 @@
 import collections
-from typing import Tuple
+from typing import Tuple, Optional
 
 import requests
 
@@ -13,11 +13,11 @@ class BaseAPI:
         self._requests_timeout = timeout
         self._api_name = api_name
 
-    def _get_url(self, call_name: str) -> str:
+    def _get_url(self, call_name: Optional[str]) -> str:
         return f"https://api-{self._fqdn}/public_api/v1/{self._api_name}/{call_name}"
 
     def _call(self,
-              call_name: str,
+              call_name: Optional[str] = None,
               method: str = "post",
               params: dict = None,
               json_value: object = None,
