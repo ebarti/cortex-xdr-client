@@ -25,3 +25,19 @@ class ActionsAPI(BaseAPI):
         response = self._call(call_name="get_action_status",
                               json_value=request_data)
         return GetActionStatus.parse_obj(response.json())
+
+    # https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/Cortex-XDR-API-Reference/File-Retrieval-Details
+    def get_file_retrieval_details(self,
+                                   group_action_id: int
+                                   ) -> Optional[GetActionStatus]:
+        """
+        Retrieve the status of the requested file retrieval action.
+
+        :param group_action_id: String the represents the Action ID of the selected request.
+        :return: Returns a GetActionStatus object if successful.
+        """
+        request_data = new_request_data(other={'group_action_id': group_action_id})
+
+        response = self._call(call_name="file_retrieval_details",
+                              json_value=request_data)
+        return GetActionStatus.parse_obj(response.json())

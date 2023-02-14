@@ -1053,6 +1053,19 @@ def start_xql_response():
        """
     return json.loads(response)
 
+@pytest.fixture
+def get_action_status():
+    response = r"""
+        {
+            "reply": {
+                "data": {
+                    "<agent ID>": "COMPLETED_SUCCESSFULLY"
+                    }
+               }
+        }
+       """
+    return json.loads(response)
+
 
 @pytest.fixture
 def get_xql_results_response():
