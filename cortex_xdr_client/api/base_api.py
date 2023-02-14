@@ -13,7 +13,7 @@ class BaseAPI:
         self._requests_timeout = timeout
         self._api_name = api_name
 
-    def _get_url(self, call_name: Optional[str]) -> str:
+    def _get_url(self, call_name: str) -> str:
         return f"https://api-{self._fqdn}/public_api/v1/{self._api_name}/{call_name}"
 
     def _call(self,
