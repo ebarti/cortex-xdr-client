@@ -1,5 +1,5 @@
 import collections
-from typing import Tuple, Optional
+from typing import Tuple
 
 import requests
 
@@ -17,7 +17,7 @@ class BaseAPI:
         return f"https://api-{self._fqdn}/public_api/v1/{self._api_name}/{call_name}"
 
     def _call(self,
-              call_name: Optional[str] = None,
+              call_name:str,
               method: str = "post",
               params: dict = None,
               json_value: object = None,
