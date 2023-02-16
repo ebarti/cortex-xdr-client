@@ -133,6 +133,8 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
+        # Because pydantic does not support private attributes
+        reply['results'][0]['return_value'] = reply['results'][0]['_return_value']
         return GetScriptExecutionResults.parse_obj(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-result-files.html

@@ -70,7 +70,7 @@ class ScriptExecutionResult(BaseModel):
     retrieved_files: Optional[int]
     failed_files: Optional[int]
     retention_date: Optional[int]
-    _return_value: List[str]
+    return_value: List[str]
 
 
 class GetScriptExecutionResults(BaseModel):
