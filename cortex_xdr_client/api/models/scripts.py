@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -66,11 +66,10 @@ class ScriptExecutionResult(BaseModel):
     domain: Optional[str]
     endpoint_id: Optional[str]
     execution_status: Optional[str]
-    standard_output: Optional[str]
+    standard_output: Union[Optional[str], List[str]]
     retrieved_files: Optional[int]
     failed_files: Optional[int]
     retention_date: Optional[int]
-    _return_value: List[str]
 
 
 class GetScriptExecutionResults(BaseModel):
