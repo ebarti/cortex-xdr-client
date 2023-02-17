@@ -1,4 +1,5 @@
 from cortex_xdr_client.api.models.alerts import GetAlertsResponse
+from cortex_xdr_client.api.models.action_status import GetActionStatus
 from cortex_xdr_client.api.models.endpoints import GetAllEndpointsResponse, GetEndpointResponse, ResponseActionResponse
 from cortex_xdr_client.api.models.incidents import GetIncidentsResponse, GetExtraIncidentDataResponse
 from cortex_xdr_client.api.models.scripts import (
@@ -105,6 +106,17 @@ def test_start_xql(requests_mock, cortex_client, start_xql_response):
     requests_mock.post(cortex_client.xql_api._get_url("start_xql_query"),
                        json=start_xql_response)
     assert start_xql_response['reply'] == cortex_client.xql_api.start_xql_query("")
+
+def test_get_action_status(requests_mock, cortex_client, get_action_status):
+    requests_mock.post(cortex_client.actions_api._get_url("get_action_status"),
+                       json=get_action_status)
+    assert GetActionStatus.parse_obj(get_action_status) == cortex_client.actions_api.get_action_status(0)
+
+
+def test_get_file_retrieval_details(requests_mock, cortex_client, get_action_status):
+    requests_mock.post(cortex_client.actions_api._get_url("file_retrieval_details"),
+                       json=get_action_status)
+    assert GetActionStatus.parse_obj(get_action_status) == cortex_client.actions_api.get_file_retrieval_details(0)
 
 
 def test_get_xql_results(requests_mock, cortex_client, get_xql_results_response):
