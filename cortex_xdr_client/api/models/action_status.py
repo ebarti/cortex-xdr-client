@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class ActionStatuStr(BaseModel):
-    # Since we don't know what the returned key of <agent ID> will be.
+    # Since we don't know what the returned key of <agent ID>/<endpoint ID> will be.
     __root__: Dict[str, str]
 
 

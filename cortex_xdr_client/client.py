@@ -7,6 +7,7 @@ from cortex_xdr_client.api.endpoints_api import EndpointsAPI
 from cortex_xdr_client.api.incidents_api import IncidentsAPI
 from cortex_xdr_client.api.scripts_api import ScriptsAPI
 from cortex_xdr_client.api.xql_api import XQLAPI
+from cortex_xdr_client.api.download_api import DownloadAPI
 
 
 class CortexXDRClient(object):
@@ -16,6 +17,7 @@ class CortexXDRClient(object):
     scripts_api: ScriptsAPI
     xql_api: XQLAPI
     actions_api: ActionsAPI
+    download_api: DownloadAPI
 
     def __init__(self, auth: Authentication, fqdn: str, default_timeout: Tuple[int, int] = (10, 60)) -> None:
         """
@@ -41,5 +43,8 @@ class CortexXDRClient(object):
                               fqdn=fqdn,
                               timeout=default_timeout)
         self.actions_api = ActionsAPI(auth=auth,
+                                      fqdn=fqdn,
+                                      timeout=default_timeout)
+        self.download_api = DownloadAPI(auth=auth,
                                       fqdn=fqdn,
                                       timeout=default_timeout)
