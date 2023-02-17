@@ -1,17 +1,17 @@
 import gzip
 import json
 from io import BytesIO
-from typing import Tuple, List, Optional
+from typing import List, Optional, Tuple
 
+from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.filters import new_request_data
-
 from cortex_xdr_client.api.models.exceptions import InvalidResponseException, UnsuccessfulQueryStatusException
+from cortex_xdr_client.api.models.filters import new_request_data
 
 
 class XQLAPI(BaseAPI):
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(XQLAPI, self).__init__(api_key_id, api_key, fqdn, "xql", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
+        super(XQLAPI, self).__init__(auth, fqdn, "xql", timeout)
 
     def _get_start_xql_filter(self, query: str, time_period: int = None, from_date: int = None,
                               to_date: int = None, tenants: List[str] = None, params: dict = {}) -> dict:
@@ -95,7 +95,7 @@ class XQLAPI(BaseAPI):
         """
         request_data = {
             "request_data": {
-                "stream_id": stream_id,
+                "stream_id":          stream_id,
                 "is_gzip_compressed": True,
             }
         }

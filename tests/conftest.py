@@ -4,6 +4,7 @@ import json
 import pytest
 
 from cortex_xdr_client.api.alerts_api import AlertsAPI
+from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.endpoints_api import EndpointsAPI
 from cortex_xdr_client.api.incidents_api import IncidentsAPI
 from cortex_xdr_client.api.scripts_api import ScriptsAPI
@@ -12,33 +13,38 @@ from cortex_xdr_client.client import CortexXDRClient
 
 
 @pytest.fixture
-def cortex_client():
-    return CortexXDRClient("a_key_id", "a_key", "a_fqdn")
+def auth():
+    return Authentication(api_key="a_key", api_key_id="a_key_id")
 
 
 @pytest.fixture
-def incidents_api():
-    return IncidentsAPI("a_key_id", "a_key", "a_fqdn")
+def cortex_client(auth):
+    return CortexXDRClient(auth, "a_fqdn")
 
 
 @pytest.fixture
-def alerts_api():
-    return AlertsAPI("a_key_id", "a_key", "a_fqdn")
+def incidents_api(auth):
+    return IncidentsAPI(auth, "a_fqdn")
 
 
 @pytest.fixture
-def endpoints_api():
-    return EndpointsAPI("a_key_id", "a_key", "a_fqdn")
+def alerts_api(auth):
+    return AlertsAPI(auth, "a_fqdn")
 
 
 @pytest.fixture
-def scripts_api():
-    return ScriptsAPI("a_key_id", "a_key", "a_fqdn")
+def endpoints_api(auth):
+    return EndpointsAPI(auth, "a_fqdn")
 
 
 @pytest.fixture
-def xql_api():
-    return XQLAPI("a_key_id", "a_key", "a_fqdn")
+def scripts_api(auth):
+    return ScriptsAPI(auth, "a_fqdn")
+
+
+@pytest.fixture
+def xql_api(auth):
+    return XQLAPI(auth, "a_fqdn")
 
 
 @pytest.fixture
@@ -1044,6 +1050,19 @@ def start_xql_response():
        {
            "reply": "543gdf"
        }
+       """
+    return json.loads(response)
+
+@pytest.fixture
+def get_action_status():
+    response = r"""
+        {
+            "reply": {
+                "data": {
+                    "<agent ID>": "COMPLETED_SUCCESSFULLY"
+                    }
+               }
+        }
        """
     return json.loads(response)
 

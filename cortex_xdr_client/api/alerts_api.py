@@ -1,7 +1,7 @@
 from enum import Enum
-
 from typing import List, Optional, Tuple
 
+from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
 from cortex_xdr_client.api.models.alerts import (
     AlertSeverity,
@@ -15,8 +15,8 @@ from cortex_xdr_client.api.models.filters import (
 
 
 class AlertsAPI(BaseAPI):
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(AlertsAPI, self).__init__(api_key_id, api_key, fqdn, "alerts", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
+        super(AlertsAPI, self).__init__(auth, fqdn, "alerts", timeout)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-alerts.html
     # TODO: add sorting capabilities

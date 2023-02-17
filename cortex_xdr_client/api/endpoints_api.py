@@ -1,25 +1,21 @@
-from typing import List, Optional, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 
+from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.endpoints import (
-    EndpointStatus,
-    IsolateStatus,
-    ScanStatus,
-    EndpointPlatform,
-    GetEndpointResponse,
-    GetAllEndpointsResponse,
-    ResponseActionResponse,
-)
-from cortex_xdr_client.api.models.filters import (
-    new_request_data,
-    request_gte_lte_filter,
-    request_filter
-)
+from cortex_xdr_client.api.models.endpoints import (EndpointPlatform,
+                                                    EndpointStatus,
+                                                    GetAllEndpointsResponse,
+                                                    GetEndpointResponse,
+                                                    IsolateStatus,
+                                                    ResponseActionResponse,
+                                                    ScanStatus,
+                                                    )
+from cortex_xdr_client.api.models.filters import (new_request_data, request_filter, request_gte_lte_filter)
 
 
 class EndpointsAPI(BaseAPI):
-    def __init__(self, api_key_id: int, api_key: str, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(EndpointsAPI, self).__init__(api_key_id, api_key, fqdn, "endpoints", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
+        super(EndpointsAPI, self).__init__(auth, fqdn, "endpoints", timeout)
 
     @staticmethod
     def _get_common_endpoint_filters(endpoint_id_list: List[str] = None,
