@@ -110,7 +110,7 @@ def test_start_xql(requests_mock, cortex_client, start_xql_response):
 def test_get_action_status(requests_mock, cortex_client, get_action_status):
     requests_mock.post(cortex_client.actions_api._get_url("get_action_status"),
                        json=get_action_status)
-    assert GetActionStatus.parse_obj(get_action_status) == cortex_client.actions_api.get_action_status(0)
+    assert GetActionStatus.parse_obj(get_action_status) == cortex_client.actions_api.get_action_status("0")
 
 
 def test_get_file_retrieval_details(requests_mock, cortex_client, get_action_status):

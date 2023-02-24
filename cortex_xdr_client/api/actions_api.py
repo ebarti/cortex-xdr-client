@@ -12,7 +12,7 @@ class ActionsAPI(BaseAPI):
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/get-action-status.html
     def get_action_status(self,
-                          group_action_id: int
+                          group_action_id: str
                           ) -> Optional[GetActionStatus]:
         """
         Retrieve the status of the requested actions according to the action ID.
@@ -20,6 +20,10 @@ class ActionsAPI(BaseAPI):
         :param group_action_id: String the represents the Action ID of the selected request.
         :return: Returns a GetActionStatus object if successful.
         """
+        try:
+            group_action_id = int(group_action_id)
+        except Exception as e:
+            raise TypeError("Excepted str got Invalid type for group_action_id")
         request_data = new_request_data(other={'group_action_id': group_action_id})
 
         response = self._call(call_name="get_action_status",
@@ -28,7 +32,7 @@ class ActionsAPI(BaseAPI):
 
     # https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/Cortex-XDR-API-Reference/File-Retrieval-Details
     def get_file_retrieval_details(self,
-                                   group_action_id: int
+                                   group_action_id: str
                                    ) -> Optional[GetActionStatus]:
         """
         Retrieve the status of the requested file retrieval action.
@@ -36,6 +40,10 @@ class ActionsAPI(BaseAPI):
         :param group_action_id: String the represents the Action ID of the selected request.
         :return: Returns a GetActionStatus object if successful.
         """
+        try:
+            group_action_id = int(group_action_id)
+        except Exception as e:
+            raise TypeError("Excepted str got Invalid type for group_action_id")
         request_data = new_request_data(other={'group_action_id': group_action_id})
 
         response = self._call(call_name="file_retrieval_details",
