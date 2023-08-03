@@ -1,13 +1,13 @@
-from cortex_xdr_client.api.models.alerts import GetAlertsResponse
 from cortex_xdr_client.api.models.action_status import GetActionStatus
+from cortex_xdr_client.api.models.alerts import GetAlertsResponse
 from cortex_xdr_client.api.models.endpoints import GetAllEndpointsResponse, GetEndpointResponse, ResponseActionResponse
-from cortex_xdr_client.api.models.incidents import GetIncidentsResponse, GetExtraIncidentDataResponse
-from cortex_xdr_client.api.models.scripts import (
-    GetScriptsResponse,
-    GetScriptMetadataResponse,
-    GetScriptsExecutionStatus,
-    GetScriptExecutionResults,
-)
+from cortex_xdr_client.api.models.incidents import GetExtraIncidentDataResponse, GetIncidentsResponse
+from cortex_xdr_client.api.models.ioc import IoC
+from cortex_xdr_client.api.models.scripts import (GetScriptExecutionResults,
+                                                  GetScriptMetadataResponse,
+                                                  GetScriptsExecutionStatus,
+                                                  GetScriptsResponse,
+                                                  )
 
 
 def test_get_alerts(requests_mock, cortex_client, get_alerts_response):
@@ -107,6 +107,7 @@ def test_start_xql(requests_mock, cortex_client, start_xql_response):
                        json=start_xql_response)
     assert start_xql_response['reply'] == cortex_client.xql_api.start_xql_query("")
 
+
 def test_get_action_status(requests_mock, cortex_client, get_action_status):
     requests_mock.post(cortex_client.actions_api._get_url("get_action_status"),
                        json=get_action_status)
@@ -130,15 +131,51 @@ def test_get_xql_result_stream(requests_mock, cortex_client, get_xql_result_stre
                        content=get_xql_result_stream_response)
     expected = {
         'data': [
-            {"event_id": "eventID", "insert_timestamp": "2021-05-18 14:24:51.681 UTC",
-             "_time": "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion", "event_type": "STORY",
-             "event_sub_type": "NULL"},
-            {"event_id": "eventID", "insert_timestamp": "2021-05-18 14:24:34.779 UTC",
-             "_time": "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion", "event_type": "STORY",
-             "event_sub_type": "NULL"},
-            {"event_id": "eventID", "insert_timestamp": "2021-05-18 14:24:49.664 UTC",
-             "_time": "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion", "event_type": "STORY",
-             "event_sub_type": "NULL"}
-        ]}
+            {
+                "event_id":       "eventID", "insert_timestamp": "2021-05-18 14:24:51.681 UTC",
+                "_time":          "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion",
+                "event_type":     "STORY",
+                "event_sub_type": "NULL"
+            },
+            {
+                "event_id":       "eventID", "insert_timestamp": "2021-05-18 14:24:34.779 UTC",
+                "_time":          "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion",
+                "event_type":     "STORY",
+                "event_sub_type": "NULL"
+            },
+            {
+                "event_id":       "eventID", "insert_timestamp": "2021-05-18 14:24:49.664 UTC",
+                "_time":          "2021-05-18 09:59:28 UTC", "_vendor": "PANW", "_product": "Fusion",
+                "event_type":     "STORY",
+                "event_sub_type": "NULL"
+            }
+        ]
+    }
     got = cortex_client.xql_api.get_query_results_stream("")
     assert expected == got
+
+
+def test_post_insert_json(cortex_client, get_url, post_insert_json_response, successful_response):
+    get_url.return_value = "https://stoplight.io/mocks/cortex-panw/cortex-xdr/183739843/public_api/v1/indicators/insert_jsons"
+    indicator = {
+        "indicator":   "<fgg>",
+        "type":        "HASH",
+        "comment":     "test",
+        "reputation":  "GOOD",
+        "reliability": "D",
+        "severity":    "high",
+        "vendors":     [
+            {
+                "vendor_name": "V1",
+                "reliability": "A",
+                "reputation":  "GOOD"
+            },
+            {
+                "vendor_name": "V2",
+                "reliability": "A",
+                "reputation":  "SUSPICIOUS"
+            }
+        ],
+        "class":       "Malware"
+    }
+    assert post_insert_json_response == cortex_client.ioc_api.insert_json([IoC.parse_obj(indicator)])
