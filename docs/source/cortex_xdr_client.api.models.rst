@@ -2,6 +2,13 @@ CortexXDRClient API Data Models
 ======================================
 
 
+Actions
+---------------------------------------------
+
+.. automodule:: cortex_xdr_client.api.models.action_status
+   :members:
+   :undoc-members:
+
 Alerts
 --------------------------------------------
 
@@ -30,16 +37,16 @@ Incidents
    :members:
    :undoc-members:
 
+IoC
+-----------------------------------------------
+
+.. automodule:: cortex_xdr_client.api.models.ioc
+   :members:
+   :undoc-members:
+
 Scripts
 ---------------------------------------------
 
 .. automodule:: cortex_xdr_client.api.models.scripts
-   :members:
-   :undoc-members:
-
-Actions
----------------------------------------------
-
-.. automodule:: cortex_xdr_client.api.models.action_status
    :members:
    :undoc-members:

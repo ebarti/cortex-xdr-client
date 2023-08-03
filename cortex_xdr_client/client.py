@@ -3,11 +3,12 @@ from typing import Tuple
 from cortex_xdr_client.api.actions_api import ActionsAPI
 from cortex_xdr_client.api.alerts_api import AlertsAPI
 from cortex_xdr_client.api.authentication import Authentication
+from cortex_xdr_client.api.download_api import DownloadAPI
 from cortex_xdr_client.api.endpoints_api import EndpointsAPI
 from cortex_xdr_client.api.incidents_api import IncidentsAPI
+from cortex_xdr_client.api.ioc_api import IocAPI
 from cortex_xdr_client.api.scripts_api import ScriptsAPI
 from cortex_xdr_client.api.xql_api import XQLAPI
-from cortex_xdr_client.api.download_api import DownloadAPI
 
 
 class CortexXDRClient(object):
@@ -18,6 +19,7 @@ class CortexXDRClient(object):
     xql_api: XQLAPI
     actions_api: ActionsAPI
     download_api: DownloadAPI
+    ioc_api: IocAPI
 
     def __init__(self, auth: Authentication, fqdn: str, default_timeout: Tuple[int, int] = (10, 60)) -> None:
         """
@@ -48,3 +50,6 @@ class CortexXDRClient(object):
         self.download_api = DownloadAPI(auth=auth,
                                       fqdn=fqdn,
                                       timeout=default_timeout)
+        self.ioc_api = IocAPI(auth=auth,
+                              fqdn=fqdn,
+                              timeout=default_timeout)

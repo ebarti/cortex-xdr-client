@@ -1,5 +1,6 @@
 import gzip
 import json
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -7,6 +8,7 @@ from cortex_xdr_client.api.alerts_api import AlertsAPI
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.endpoints_api import EndpointsAPI
 from cortex_xdr_client.api.incidents_api import IncidentsAPI
+from cortex_xdr_client.api.ioc_api import IocAPI
 from cortex_xdr_client.api.scripts_api import ScriptsAPI
 from cortex_xdr_client.api.xql_api import XQLAPI
 from cortex_xdr_client.client import CortexXDRClient
@@ -15,6 +17,25 @@ from cortex_xdr_client.client import CortexXDRClient
 @pytest.fixture
 def auth():
     return Authentication(api_key="a_key", api_key_id="a_key_id")
+
+
+@pytest.fixture
+def get_url():
+    mock = MagicMock()
+    with patch('cortex_xdr_client.api.base_api.BaseAPI._get_url', mock):
+        yield mock
+
+
+@pytest.fixture
+def successful_response():
+    mock = MagicMock()
+    mock.return_value = {
+        "Prefer":       "code=200",
+        "Content-Type": "application/json",
+        "Accept":       "application/json"
+    }
+    with patch('cortex_xdr_client.api.authentication.Authentication.get_headers', mock):
+        yield mock
 
 
 @pytest.fixture
@@ -35,6 +56,11 @@ def alerts_api(auth):
 @pytest.fixture
 def endpoints_api(auth):
     return EndpointsAPI(auth, "a_fqdn")
+
+
+@pytest.fixture
+def ioc_api(auth):
+    return IocAPI(auth, "a_fqdn")
 
 
 @pytest.fixture
@@ -1053,6 +1079,7 @@ def start_xql_response():
        """
     return json.loads(response)
 
+
 @pytest.fixture
 def get_action_status():
     response = r"""
@@ -1097,3 +1124,11 @@ def get_xql_result_stream_response():
        {"event_id":"eventID","insert_timestamp":"2021-05-18 14:24:49.664 UTC","_time":"2021-05-18 09:59:28 UTC","_vendor":"PANW","_product":"Fusion","event_type":"STORY","event_sub_type":"NULL"}
        """
     return gzip.compress(response.encode('utf-8'))
+
+
+@pytest.fixture
+def post_insert_json_response():
+    response = r"""
+    {"reply":{"success":true,"validation_errors":[{"indicator":"testtest.com","error":"Got type: HASH, Indicator: testtest.com mismatch"}]}}
+    """
+    return json.loads(response)
