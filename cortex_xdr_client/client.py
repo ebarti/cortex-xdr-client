@@ -25,7 +25,6 @@ class CortexXDRClient(object):
         """
         Constructor of the CortexXDRClient class. This class is used to interact with the Cortex XDR API.
         :param auth: The Authentication object containing type
-        :param api_key: The API key value to use.
         :param fqdn: The fully qualified domain name of the Cortex XDR server.
         :param default_timeout: The default timeout for API calls.
         """

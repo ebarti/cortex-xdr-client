@@ -163,7 +163,7 @@ def test_post_insert_json(cortex_client, get_url, post_insert_json_response, suc
         "comment":     "test",
         "reputation":  "GOOD",
         "reliability": "D",
-        "severity":    "high",
+        "severity": "HIGH",
         "vendors":     [
             {
                 "vendor_name": "V1",
