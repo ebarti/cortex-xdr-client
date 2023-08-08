@@ -264,6 +264,7 @@ class EndpointsAPI(BaseAPI):
         :param endpoint_id_list: List of endpoint IDs.
         :param file_path: String that represents the path of the file you want to quarantine. You must enter a proper path and not symbolic links.
         :param file_hash: String that represents the file’s hash. Hash must be a valid SHA256.
+        :param incident_id: When included in the request, the Quarantine File action will appear in the Cortex XDR Incident View Timeline tab.
         :return: A ResponseActionResponse object if successful.
         """
 
