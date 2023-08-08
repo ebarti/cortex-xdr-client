@@ -72,12 +72,12 @@ class IoCSeverity(str, Enum):
     IoC Severity Enum
     Represents the indicator's severity. Valid values are: informational, low, medium, high, critical, or unknown
     """
-    informational: str = 'informational'
-    low: str = 'low'
-    medium: str = 'medium'
-    high: str = 'high'
-    critical: str = 'critical'
-    unknown: str = 'unknown'
+    informational: str = 'INFORMATIONAL'
+    low: str = 'LOW'
+    medium: str = 'MEDIUM'
+    high: str = 'HIGH'
+    critical: str = 'CRITICAL'
+    unknown: str = 'UNKNOWN'
 
 
 class IoCType(str, Enum):
