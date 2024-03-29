@@ -108,3 +108,7 @@ class ResponseActionResponseItem(BaseModel):
 
 class ResponseActionResponse(BaseModel):
     reply: ResponseActionResponseItem
+
+
+class ResponseStatusResponse(BaseModel):
+    reply: bool

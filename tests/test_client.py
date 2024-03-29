@@ -1,6 +1,10 @@
 from cortex_xdr_client.api.models.action_status import GetActionStatus
 from cortex_xdr_client.api.models.alerts import GetAlertsResponse
-from cortex_xdr_client.api.models.endpoints import GetAllEndpointsResponse, GetEndpointResponse, ResponseActionResponse
+from cortex_xdr_client.api.models.endpoints import (GetAllEndpointsResponse,
+                                                    GetEndpointResponse,
+                                                    ResponseActionResponse,
+                                                    ResponseStatusResponse
+                                                    )
 from cortex_xdr_client.api.models.incidents import GetExtraIncidentDataResponse, GetIncidentsResponse
 from cortex_xdr_client.api.models.scripts import (GetScriptExecutionResults,
                                                   GetScriptMetadataResponse,
@@ -53,6 +57,13 @@ def test_scan_endpoints(requests_mock, cortex_client, get_scan_endpoints_respons
     requests_mock.post(cortex_client.endpoints_api._get_url("scan"),
                        json=get_scan_endpoints_response)
     assert ResponseActionResponse.parse_obj(get_scan_endpoints_response) == cortex_client.endpoints_api.scan_endpoints()
+
+
+def test_set_endpoint_aliast(requests_mock, cortex_client, get_set_endpoint_alias_response):
+    requests_mock.post(cortex_client.endpoints_api._get_url("update_agent_name"),
+                       json=get_set_endpoint_alias_response)
+    assert ResponseStatusResponse.parse_obj(
+        get_set_endpoint_alias_response) == cortex_client.endpoints_api.set_endpoint_alias('new_alias')
 
 
 def test_get_scripts(requests_mock, cortex_client, get_scripts_response):
