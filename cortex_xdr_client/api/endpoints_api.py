@@ -245,7 +245,7 @@ class EndpointsAPI(BaseAPI):
         if endpoint_status is not None:
             filters.append(request_filter("endpoint_status", "in", endpoint_status))
 
-        request_data = new_request_data(filters=filters)
+        request_data = new_request_data(filters=filters, other={"alias": new_alias})
 
         response = self._call(call_name="update_agent_name",
                               json_value=request_data)
