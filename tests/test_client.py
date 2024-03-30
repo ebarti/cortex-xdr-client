@@ -59,7 +59,7 @@ def test_scan_endpoints(requests_mock, cortex_client, get_scan_endpoints_respons
     assert ResponseActionResponse.parse_obj(get_scan_endpoints_response) == cortex_client.endpoints_api.scan_endpoints()
 
 
-def test_set_endpoint_aliast(requests_mock, cortex_client, get_set_endpoint_alias_response):
+def test_set_endpoint_alias(requests_mock, cortex_client, get_set_endpoint_alias_response):
     requests_mock.post(cortex_client.endpoints_api._get_url("update_agent_name"),
                        json=get_set_endpoint_alias_response)
     assert ResponseStatusResponse.parse_obj(
