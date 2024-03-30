@@ -233,7 +233,22 @@ class EndpointsAPI(BaseAPI):
                            alias: List[str] = None,
                            isolate: List[IsolateStatus] = None,
                            hostname: List[str] = None,
-                           ):
+                           ) -> Optional[ResponseStatusResponse]:
+        """
+        Set or modify an Alias field for your endpoints.
+
+        :param new_alias: The alias name you want to set or modify.
+        :param endpoint_id_list: List of endpoint IDs.
+        :param endpoint_status: Status of the endpoint ID.
+        :param dist_name: Distribution / Installation Package name.
+        :param ip_list: List of IP addresses.
+        :param group_name: Group name the agent belongs to.
+        :param platform: Platform name.
+        :param alias: Alias name.
+        :param isolate: If the endpoint was isolated.
+        :param hostname: Hostname
+        :return: A ResponseStatusResponse if successful.
+        """
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
                                                     dist_name=dist_name,
                                                     ip_list=ip_list,
