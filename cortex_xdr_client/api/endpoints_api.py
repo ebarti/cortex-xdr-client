@@ -8,6 +8,7 @@ from cortex_xdr_client.api.models.endpoints import (EndpointPlatform,
                                                     GetEndpointResponse,
                                                     IsolateStatus,
                                                     ResponseActionResponse,
+                                                    ResponseStatusResponse,
                                                     ScanStatus,
                                                     )
 from cortex_xdr_client.api.models.filters import (new_request_data, request_filter, request_gte_lte_filter)
@@ -219,6 +220,52 @@ class EndpointsAPI(BaseAPI):
         response = self._call(call_name="scan",
                               json_value=request_data)
         return ResponseActionResponse.parse_obj(response.json())
+
+    # https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR-REST-API/Set-an-Endpoint-Alias
+    def set_endpoint_alias(self,
+                           new_alias: str,
+                           endpoint_id_list: List[str] = None,
+                           endpoint_status: EndpointStatus = None,
+                           dist_name: str = None,
+                           ip_list: List[str] = None,
+                           group_name: List[str] = None,
+                           platform: List[EndpointPlatform] = None,
+                           alias: List[str] = None,
+                           isolate: List[IsolateStatus] = None,
+                           hostname: List[str] = None,
+                           ) -> Optional[ResponseStatusResponse]:
+        """
+        Set or modify an Alias field for your endpoints.
+
+        :param new_alias: The alias name you want to set or modify.
+        :param endpoint_id_list: List of endpoint IDs.
+        :param endpoint_status: Status of the endpoint ID.
+        :param dist_name: Distribution / Installation Package name.
+        :param ip_list: List of IP addresses.
+        :param group_name: Group name the agent belongs to.
+        :param platform: Platform name.
+        :param alias: Alias name.
+        :param isolate: If the endpoint was isolated.
+        :param hostname: Hostname
+        :return: A ResponseStatusResponse if successful.
+        """
+        filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
+                                                    dist_name=dist_name,
+                                                    ip_list=ip_list,
+                                                    group_name=group_name,
+                                                    platform=platform,
+                                                    alias=alias,
+                                                    isolate=isolate,
+                                                    hostname=hostname)
+        if endpoint_status is not None:
+            filters.append(request_filter("endpoint_status", "in", endpoint_status))
+
+        request_data = new_request_data(filters=filters, other={"alias": new_alias})
+
+        response = self._call(call_name="update_agent_name",
+                              json_value=request_data)
+
+        return ResponseStatusResponse.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
     def retrieve_file(self,

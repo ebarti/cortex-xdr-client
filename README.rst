@@ -23,6 +23,7 @@ Currently, it supports the following Cortex XDR **Prevent & Pro** APIs:
 -  `Isolate Endpoints <https://cortex-panw.stoplight.io/docs/cortex-xdr/9c730a966cdd8-isolate-endpoints>`__
 -  `Unisolate Endpoints <https://cortex-panw.stoplight.io/docs/cortex-xdr/c719336adb46b-unisolate-endpoints>`__
 -  `Scan Endpoints <https://cortex-panw.stoplight.io/docs/cortex-xdr/2e666ee0be1c6-scan-endpoints>`__
+-  `Set an Endpoint Alias <https://cortex-panw.stoplight.io/docs/cortex-xdr/c1ff89fa71c74-set-an-endpoint-alias>`__
 -  `Retrieve File <https://cortex-panw.stoplight.io/docs/cortex-xdr/08b1ba9fcfae0-retrieve-file>`__
 -  `Quarantine File <https://cortex-panw.stoplight.io/docs/cortex-xdr/76e8cca7fcb2e-quarantine-files>`__
 

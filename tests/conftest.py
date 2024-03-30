@@ -865,6 +865,16 @@ def get_scripts_response():
 
 
 @pytest.fixture
+def get_set_endpoint_alias_response():
+    response = r"""
+    {
+        "reply": true
+    }
+    """
+    return json.loads(response)
+
+
+@pytest.fixture
 def get_script_metadata_response():
     response = r"""
        {
