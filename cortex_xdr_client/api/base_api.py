@@ -25,8 +25,7 @@ class BaseAPI:
         if header_params is None:
             header_params = {}
         url = self._get_url(call_name)
-        headers = self._auth.get_headers()
-        self.extend(headers, header_params)
+        headers = self.extend(self._auth.get_headers(), header_params)
 
         return self._execute_call(url=url,
                                   method=method,
