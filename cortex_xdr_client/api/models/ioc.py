@@ -1,10 +1,13 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from cortex_xdr_client.api.models.base import CustomBaseModel
 
 
-class ValidationError(BaseModel):
+class ValidationError(CustomBaseModel):
     """
     Validation Error Model
     Represents a validation error.
@@ -13,7 +16,7 @@ class ValidationError(BaseModel):
     error: str
 
 
-class IoCResponseItem(BaseModel):
+class IoCResponseItem(CustomBaseModel):
     """
     IoC Response Item Model
     Represents the response item of the IoC API.
@@ -22,7 +25,7 @@ class IoCResponseItem(BaseModel):
     validation_errors: List[ValidationError]
 
 
-class IoCResponse(BaseModel):
+class IoCResponse(CustomBaseModel):
     """
     IoC Response Model
     Represents the response of the IoC API.
@@ -41,7 +44,7 @@ class Reputation(str, Enum):
     UNKNOWN: str = 'UNKNOWN'
 
 
-class Vendor(BaseModel):
+class Vendor(CustomBaseModel):
     """
     Vendor Model
     Represents a vendor.
@@ -49,9 +52,6 @@ class Vendor(BaseModel):
     vendor_name: str
     reliability: str
     reputation: Reputation
-
-    class Config:
-        use_enum_values = True
 
 
 class IoCReliability(str, Enum):
@@ -91,7 +91,7 @@ class IoCType(str, Enum):
     FILENAME: str = 'FILENAME'
 
 
-class IoC(BaseModel):
+class IoC(CustomBaseModel):
     """
     IoC Model
     Represents an Indicator of Compromise (IoC).
@@ -106,6 +106,3 @@ class IoC(BaseModel):
     severity: IoCSeverity
     vendors: List[Vendor]
     class_: str = Field(str, alias='class')
-
-    class Config:
-        use_enum_values = True

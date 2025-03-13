@@ -1,7 +1,10 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
 from pydantic import BaseModel
+
+from cortex_xdr_client.api.models.base import CustomBaseModel
 
 
 class IncidentStatus(str, Enum):
@@ -18,7 +21,11 @@ class IncidentStatus(str, Enum):
     RESOLVED_AUTO_RESOLVE = "resolved_auto_resolve"
 
 
-class Incident(BaseModel):
+class UpdateIncidentResponse(BaseModel):
+    reply: bool
+
+
+class Incident(CustomBaseModel):
     alert_categories: Optional[List[str]]
     alert_count: Optional[int]
     alerts_grouping_status: Optional[str]
@@ -53,17 +60,17 @@ class Incident(BaseModel):
     xdr_url: Optional[str]
 
 
-class GetIncidentsResponseItem(BaseModel):
+class GetIncidentsResponseItem(CustomBaseModel):
     total_count: Optional[int]
     result_count: Optional[int]
     incidents: List[Incident]
 
 
-class GetIncidentsResponse(BaseModel):
+class GetIncidentsResponse(CustomBaseModel):
     reply: GetIncidentsResponseItem
 
 
-class AlertsDatum(BaseModel):
+class AlertsDatum(CustomBaseModel):
     action: Optional[str]
     action_country: Optional[str]
     action_external_hostname: Optional[str]
@@ -194,7 +201,7 @@ class AlertsDatum(BaseModel):
     user_name: Optional[str]
 
 
-class NetworkArtifactsDatum(BaseModel):
+class NetworkArtifactsDatum(CustomBaseModel):
     alert_count: Optional[int]
     is_manual: Optional[bool]
     network_country: Optional[str]
@@ -204,22 +211,22 @@ class NetworkArtifactsDatum(BaseModel):
     type: Optional[str]
 
 
-class AlertDatums(BaseModel):
+class AlertDatums(CustomBaseModel):
     total_count: Optional[int]
     data: List[AlertsDatum]
 
 
-class NetworkArtifacts(BaseModel):
+class NetworkArtifacts(CustomBaseModel):
     total_count: Optional[int]
     data: List[NetworkArtifactsDatum]
 
 
-class GetExtraIncidentDataResponseItem(BaseModel):
+class GetExtraIncidentDataResponseItem(CustomBaseModel):
     alerts: AlertDatums
     file_artifacts: AlertDatums
     incident: Incident
     network_artifacts: NetworkArtifacts
 
 
-class GetExtraIncidentDataResponse(BaseModel):
+class GetExtraIncidentDataResponse(CustomBaseModel):
     reply: GetExtraIncidentDataResponseItem

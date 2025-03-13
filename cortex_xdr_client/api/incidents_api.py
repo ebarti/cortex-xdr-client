@@ -1,14 +1,18 @@
-from typing import List, Optional, Tuple
+from typing import List
+from typing import Optional
+from typing import Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
-from cortex_xdr_client.api.models.filters import (new_request_data,
-                                                  request_eq_neq_filter,
-                                                  request_filter,
-                                                  request_gte_lte_filter,
-                                                  request_in_contains_filter,
-                                                  )
-from cortex_xdr_client.api.models.incidents import (GetExtraIncidentDataResponse, GetIncidentsResponse, IncidentStatus)
+from cortex_xdr_client.api.models.filters import new_request_data
+from cortex_xdr_client.api.models.filters import request_eq_neq_filter
+from cortex_xdr_client.api.models.filters import request_filter
+from cortex_xdr_client.api.models.filters import request_gte_lte_filter
+from cortex_xdr_client.api.models.filters import request_in_contains_filter
+from cortex_xdr_client.api.models.incidents import GetExtraIncidentDataResponse
+from cortex_xdr_client.api.models.incidents import GetIncidentsResponse
+from cortex_xdr_client.api.models.incidents import IncidentStatus
+from cortex_xdr_client.api.models.incidents import UpdateIncidentResponse
 
 
 class IncidentsAPI(BaseAPI):
@@ -18,7 +22,7 @@ class IncidentsAPI(BaseAPI):
     @staticmethod
     def _get_incident_extra_data_filter(incident_id: str, alerts_limit: int) -> dict:
         return {
-            "incident_id":  incident_id,
+            "incident_id": incident_id,
             "alerts_limit": alerts_limit
         }
 
@@ -76,6 +80,40 @@ class IncidentsAPI(BaseAPI):
         request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
         response = self._call(call_name="get_incidents", json_value=request_data)
         return GetIncidentsResponse.parse_obj(response.json())
+
+    def update_incident(self,
+                        incident_id: str,
+                        assigned_user_mail: Optional[str] = None,
+                        assigned_user_pretty_name: Optional[str] = None,
+                        manual_severity: Optional[str] = None,
+                        status: Optional[str] = None,
+                        resolve_comment: Optional[str] = None,
+                        comment: Optional[str] = None) -> UpdateIncidentResponse:
+        update_data = {}
+
+        if comment is not None:
+            update_data['comment'] = {'comment_action': 'add', 'value': comment}
+
+        if assigned_user_mail is not None:
+            update_data['assigned_user_mail'] = assigned_user_mail
+
+        if assigned_user_pretty_name is not None:
+            update_data['assigned_user_pretty_name'] = assigned_user_pretty_name
+
+        if manual_severity is not None:
+            update_data['manual_severity'] = manual_severity
+
+        if status is not None:
+            update_data['status'] = status
+
+        if resolve_comment is not None:
+            update_data['resolve_comment'] = resolve_comment
+
+        request_data = new_request_data(other=dict(incident_id=incident_id, update_data=update_data))
+        response = self._call(call_name='update_incident',
+                              json_value=request_data)
+
+        return UpdateIncidentResponse.parse_obj(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html
     def get_incident_extra_data(self,

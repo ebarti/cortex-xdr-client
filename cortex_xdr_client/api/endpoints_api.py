@@ -270,7 +270,7 @@ class EndpointsAPI(BaseAPI):
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/retrieve-file.html
     def retrieve_file(self,
                       endpoint_id_list: List[str] = None,
-                      files: Dict[str, List[str]] = None,
+                      files: Dict[str, dict[str, List[str]]]  = None,
                       incident_id: str = None,
                       ) -> Optional[ResponseActionResponse]:
         """

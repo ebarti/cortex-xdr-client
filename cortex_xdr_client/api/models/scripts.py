@@ -1,10 +1,12 @@
 from datetime import datetime
-from typing import List, Optional, Union
+from typing import List
+from typing import Optional
+from typing import Union
 
-from pydantic import BaseModel
+from cortex_xdr_client.api.models.base import CustomBaseModel
 
 
-class Script(BaseModel):
+class Script(CustomBaseModel):
     script_id: Optional[int]
     name: Optional[str]
     description: Optional[str]
@@ -17,13 +19,13 @@ class Script(BaseModel):
     script_uid: Optional[str]
 
 
-class GetScriptsResponse(BaseModel):
+class GetScriptsResponse(CustomBaseModel):
     total_count: Optional[int]
     result_count: Optional[int]
     scripts: Optional[List[Script]]
 
 
-class GetScriptsExecutionStatus(BaseModel):
+class GetScriptsExecutionStatus(CustomBaseModel):
     general_status: Optional[str]
     endpoints_pending: Optional[int]
     endpoints_canceled: Optional[int]
@@ -36,13 +38,13 @@ class GetScriptsExecutionStatus(BaseModel):
     endpoints_expired: Optional[int]
 
 
-class ScriptIO(BaseModel):
+class ScriptIO(CustomBaseModel):
     name: Optional[str]
     value: Optional[str]
     type: Optional[str]
 
 
-class GetScriptMetadataResponse(BaseModel):
+class GetScriptMetadataResponse(CustomBaseModel):
     script_id: Optional[int]
     name: Optional[str]
     description: Optional[str]
@@ -59,7 +61,7 @@ class GetScriptMetadataResponse(BaseModel):
     script_output_dictionary_definitions: Optional[List[ScriptIO]]
 
 
-class ScriptExecutionResult(BaseModel):
+class ScriptExecutionResult(CustomBaseModel):
     endpoint_name: Optional[str]
     endpoint_ip_address: Optional[List[str]]
     endpoint_status: Optional[str]
@@ -72,7 +74,7 @@ class ScriptExecutionResult(BaseModel):
     retention_date: Optional[int]
 
 
-class GetScriptExecutionResults(BaseModel):
+class GetScriptExecutionResults(CustomBaseModel):
     script_name: Optional[str]
     script_description: Optional[str]
     script_parameters: Optional[List[ScriptIO]]
