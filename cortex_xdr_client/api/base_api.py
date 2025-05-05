@@ -10,7 +10,7 @@ class BaseAPI:
         self, auth: Authentication, fqdn: str, api_name: str, timeout: tuple[int, int]
     ) -> None:
         self._auth = auth
-        self._fqdn = fqdn
+        self._fqdn = fqdn.replace('api-', '') if fqdn.startswith('api-') else fqdn
         self._requests_timeout = timeout
         self._api_name = api_name
 
