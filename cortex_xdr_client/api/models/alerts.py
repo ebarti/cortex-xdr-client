@@ -22,6 +22,7 @@ class QuerySortType(str, Enum):
 
     SEVERITY = "severity"
     CREATION_TIME = "creation_time"
+    LAST_MODIFIED_TS = "last_modified_ts"
 
 
 class QuerySortOrder(str, Enum):
