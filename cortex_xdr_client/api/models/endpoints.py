@@ -11,6 +11,7 @@ class EndpointStatus(Enum):
     connected = "CONNECTED"
     disconnected = "DISCONNECTED"
     lost = "LOST"
+    uninstalled = "UNINSTALLED"
 
 
 class EndpointPlatform(Enum):
@@ -86,8 +87,23 @@ class Endpoint(BaseModel):
     users: Union[Optional[List[str]], Optional[str]]
     mac_address: Optional[List[str]]
 
+    os_version: Optional[str]
+    public_ip: Optional[str]
+    ipv6: Optional[List[str]]
+    operational_status_details: Optional[List[dict]]
+    content_release_timestamp: Optional[int]
+    content_status: Optional[str]
+    operating_system: Optional[str]
+    assigned_prevention_policy: Optional[str]
+    assigned_extensions_policy: Optional[str]
+    cloud_provider: Optional[str]
+    cloud_region: Optional[str]
+    cloud_provider_account_id: Optional[str]
+    cloud_instance_id: Optional[str]
+    cloud_id: Optional[str]
+
     class Config:
-        use_enum_names = True
+        extra = 'allow'
 
 
 class GetEndpointResponseItem(BaseModel):

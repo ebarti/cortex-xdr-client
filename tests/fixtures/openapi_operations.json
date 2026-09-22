@@ -1,0 +1,1057 @@
+[
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-legacy-broker-papi.yaml",
+    "sha256": "2cde2729bd2247ea6de0ca31485c39e3a3b4720cece10f434ed1a2e01f4683ed",
+    "product_version": 3,
+    "operations": {
+      "/public_api/v1/brokers/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/{device_id}/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/delete/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/registration_token/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/reboot/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/shutdown/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/upgrade/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/action_status/{action_id}/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/images/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/{device_id}/logs/generate/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/logs/status/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/{device_id}/logs/download/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/{applet_name}/": [
+        "get"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/{applet_name}/config/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/{applet_name}/activate/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/{applet_name}/deactivate/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/wec/wef_cert/": [
+        "post"
+      ],
+      "/public_api/v1/brokers/{device_id}/applets/network_mapper/scan_now/": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-legacy-cortex-xdr.json",
+    "sha256": "5525c5bc099be795f7ccd09e33ef38ece6ff5ddf00d7ddd616e1f6c4970c4009",
+    "product_version": 3,
+    "operations": {
+      "/public_api/v1/xql/start_xql_query": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_query_results": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_quota": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_query_results_stream": [
+        "post"
+      ],
+      "/public_api/v1/incidents/get_incidents": [
+        "post"
+      ],
+      "/public_api/v1/alerts/get_alerts": [
+        "post"
+      ],
+      "/public_api/v1/incidents/update_incident": [
+        "post"
+      ],
+      "/public_api/v1/alerts/update_alerts": [
+        "post"
+      ],
+      "/public_api/v1/alerts/insert_cef_alerts": [
+        "post"
+      ],
+      "/public_api/v1/alerts/insert_parsed_alerts": [
+        "post"
+      ],
+      "/public_api/v1/alerts/get_alerts_pcap": [
+        "post"
+      ],
+      "/public_api/v2/alerts/get_alerts_multi_events": [
+        "post"
+      ],
+      "/public_api/v1/alerts/get_alerts_multi_events": [
+        "post"
+      ],
+      "/public_api/v1/featured_fields/replace_hosts": [
+        "post"
+      ],
+      "/public_api/v1/featured_fields/replace_users": [
+        "post"
+      ],
+      "/public_api/v1/featured_fields/replace_ip_addresses": [
+        "post"
+      ],
+      "/public_api/v1/featured_fields/replace_ad_groups": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_endpoints": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_endpoint": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/update_agent_name": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_policy": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/terminate_process": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/terminate_causality": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/delete": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_profiles": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/get_modules": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/fetch": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/add": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/edit": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/delete": [
+        "post"
+      ],
+      "/public_api/v1/disable_injection_prevention_rules/fetch": [
+        "post"
+      ],
+      "/public_api/v1/disable_injection_prevention_rules/add": [
+        "post"
+      ],
+      "/public_api/v1/disable_injection_prevention_rules/disable": [
+        "post"
+      ],
+      "/public_api/v1/disable_prevention/fetch": [
+        "post"
+      ],
+      "/public_api/v1/disable_prevention/get_modules": [
+        "post"
+      ],
+      "/public_api/v1/disable_prevention/add": [
+        "post"
+      ],
+      "/public_api/v1/disable_prevention/edit": [
+        "post"
+      ],
+      "/public_api/v1/disable_prevention/delete": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_versions": [
+        "post"
+      ],
+      "/public_api/v1/distributions/create": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_status": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_dist_url": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_distributions": [
+        "post"
+      ],
+      "/public_api/v1/distributions/delete": [
+        "post"
+      ],
+      "/public_api/v1/device_control/get_violations": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/assign": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/create": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/remove": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/restore": [
+        "post"
+      ],
+      "/public_api/v1/actions/file_retrieval_details": [
+        "post"
+      ],
+      "/public_api/v1/hash_exceptions/allowlist": [
+        "post"
+      ],
+      "/public_api/v1/quarantine/status": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/quarantine": [
+        "post"
+      ],
+      "/public_api/v1/hash_exceptions/blocklist": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/unisolate": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/abort_scan": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/scan": [
+        "post"
+      ],
+      "/public_api/v1/actions/get_action_status": [
+        "post"
+      ],
+      "/public_api/v1/scripts/run_snippet_code_script": [
+        "post"
+      ],
+      "/public_api/v1/scripts/run_script": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_metadata": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_scripts": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_status": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_results": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_results_files": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_code": [
+        "post"
+      ],
+      "/public_api/v1/indicators/insert_csv": [
+        "post"
+      ],
+      "/public_api/v1/indicators/insert_jsons": [
+        "post"
+      ],
+      "/public_api/v1/audits/management_logs": [
+        "post"
+      ],
+      "/public_api/v1/healthcheck": [
+        "get"
+      ],
+      "/public_api/v1/system/get_tenant_info": [
+        "post"
+      ],
+      "/public_api/v1/incidents/get_incident_extra_data": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_users": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_roles": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_user_group": [
+        "post"
+      ],
+      "/public_api/v1/rbac/set_user_role": [
+        "post"
+      ],
+      "/public_api/v1/get_risk_score": [
+        "post"
+      ],
+      "/public_api/v1/get_risky_users": [
+        "post"
+      ],
+      "/public_api/v1/get_risky_hosts": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/file_retrieval": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/isolate": [
+        "post"
+      ],
+      "/public_api/v1/audits/agents_reports": [
+        "post"
+      ],
+      "/public_api/v1/triage_endpoint": [
+        "post"
+      ],
+      "/public_api/v1/xql/add_dataset": [
+        "post"
+      ],
+      "/public_api/v2/xql/delete_dataset": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_datasets": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/add_data": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/remove_data": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/get_data": [
+        "post"
+      ],
+      "/public_api/v1/get_triage_presets": [
+        "post"
+      ],
+      "/public_api/v1/automations/get_automation_rules": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/create": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/get": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/update": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/delete": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/test": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/create": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/update": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/delete": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/get/settings": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/get/metadata": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/add": [
+        "post"
+      ],
+      "/public_api/v1/profiles/add_signer_cn_to_allowlist": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/edit": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/get_modules": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/delete_permanently": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-platform-agent-configurations-papi.yaml",
+    "sha256": "90d70c3fbd18f019bed5e68bc85d551c6f263a3a86d30735816b404303d42d16",
+    "product_version": 5,
+    "operations": {
+      "/public_api/v1/configurations/agent/content_management": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/content_management/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/agent_status": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/agent_status/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/auto_upgrade": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/auto_upgrade/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/wildfire_analysis": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/wildfire_analysis/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/informative_btp_issues": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/informative_btp_issues/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/cortex_xdr_log_collection": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/cortex_xdr_log_collection/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/action_center_expiration": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/action_center_expiration/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/critical_environment_versions": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/critical_environment_versions/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/advanced_analysis": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/advanced_analysis/set": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/endpoint_administration_cleanup": [
+        "post"
+      ],
+      "/public_api/v1/configurations/agent/endpoint_administration_cleanup/set": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-platform-appsec-papi.json",
+    "sha256": "d612351dccab815d87b2060961722eee2eb072303c2048cda48be1bdb5a52dc1",
+    "product_version": 5,
+    "operations": {
+      "/public_api/appsec/v1/billing/contributors": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/configuration": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application": [
+        "get",
+        "post"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}": [
+        "delete",
+        "get",
+        "put"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}/assets/addable": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}/assets/removable": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}/assets/override": [
+        "post"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}/assets/overrides": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/{applicationId}/assets/overrides/{actionId}": [
+        "delete"
+      ],
+      "/public_api/appsec/v1/policies": [
+        "get",
+        "post"
+      ],
+      "/public_api/appsec/v1/rules": [
+        "get",
+        "post"
+      ],
+      "/public_api/appsec/v1/rules/{ruleId}": [
+        "delete",
+        "get",
+        "patch"
+      ],
+      "/public_api/appsec/v1/rules/rule-labels": [
+        "get"
+      ],
+      "/public_api/appsec/v1/rules/validate": [
+        "post"
+      ],
+      "/public_api/appsec/v1/repositories": [
+        "get"
+      ],
+      "/public_api/appsec/v1/repositories/{assetId}": [
+        "get"
+      ],
+      "/public_api/appsec/v1/repositories/{assetId}/scan-configuration": [
+        "get",
+        "put"
+      ],
+      "/public_api/appsec/v1/repositories/{assetId}/branches": [
+        "get",
+        "put"
+      ],
+      "/public_api/appsec/v1/scans/unscanned-repositories": [
+        "get"
+      ],
+      "/public_api/appsec/v1/sbom/repository": [
+        "get"
+      ],
+      "/public_api/appsec/v1/sbom/organization": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scans/periodic": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scans/pr": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scans/ci": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scans/{scanId}/issues": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scans/{scanId}/findings": [
+        "get"
+      ],
+      "/public_api/appsec/v1/scan/repository/{repositoryId}": [
+        "post"
+      ],
+      "/public_api/appsec/v1/policies/{policyId}": [
+        "delete",
+        "get",
+        "put"
+      ],
+      "/public_api/appsec/v1/operational-risk": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/criteria/all": [
+        "get"
+      ],
+      "/public_api/appsec/v1/application/criteria/{criteriaId}": [
+        "delete",
+        "get"
+      ],
+      "/public_api/appsec/v1/application/criteria": [
+        "post"
+      ],
+      "/public_api/appsec/v1/issues/fix/{issueId}/fix_suggestion": [
+        "get"
+      ],
+      "/public_api/appsec/v1/issues/fix/trigger_fix_pull_request": [
+        "post"
+      ],
+      "/public_api/appsec/v1/issues/fix/{remediationId}": [
+        "get"
+      ],
+      "/public_api/appsec/v1/data_source_instances": [
+        "get",
+        "post"
+      ],
+      "/public_api/appsec/v1/data_source_instances/{id}": [
+        "delete",
+        "get",
+        "put"
+      ],
+      "/public_api/appsec/v1/collectors/{collectorId}": [
+        "post"
+      ],
+      "/get /public_api/appsec/v1/package_explorer/packages/{name}/versions/{version}": [
+        "get"
+      ],
+      "/public_api/appsec/v1/code-to-cloud/coverage": [
+        "get"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-platform-asset-compliance-papi.yaml",
+    "sha256": "abe2b2d62f2d273f309b69733564ff65e2128213e83d9e727770015da5c6ee7b",
+    "product_version": 5,
+    "operations": {
+      "/public_api/v1/compliance/get_asset": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-platform-cortex-platform-papi.json",
+    "sha256": "673b2f0a8cf46a50847c2e28e6e42417069f1177639c6bc1ba4fcf2f6b68810e",
+    "product_version": 5,
+    "operations": {
+      "/public_api/v1/cli/releases/version": [
+        "get"
+      ],
+      "/public_api/v1/xql/start_xql_query": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_query_results": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_quota": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_query_results_stream": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_versions": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_endpoints": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_policy": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/delete": [
+        "post"
+      ],
+      "/public_api/v1/distributions/create": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_distributions": [
+        "post"
+      ],
+      "/public_api/v1/device_control/get_violations": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_status": [
+        "post"
+      ],
+      "/public_api/v1/distributions/get_dist_url": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/update_agent_name": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/assign": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/create": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/remove": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/restore": [
+        "post"
+      ],
+      "/public_api/v1/actions/file_retrieval_details": [
+        "post"
+      ],
+      "/public_api/v1/hash_exceptions/allowlist": [
+        "post"
+      ],
+      "/public_api/v1/quarantine/status": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/quarantine": [
+        "post"
+      ],
+      "/public_api/v1/hash_exceptions/blocklist": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/unisolate": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/abort_scan": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/scan": [
+        "post"
+      ],
+      "/public_api/v1/actions/get_action_status": [
+        "post"
+      ],
+      "/public_api/v1/scripts/run_snippet_code_script": [
+        "post"
+      ],
+      "/public_api/v1/scripts/run_script": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_metadata": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_status": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_scripts": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_results": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_execution_results_files": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get_script_code": [
+        "post"
+      ],
+      "/public_api/v1/indicators/insert_csv": [
+        "post"
+      ],
+      "/public_api/v1/indicators/insert_jsons": [
+        "post"
+      ],
+      "/public_api/v1/audits/management_logs": [
+        "post"
+      ],
+      "/public_api/v1/healthcheck": [
+        "get"
+      ],
+      "/public_api/v1/system/get_tenant_info": [
+        "post"
+      ],
+      "/public_api/v1/api_keys/get_api_keys": [
+        "post"
+      ],
+      "/public_api/v1/api_keys/generate": [
+        "post"
+      ],
+      "/public_api/v1/api_keys/delete": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_users": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_roles": [
+        "post"
+      ],
+      "/public_api/v1/rbac/get_user_group": [
+        "post"
+      ],
+      "/public_api/v1/rbac/set_user_role": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_endpoint": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/file_retrieval": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/isolate": [
+        "post"
+      ],
+      "/public_api/v1/audits/agents_reports": [
+        "post"
+      ],
+      "/public_api/v1/triage_endpoint": [
+        "post"
+      ],
+      "/public_api/v1/assets/bulk_update_vulnerability_tests": [
+        "post"
+      ],
+      "/public_api/v1/xql/add_dataset": [
+        "post"
+      ],
+      "/public_api/v2/xql/delete_dataset": [
+        "post"
+      ],
+      "/public_api/v1/xql/get_datasets": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/add_data": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/remove_data": [
+        "post"
+      ],
+      "/public_api/v1/xql/lookups/get_data": [
+        "post"
+      ],
+      "/public_api/v1/get_triage_presets": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/create": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/update": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/delete": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/get/settings": [
+        "post"
+      ],
+      "/public_api/v1/authentication-settings/get/metadata": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/create": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/get": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/update": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/delete": [
+        "post"
+      ],
+      "/public_api/v1/integrations/syslog/test": [
+        "post"
+      ],
+      "/public_api/v1/distributions/delete": [
+        "post"
+      ],
+      "/public_api/v1/scheduled_queries/list": [
+        "post"
+      ],
+      "/public_api/v1/scheduled_queries/insert": [
+        "post"
+      ],
+      "/public_api/v1/scheduled_queries/delete": [
+        "post"
+      ],
+      "/public_api/xql_library/get": [
+        "post"
+      ],
+      "/public_api/xql_library/insert": [
+        "post"
+      ],
+      "/public_api/xql_library/delete": [
+        "post"
+      ],
+      "/public_api/v1/indicators/get": [
+        "post"
+      ],
+      "/public_api/v1/indicators/insert": [
+        "post"
+      ],
+      "/public_api/v1/indicators/delete": [
+        "post"
+      ],
+      "/public_api/v1/bioc/get": [
+        "post"
+      ],
+      "/public_api/v1/bioc/insert": [
+        "post"
+      ],
+      "/public_api/v1/bioc/delete": [
+        "post"
+      ],
+      "/public_api/v1/correlations/get": [
+        "post"
+      ],
+      "/public_api/v1/correlations/insert": [
+        "post"
+      ],
+      "/public_api/v1/correlations/delete": [
+        "post"
+      ],
+      "/public_api/v1/playbooks/get": [
+        "post"
+      ],
+      "/public_api/v1/playbooks/insert": [
+        "post"
+      ],
+      "/public_api/v1/playbooks/delete": [
+        "post"
+      ],
+      "/public_api/v1/scripts/get": [
+        "post"
+      ],
+      "/public_api/v1/scripts/insert": [
+        "post"
+      ],
+      "/public_api/v1/scripts/delete": [
+        "post"
+      ],
+      "/public_api/v1/dashboards/get": [
+        "post"
+      ],
+      "/public_api/v1/dashboards/insert": [
+        "post"
+      ],
+      "/public_api/v1/dashboards/delete": [
+        "post"
+      ],
+      "/public_api/v1/widgets/get": [
+        "post"
+      ],
+      "/public_api/v1/widgets/insert": [
+        "post"
+      ],
+      "/public_api/v1/widgets/delete": [
+        "post"
+      ],
+      "/public_api/v1/assets": [
+        "post"
+      ],
+      "/public_api/v1/assets/{id}": [
+        "get"
+      ],
+      "/public_api/v1/assets/{id}/raw_fields": [
+        "get"
+      ],
+      "/public_api/v1/assets/schema": [
+        "get"
+      ],
+      "/public_api/v1/assets/enum/{field_name}": [
+        "get"
+      ],
+      "/public_api/v1/asset-groups": [
+        "post"
+      ],
+      "/public_api/v1/asset-groups/create": [
+        "post"
+      ],
+      "/public_api/v1/asset-groups/update/{group_id}": [
+        "post"
+      ],
+      "/public_api/v1/asset-groups/delete/{group_id}": [
+        "post"
+      ],
+      "/public_api/v1/tags/agents/delete_permanently": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/upgrade": [
+        "post"
+      ],
+      "/public_api/v1/endpoints/get_profiles": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/get_modules": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/fetch": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/add": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/edit": [
+        "post"
+      ],
+      "/public_api/v1/legacy_exceptions/delete": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/add": [
+        "post"
+      ],
+      "/public_api/v1/profiles/add_signer_cn_to_allowlist": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/edit": [
+        "post"
+      ],
+      "/public_api/v1/profiles/prevention/get_modules": [
+        "post"
+      ],
+      "/public_api/v1/policies/prevention/edit": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://openapi.gitbook.com/o/r4DIGbR5VLvkZy3gAYsu/spec/release-xdr-platform-platform-notifications-papi.json",
+    "sha256": "0a21599855c47bcf5ec3d1ababe68e262cfa6b35c3c2fa6eec73b91573c6f71a",
+    "product_version": 5,
+    "operations": {
+      "/platform/notifications/v1/list-rules": [
+        "get"
+      ],
+      "/platform/notifications/v1/rule": [
+        "post"
+      ],
+      "/platform/notifications/v1/rule/{rule_uuid}": [
+        "delete",
+        "get",
+        "put"
+      ],
+      "/platform/notifications/v1/update-rule-status/{rule_uuid}": [
+        "patch"
+      ]
+    }
+  },
+  {
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cases-apis/cases.md",
+    "sha256": "91bac55f7dd411047ac6b5e5a7ddf5dd053268e3c055325dc54c91fe0163fca9",
+    "product_version": 5,
+    "operations": {
+      "/public_api/v1/case/search": [
+        "post"
+      ],
+      "/public_api/v1/case/update/{case-id}": [
+        "post"
+      ],
+      "/public_api/v1/case/artifacts/{case-id}/": [
+        "get"
+      ],
+      "/public_api/v1/case/schema": [
+        "get"
+      ],
+      "/public_api/v1/case/timeline/{case-id}/": [
+        "post"
+      ],
+      "/public_api/v1/case/timeline/{case-id}/add_record/": [
+        "post"
+      ],
+      "/public_api/v1/entries/get": [
+        "post"
+      ],
+      "/public_api/v1/entries/insert": [
+        "post"
+      ]
+    }
+  },
+  {
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/issues-apis/issues.md",
+    "sha256": "561d3891b974ff421aa3c41d68f0d82585a4fa5dc83f165afc8eacf9664191c6",
+    "product_version": 5,
+    "operations": {
+      "/public_api/v1/issue": [
+        "post"
+      ],
+      "/public_api/v1/issue/search": [
+        "post"
+      ],
+      "/public_api/v1/issue/{issue-id}": [
+        "post"
+      ],
+      "/public_api/v1/issue/schema/": [
+        "post"
+      ],
+      "/public_api/v1/issue_exceptions/": [
+        "post"
+      ],
+      "/public_api/v1/issue_exceptions/disable/": [
+        "post"
+      ],
+      "/public_api/v1/issue_exceptions/search/": [
+        "post"
+      ]
+    }
+  }
+]

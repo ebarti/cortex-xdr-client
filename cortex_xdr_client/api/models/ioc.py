@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union, Literal
 
 from pydantic import BaseModel, Field
 
@@ -19,7 +19,7 @@ class IoCResponseItem(BaseModel):
     Represents the response item of the IoC API.
     """
     success: bool
-    validation_errors: List[ValidationError]
+    validation_errors: List[ValidationError] = Field(default_factory=list)
 
 
 class IoCResponse(BaseModel):
@@ -27,7 +27,7 @@ class IoCResponse(BaseModel):
     IoC Response Model
     Represents the response of the IoC API.
     """
-    reply: Optional[IoCResponseItem]
+    reply: Optional[Union[IoCResponseItem, bool]]
 
 
 class Reputation(str, Enum):
@@ -39,6 +39,7 @@ class Reputation(str, Enum):
     BAD: str = 'BAD'
     SUSPICIOUS: str = 'SUSPICIOUS'
     UNKNOWN: str = 'UNKNOWN'
+    NO_REPUTATION: str = 'NO_REPUTATION'
 
 
 class Vendor(BaseModel):
@@ -65,6 +66,7 @@ class IoCReliability(str, Enum):
     D: str = 'D'
     E: str = 'E'
     F: str = 'F'
+    G: str = 'G'
 
 
 class IoCSeverity(str, Enum):
@@ -73,6 +75,7 @@ class IoCSeverity(str, Enum):
     Represents the indicator's severity. Valid values are: informational, low, medium, high, critical, or unknown
     """
     informational: str = 'INFORMATIONAL'
+    info: str = 'INFO'
     low: str = 'LOW'
     medium: str = 'MEDIUM'
     high: str = 'HIGH'
@@ -99,13 +102,13 @@ class IoC(BaseModel):
     """
     indicator: str
     type: IoCType
-    expiration_date: Optional[int]
-    comment: str
-    reputation: Reputation
-    reliability: IoCReliability
+    expiration_date: Optional[Union[int, Literal["Never"]]]
+    comment: Optional[str]
+    reputation: Optional[Reputation]
+    reliability: Optional[IoCReliability]
     severity: IoCSeverity
-    vendors: List[Vendor]
-    class_: str = Field(str, alias='class')
+    vendors: Optional[List[Vendor]]
+    class_: Optional[str] = Field(None, alias='class')
 
     class Config:
         use_enum_values = True

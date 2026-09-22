@@ -17,3 +17,15 @@ Run the following:
 ```shell
 poetry run python -m pytest tests/
 ```
+The offline compatibility suite covers XDR 3.x and 5.x. CI runs on Python 3.8
+and 3.12. If Poetry is unavailable, use a virtual environment:
+
+```shell
+python -m pip install -e . 'pytest>=7.2,<8' 'requests-mock>=1.9,<2' 'pytest-mock>=3.10,<4'
+python -m pytest tests/
+```
+
+See [the API compatibility audit](docs/API_COMPATIBILITY.md) for specification
+sources, snapshot provenance and known documentation inconsistencies. Tests
+must register literal vendor paths instead of deriving their expected URLs from
+`_get_url`, so a routing regression cannot make both sides of a test pass.

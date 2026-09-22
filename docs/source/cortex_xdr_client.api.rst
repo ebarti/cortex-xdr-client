@@ -68,3 +68,18 @@ XQL API
 
 
 
+Cases API (XDR 5.x)
+---------------------------------------
+
+.. automodule:: cortex_xdr_client.api.cases_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Issues API (XDR 5.x)
+---------------------------------------
+
+.. automodule:: cortex_xdr_client.api.issues_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
