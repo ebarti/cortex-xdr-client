@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import BaseModel
+from cortex_xdr_client.api.models.base import CortexResponseModel
 
 
 class EndpointStatus(Enum):
@@ -49,82 +49,79 @@ class ScanStatus(Enum):
     error = "SCAN_STATUS_ERROR"
 
 
-class LightEndpoint(BaseModel):
-    agent_id: Optional[str]
-    agent_status: Optional[str]
-    host_name: Optional[str]
-    agent_type: Optional[str]
-    ip: Optional[List[str]]
+class LightEndpoint(CortexResponseModel):
+    agent_id: Optional[str] = None
+    agent_status: Optional[str] = None
+    host_name: Optional[str] = None
+    agent_type: Optional[str] = None
+    ip: Optional[List[str]] = None
 
 
-class GetAllEndpointsResponse(BaseModel):
+class GetAllEndpointsResponse(CortexResponseModel):
     reply: List[LightEndpoint]
 
 
-class Endpoint(BaseModel):
-    active_directory: Union[List[str], Optional[str]]
-    alias: Optional[str]
-    content_version: Optional[str]
-    domain: Optional[str]
-    endpoint_id: Optional[str]
-    endpoint_name: Optional[str]
+class Endpoint(CortexResponseModel):
+    active_directory: Union[List[str], Optional[str]] = None
+    alias: Optional[str] = None
+    content_version: Optional[str] = None
+    domain: Optional[str] = None
+    endpoint_id: Optional[str] = None
+    endpoint_name: Optional[str] = None
     endpoint_status: EndpointStatus
-    endpoint_type: Optional[str]
-    endpoint_version: Optional[str]
-    first_seen: Optional[int]
-    group_name: Optional[List[str]]
-    install_date: Optional[int]
-    installation_package: Optional[str]
-    ip: Optional[List[str]]
+    endpoint_type: Optional[str] = None
+    endpoint_version: Optional[str] = None
+    first_seen: Optional[int] = None
+    group_name: Optional[List[str]] = None
+    install_date: Optional[int] = None
+    installation_package: Optional[str] = None
+    ip: Optional[List[str]] = None
     is_isolated: IsolateStatus
-    isolated_date: Optional[str]
-    last_seen: Optional[int]
-    last_content_update_time: Optional[int]
-    operational_status: Optional[str]
-    operational_status_description: Optional[str]
-    os_type: Optional[EndpointPlatform]
-    scan_status: Optional[ScanStatus]
-    users: Union[Optional[List[str]], Optional[str]]
-    mac_address: Optional[List[str]]
+    isolated_date: Optional[str] = None
+    last_seen: Optional[int] = None
+    last_content_update_time: Optional[int] = None
+    operational_status: Optional[str] = None
+    operational_status_description: Optional[str] = None
+    os_type: Optional[EndpointPlatform] = None
+    scan_status: Optional[ScanStatus] = None
+    users: Union[Optional[List[str]], Optional[str]] = None
+    mac_address: Optional[List[str]] = None
 
-    os_version: Optional[str]
-    public_ip: Optional[str]
-    ipv6: Optional[List[str]]
-    operational_status_details: Optional[List[dict]]
-    content_release_timestamp: Optional[int]
-    content_status: Optional[str]
-    operating_system: Optional[str]
-    assigned_prevention_policy: Optional[str]
-    assigned_extensions_policy: Optional[str]
-    cloud_provider: Optional[str]
-    cloud_region: Optional[str]
-    cloud_provider_account_id: Optional[str]
-    cloud_instance_id: Optional[str]
-    cloud_id: Optional[str]
-
-    class Config:
-        extra = 'allow'
+    os_version: Optional[str] = None
+    public_ip: Optional[str] = None
+    ipv6: Optional[List[str]] = None
+    operational_status_details: Optional[List[dict]] = None
+    content_release_timestamp: Optional[int] = None
+    content_status: Optional[str] = None
+    operating_system: Optional[str] = None
+    assigned_prevention_policy: Optional[str] = None
+    assigned_extensions_policy: Optional[str] = None
+    cloud_provider: Optional[str] = None
+    cloud_region: Optional[str] = None
+    cloud_provider_account_id: Optional[str] = None
+    cloud_instance_id: Optional[str] = None
+    cloud_id: Optional[str] = None
 
 
-class GetEndpointResponseItem(BaseModel):
-    total_count: Optional[int]
-    result_count: Optional[int]
+class GetEndpointResponseItem(CortexResponseModel):
+    total_count: Optional[int] = None
+    result_count: Optional[int] = None
     endpoints: List[Endpoint]
 
 
-class GetEndpointResponse(BaseModel):
+class GetEndpointResponse(CortexResponseModel):
     reply: GetEndpointResponseItem
 
 
-class ResponseActionResponseItem(BaseModel):
-    action_id: Optional[str]
-    status: Optional[int]
-    endpoints_count: Optional[int]
+class ResponseActionResponseItem(CortexResponseModel):
+    action_id: Optional[str] = None
+    status: Optional[int] = None
+    endpoints_count: Optional[int] = None
 
 
-class ResponseActionResponse(BaseModel):
+class ResponseActionResponse(CortexResponseModel):
     reply: ResponseActionResponseItem
 
 
-class ResponseStatusResponse(BaseModel):
+class ResponseStatusResponse(CortexResponseModel):
     reply: bool

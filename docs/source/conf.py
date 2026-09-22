@@ -14,7 +14,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('../../cortex_xdr_client'))
 
-import pkg_resources
+from importlib.metadata import version as package_version
 import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
@@ -24,7 +24,7 @@ copyright = '2022, Eloi Barti <me@eloibarti.com>'
 author = 'Eloi Barti <me@eloibarti.com>'
 
 # The full version, including alpha/beta/rc tags
-release = pkg_resources.get_distribution("cortex-xdr-client").version
+release = package_version("cortex-xdr-client")
 
 
 # -- General configuration ---------------------------------------------------

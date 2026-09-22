@@ -47,7 +47,7 @@ def test_search_issues(client, requests_mock):
     assert issue.detection_method == 'TRAPS'
     assert issue.status_progress == 'New'
     assert issue.new_field == 'preserved'
-    assert issue.dict(by_alias=True)['status.resolution_reason'] is None
+    assert issue.model_dump(by_alias=True)['status.resolution_reason'] is None
     assert issue.normalized_fields == {'xdm.source.host.hostname': 'test'}
     assert requests_mock.last_request.json() == {'request_data': {
         'search_from': 0, 'search_to': 10, 'include_fields': ['normalized_fields', 'custom_fields'],

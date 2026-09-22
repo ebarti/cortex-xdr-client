@@ -1,16 +1,18 @@
 from typing import Dict, Optional, Union
 
-from pydantic import BaseModel
+from pydantic import RootModel
+
+from cortex_xdr_client.api.models.base import CortexResponseModel
 
 
-class ActionStatuStr(BaseModel):
+class ActionStatuStr(RootModel[Dict[Union[str, None], Union[str, None]]]):
     # Since we don't know what the returned key of <agent ID>/<endpoint ID> will be.
-    __root__: Dict[Union[str, None], Union[str, None]]
+    pass
 
 
-class GetActionStatusItem(BaseModel):
-    data: Optional[ActionStatuStr]
+class GetActionStatusItem(CortexResponseModel):
+    data: Optional[ActionStatuStr] = None
 
 
-class GetActionStatus(BaseModel):
+class GetActionStatus(CortexResponseModel):
     reply: GetActionStatusItem

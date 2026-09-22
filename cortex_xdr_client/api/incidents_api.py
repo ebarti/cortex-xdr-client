@@ -79,7 +79,7 @@ class IncidentsAPI(BaseAPI):
 
         request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to, sort=sort)
         response = self._call(call_name="get_incidents", json_value=request_data)
-        return GetIncidentsResponse.parse_obj(response.json())
+        return GetIncidentsResponse.model_validate(response.json())
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/incident-management/get-extra-incident-data.html
     def get_incident_extra_data(self,
@@ -96,4 +96,4 @@ class IncidentsAPI(BaseAPI):
         request_data = new_request_data(other=self._get_incident_extra_data_filter(incident_id, alerts_limit))
         response = self._call(call_name="get_incident_extra_data",
                               json_value=request_data)
-        return GetExtraIncidentDataResponse.parse_obj(response.json())
+        return GetExtraIncidentDataResponse.model_validate(response.json())

@@ -19,7 +19,7 @@ class CasesAPI(BaseAPI):
         request_data = new_request_data(filters=filters, search_from=search_from,
                                         search_to=search_to, sort=sort)
         response = self._call("search", json_value=request_data)
-        return GetCasesResponse.parse_obj(response.json())
+        return GetCasesResponse.model_validate(response.json())
 
     def update_case(self, case_id: int, update_data: dict) -> None:
         """Update one case. Successful updates return HTTP 204 without a body."""
