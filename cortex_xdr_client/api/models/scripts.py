@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import List, Optional, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, StrictInt
 
 
 class Script(BaseModel):
-    script_id: Optional[int]
+    script_id: Optional[Union[StrictInt, str]]
     name: Optional[str]
     description: Optional[str]
     modification_date: Optional[int]
@@ -43,7 +43,7 @@ class ScriptIO(BaseModel):
 
 
 class GetScriptMetadataResponse(BaseModel):
-    script_id: Optional[int]
+    script_id: Optional[Union[StrictInt, str]]
     name: Optional[str]
     description: Optional[str]
     modification_date: Optional[int]

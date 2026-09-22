@@ -2,6 +2,7 @@ from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.version import APIVersion
 from cortex_xdr_client.api.models.exceptions import InvalidResponseException
 from cortex_xdr_client.api.models.filters import (new_request_data, request_gte_lte_filter, request_in_contains_filter)
 from cortex_xdr_client.api.models.scripts import (GetScriptExecutionResults,
@@ -12,8 +13,9 @@ from cortex_xdr_client.api.models.scripts import (GetScriptExecutionResults,
 
 
 class ScriptsAPI(BaseAPI):
-    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(ScriptsAPI, self).__init__(auth, fqdn, "scripts", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int],
+                 api_version: APIVersion = APIVersion.V3) -> None:
+        super(ScriptsAPI, self).__init__(auth, fqdn, "scripts", timeout, api_version)
 
     @staticmethod
     def _get_scripts_filters(name: List[str] = None,
@@ -37,15 +39,15 @@ class ScriptsAPI(BaseAPI):
         if script_uid:
             filters.append(request_in_contains_filter("script_uid", script_uid, False))
         if modification_time is not None:
-            filters.append(request_gte_lte_filter("modification_time", modification_time, after_modification))
-        if windows_supported:
-            filters.append(request_in_contains_filter("windows_supported", windows_supported, False))
-        if linux_supported:
-            filters.append(request_in_contains_filter("linux_supported", linux_supported, False))
-        if macos_supported:
-            filters.append(request_in_contains_filter("macos_supported", macos_supported, False))
-        if is_high_risk:
-            filters.append(request_in_contains_filter("is_high_risk", is_high_risk, False))
+            filters.append(request_gte_lte_filter("modification_date", modification_time, after_modification))
+        if windows_supported is not None:
+            filters.append(request_in_contains_filter("windows_supported", [str(windows_supported).lower()], False))
+        if linux_supported is not None:
+            filters.append(request_in_contains_filter("linux_supported", [str(linux_supported).lower()], False))
+        if macos_supported is not None:
+            filters.append(request_in_contains_filter("macos_supported", [str(macos_supported).lower()], False))
+        if is_high_risk is not None:
+            filters.append(request_in_contains_filter("is_high_risk", [str(is_high_risk).lower()], False))
         return filters
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-scripts.html
@@ -79,7 +81,7 @@ class ScriptsAPI(BaseAPI):
         filters = self._get_scripts_filters(name, description, created_by, script_uid, modification_time,
                                             after_modification, windows_supported, linux_supported, macos_supported,
                                             is_high_risk)
-        request_data = new_request_data(filters=filters)
+        request_data = new_request_data(filters=filters or (["all"] if self._api_version == APIVersion.V3 else None))
         response = self._call("get_scripts", json_value=request_data)
         resp_json = response.json()
         if "reply" not in resp_json:
@@ -133,20 +135,18 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
-        # Because pydantic does not support private attributes
-        if len(reply['results']) > 0:
-            if '_return_value' in reply['results'][0]:
-                if len(reply['results'][0]['_return_value']) > 0:
-                    reply['results'][0]['standard_output'] = reply['results'][0]['_return_value']
+        for result in reply.get('results') or []:
+            if result.get('_return_value') is not None:
+                result['standard_output'] = result['_return_value']
         return GetScriptExecutionResults.parse_obj(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-result-files.html
-    def get_script_execution_result_files(self, action_id: int, endpoint_id: int) -> Optional[str]:
+    def get_script_execution_result_files(self, action_id: int, endpoint_id: str) -> Optional[str]:
         """
         Get the files retrieved from a specific endpoint during a script execution.
 
         :param action_id: Integer, identifier of the action
-        :param endpoint_id: Integer, endpoint ID.
+        :param endpoint_id: String, endpoint ID.
         :return: A signed public link to a zip file containing the retrieved files. Link expires after 10 minutes.
         """
         request_data = new_request_data(other={"action_id": action_id, "endpoint_id": endpoint_id})
@@ -180,6 +180,10 @@ class ScriptsAPI(BaseAPI):
         request_data = new_request_data(filters=filters,
                                         other={"script_uid": script_uid, "parameters_values": parameters_values,
                                                "timeout":    timeout, "incident_id": incident_id})
+        if incident_id is None:
+            request_data["request_data"].pop("incident_id")
+        if parameters_values is None:
+            request_data["request_data"].pop("parameters_values")
         response = self._call("run_script", json_value=request_data)
         resp_json = response.json()
         if "reply" not in resp_json:
@@ -205,6 +209,8 @@ class ScriptsAPI(BaseAPI):
         filters = [request_in_contains_filter("endpoint_id_list", endpoint_id_list, False)]
         request_data = new_request_data(filters=filters, other={"snippet_code": snippet_code, "timeout": timeout,
                                                                 "incident_id":  incident_id})
+        if incident_id is None:
+            request_data["request_data"].pop("incident_id")
         response = self._call("run_snippet_code_script", json_value=request_data)
         resp_json = response.json()
         if "reply" not in resp_json:

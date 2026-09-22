@@ -165,30 +165,12 @@ def test_get_xql_result_stream(requests_mock, cortex_client, get_xql_result_stre
     assert expected == got
 
 
-def test_post_insert_json(cortex_client, get_url, post_insert_json_response, successful_response):
-    get_url.return_value = "https://stoplight.io/mocks/cortex-panw/cortex-xdr/183739843/public_api/v1/indicators/insert_jsons"
-    indicator = {
-        "indicator":   "<fgg>",
-        "type":        "HASH",
-        "comment":     "test",
-        "reputation":  "GOOD",
-        "reliability": "D",
-        "severity": "HIGH",
-        "vendors":     [
-            {
-                "vendor_name": "V1",
-                "reliability": "A",
-                "reputation":  "GOOD"
-            },
-            {
-                "vendor_name": "V2",
-                "reliability": "A",
-                "reputation":  "SUSPICIOUS"
-            }
-        ],
-        "class":       "Malware"
-    }
+def test_post_insert_json(cortex_client, requests_mock, post_insert_json_response):
+    from cortex_xdr_client.api.models.ioc import IoC, IoCResponse
 
-    assert True
-    # TODO: uncomment when the API is fixed
-    # assert post_insert_json_response == cortex_client.ioc_api.insert_json([IoC.parse_obj(indicator)])
+    requests_mock.post("https://api-a_fqdn/public_api/v1/indicators/insert_jsons",
+                       json=post_insert_json_response)
+    indicator = IoC(indicator="testtest.com", type="HASH", severity="HIGH", **{"class": "Malware"})
+    result = cortex_client.ioc_api.insert_json([indicator])
+    assert result == IoCResponse.parse_obj(post_insert_json_response)
+    assert requests_mock.last_request.json()['request_data'][0]['class'] == 'Malware'
