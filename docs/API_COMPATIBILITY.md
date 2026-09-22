@@ -33,8 +33,9 @@ missing operations and distinction between wrappers and generic transport.
 
 ## Compatibility decisions
 
-- Preserve the hand-written client structure, Pydantic v1 models, Python 3.8
-  support, method names and positional timeout argument. Default to v3.
+- Preserve the hand-written client structure, method names and positional
+  timeout argument. Default to XDR v3. Client 2.0 uses Pydantic v2 and Python
+  3.11+; see [the model migration notes](PYDANTIC_V2.md).
 - Use native v5 Cases and Issues methods with their own models. Do not silently
   translate legacy incident status/filter semantics or invent a legacy-shaped
   response. Fail locally when a typed API targets the wrong product generation.
@@ -91,9 +92,9 @@ missing authentication, empty bodies, ignored HTTP errors/timeouts, wrong script
 ID, lost script targets/parameters, wrong snippet code and ignored script timeout.
 These targeted probes are not an exhaustive mutation score or full API coverage.
 
-Local verification: 210 tests passed on Python 3.8.12 and 3.12.12. The source
-distribution and wheel built successfully, and the README passed strict
-reStructuredText parsing.
+The compatibility layer passed 210 tests on Python 3.8.12 and 3.12.12.
+Client 2.0 adds the model migration regression suite; its current
+verification is recorded in [the migration notes](PYDANTIC_V2.md).
 
 No live tenant credentials were supplied. These tests establish local behavior
 against published contracts, not successful authentication, licensing, data

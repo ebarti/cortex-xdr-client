@@ -1,6 +1,6 @@
 # Getting Started
 ## Prerequisites
-- Python 3.8+
+- Python 3.11+
 - Poetry [Installation Guide](https://python-poetry.org/docs/master/#installing-with-the-official-installer)
 
 
@@ -17,11 +17,11 @@ Run the following:
 ```shell
 poetry run python -m pytest tests/
 ```
-The offline compatibility suite covers XDR 3.x and 5.x. CI runs on Python 3.8
-and 3.12. If Poetry is unavailable, use a virtual environment:
+The offline compatibility suite covers XDR 3.x and 5.x. CI runs on Python 3.11,
+3.12, 3.13 and 3.14. If Poetry is unavailable, use a virtual environment:
 
 ```shell
-python -m pip install -e . 'pytest>=7.2,<8' 'requests-mock>=1.9,<2' 'pytest-mock>=3.10,<4'
+python -m pip install -e . 'pytest>=9.1.1,<10' 'requests-mock>=1.9,<2' 'pytest-mock>=3.10,<4'
 python -m pytest tests/
 ```
 

@@ -6,7 +6,7 @@ A python-based client for the `Cortex XDR 3.x
 <https://cortex-docs.paloaltonetworks.com/xdr-5-api>`__ APIs.
 
 The client keeps its hand-written API classes, request helpers and Pydantic
-models. Standard and Advanced API key authentication work with both versions.
+v2 models and requires Python 3.11+. Standard and Advanced API key authentication work with both versions.
 
 Getting started
 ===============
@@ -85,7 +85,7 @@ Case severities are lowercase; issue severities are uppercase. Case and Issue
 search results expose ``reply.total_count``, ``reply.filter_count`` and
 ``reply.data``, corresponding to ``TOTAL_COUNT``, ``FILTER_COUNT`` and ``DATA``.
 Dotted issue fields have Python names, for example ``status.progress`` becomes
-``status_progress``. Use ``dict(by_alias=True)`` to recover the wire names.
+``status_progress``. Use ``model_dump(by_alias=True)`` to recover the wire names.
 Custom and additional response fields are preserved in the new models.
 
 Case/Issue updates return ``None`` on HTTP 204. Case artifacts return the
@@ -150,6 +150,28 @@ operations and 34 of 218 v5 operations in the audited references. Other operatio
 require ``client.request()`` with caller-supplied paths and payloads; generic
 transport does not provide dedicated models or operation-level verification.
 See `the coverage inventory <docs/API_COVERAGE.md>`__ for the gaps.
+
+Migrating from client 1.x
+================================
+
+Client 2.0 uses native Pydantic v2 and requires Python 3.11+. Use client 1.x if
+an application still needs Python 3.8-3.10 or Pydantic v1 models. The Cortex XDR
+product version is independent: client 2.0 still supports both XDR 3.x and 5.x.
+
+* Replace model ``parse_obj(data)`` calls with ``model_validate(data)``,
+  ``dict()`` with ``model_dump()``, and ``json()`` with ``model_dump_json()``.
+* Use ``model_dump(mode="json", by_alias=True)`` for JSON-compatible dictionaries.
+  Ordinary ``model_dump()`` preserves Python types such as enums and datetimes.
+* Action status mappings use ``response.reply.data.root`` instead of
+  ``response.reply.data.__root__``. Their serialized API shape is unchanged.
+* Response models preserve additional fields and accept either Python field
+  names or API aliases. Known field types still validate. No blanket conversion
+  of lists or dictionaries to strings is performed.
+* Optional response fields still default to ``None``. Existing required fields
+  stay required. Pydantic v2's validation and model equality rules apply; number
+  inputs are not implicitly converted to strings.
+
+See `the Pydantic migration notes <docs/PYDANTIC_V2.md>`__ for details.
 
 Compatibility notes
 ===================

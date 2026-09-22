@@ -1,6 +1,13 @@
 CortexXDRClient API Data Models
 ======================================
 
+Response base model
+---------------------------------------------
+
+.. automodule:: cortex_xdr_client.api.models.base
+   :members:
+   :undoc-members:
+
 
 Actions
 ---------------------------------------------

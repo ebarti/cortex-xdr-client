@@ -74,7 +74,7 @@ class AlertsAPI(BaseAPI):
 
         response = self._call(call_name="get_alerts_multi_events",
                               json_value=request_data)
-        return GetAlertsResponse.parse_obj(response.json())
+        return GetAlertsResponse.model_validate(response.json())
 
 
 def get_enum_values(p: List[Enum]) -> List[str]:
