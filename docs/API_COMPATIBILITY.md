@@ -24,6 +24,13 @@ and [Issues page](https://cortex-docs.paloaltonetworks.com/xdr-5-api/issues-apis
 Those embedded contracts identify themselves as Cortex XDR 5.2; availability on
 earlier 5.x tenants must be confirmed against that tenant's documentation.
 
+## Coverage boundary
+
+Dedicated wrappers cover 24 of 124 published v3 operations and 34 of 218 v5
+operations across the downloaded and embedded references. This is partial API
+coverage. See [the coverage inventory](API_COVERAGE.md) for the per-family counts,
+missing operations and distinction between wrappers and generic transport.
+
 ## Compatibility decisions
 
 - Preserve the hand-written client structure, Pydantic v1 models, Python 3.8
@@ -76,7 +83,15 @@ methods, HTTP 202/204, gzip handling, errors, timeouts and representative
 transports from every supplemental specification. The old no-op indicator test
 now exercises a real mocked request.
 
-Local verification: 172 tests passed on Python 3.8.12 and 3.12.12. The source
+The original response tests now use independent expected URLs. Additional
+request contracts check script identity/targets/parameters, action lookups,
+response-action targets, XQL timeframes and incident filters/pagination. In
+isolated copies, the suite detects ten deliberate regressions: wrong API prefix,
+missing authentication, empty bodies, ignored HTTP errors/timeouts, wrong script
+ID, lost script targets/parameters, wrong snippet code and ignored script timeout.
+These targeted probes are not an exhaustive mutation score or full API coverage.
+
+Local verification: 210 tests passed on Python 3.8.12 and 3.12.12. The source
 distribution and wheel built successfully, and the README passed strict
 reStructuredText parsing.
 

@@ -142,6 +142,15 @@ Authenticated redirects are rejected to keep credentials on the configured
 tenant. Download helpers accept either the file token or the tenant's complete
 file-retrieval download URL.
 
+API coverage
+============
+
+This is a partial API client. Dedicated wrappers cover 24 of 124 documented v3
+operations and 34 of 218 v5 operations in the audited references. Other operations
+require ``client.request()`` with caller-supplied paths and payloads; generic
+transport does not provide dedicated models or operation-level verification.
+See `the coverage inventory <docs/API_COVERAGE.md>`__ for the gaps.
+
 Compatibility notes
 ===================
 
