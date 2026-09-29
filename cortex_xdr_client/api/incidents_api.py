@@ -1,4 +1,7 @@
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, Union
+
+from cortex_xdr_client.api.operation import UNSET, UnsetType
+
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -97,3 +100,77 @@ class IncidentsAPI(BaseAPI):
         response = self._call(call_name="get_incident_extra_data",
                               json_value=request_data)
         return GetExtraIncidentDataResponse.model_validate(response.json())
+
+
+    def get_incidents_request(self, *,
+                              accept_encoding: Union[str, None, UnsetType] = UNSET,
+                              filters: Union[List[dict], None, UnsetType] = UNSET,
+                              search_from: Union[int, None, UnsetType] = UNSET,
+                              search_to: Union[int, None, UnsetType] = UNSET,
+                              sort: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get all Incidents
+
+        POST /public_api/v1/incidents/get_incidents
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param search_from: body field search_from.
+        :param search_to: body field search_to.
+        :param sort: body field sort.
+        """
+        self._require_versions((3,))
+        body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/incidents/get_incidents', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def update_incident(self, *,
+                        accept_encoding: Union[str, None, UnsetType] = UNSET,
+                        incident_id: Union[str, None, UnsetType] = UNSET,
+                        update_data: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Update an Incident
+
+        POST /public_api/v1/incidents/update_incident
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param incident_id: body field incident_id.
+        :param update_data: body field update_data.
+        """
+        self._require_versions((3,))
+        body = self._values({'incident_id': incident_id, 'update_data': update_data})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/incidents/update_incident', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def get_incident_extra_data_request(self, *,
+                                        accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                        incident_id: Union[str, None, UnsetType] = UNSET,
+                                        alerts_limit: Union[int, None, UnsetType] = UNSET) -> Any:
+        """Get Extra Incident Data
+
+        POST /public_api/v1/incidents/get_incident_extra_data
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param incident_id: body field incident_id.
+        :param alerts_limit: body field alerts_limit.
+        """
+        self._require_versions((3,))
+        body = self._values({'incident_id': incident_id, 'alerts_limit': alerts_limit})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/incidents/get_incident_extra_data', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )

@@ -96,12 +96,40 @@ methods retrieve one page per call.
 Additional API families
 =======================
 
-``client.request`` provides authenticated access to documented operations that
-do not have dedicated methods, including the v3 Broker API and the v5 Agent
-Configurations, Application Security, Asset Compliance and Notifications APIs.
-It returns a ``requests.Response`` and uses the client's timeout and fresh
-authentication headers. These families have transport support, not a full set
-of typed methods or local request-schema validation.
+The client has dedicated methods for the audited XDR 3.x/5.x operation
+inventory, including Broker tenant operations, Agent Configurations,
+Application Security, Compliance Controls, Forensics, IAM, Cloud Onboarding,
+Cloud Workload Protection, Managed Services and Vulnerability Management.
+They use keyword-only parameters for documented fields, omit ``UNSET`` values,
+and return the complete JSON response, text, bytes, or ``None`` for an empty
+response. Only the established model-backed methods return Pydantic models;
+new operation methods do not claim universal schema validation.
+
+.. code-block:: python
+
+    brokers = legacy.brokers_api.get_brokers(name=["broker-eu-01"])
+    configuration = platform.agent_configurations_api.get_content_management()
+    investigations = platform.forensics_api.get_forensics_investigations()
+
+The indexed XDR 5.x documentation also includes 10 **on-appliance** Broker VM
+operations. These use a different HTTPS host and a short-lived local Bearer
+token. Create this client explicitly; it never uses tenant API keys or the
+``api-`` hostname prefix.
+
+.. code-block:: python
+
+    from cortex_xdr_client import BrokerApplianceClient
+
+    broker = BrokerApplianceClient("https://broker.example.local")
+    # On a freshly provisioned appliance, reset its factory password first.
+    broker.reset_initial_password(current_password="factory", new_password="new-secret")
+    token_reply = broker.generate_token(password="new-secret")
+    broker.set_token(token_reply["reply"]["api_key"])
+    log_bundle = broker.issue_log_bundle()  # bytes
+
+``client.request`` remains available for an exact tenant-relative path and
+returns a ``requests.Response``. Supply the full path, method and body; it does
+not add a ``request_data`` wrapper or enforce the product version itself.
 
 Supply the **exact path, method and full body** from the documentation for your
 tenant version. No prefix is rewritten and no ``request_data`` wrapper is added.
@@ -110,7 +138,7 @@ the server remains authoritative for availability, licensing and permissions.
 
 .. code-block:: python
 
-    # XDR 3.x Broker API: its GET operation accepts a JSON filter body.
+    # Low-level XDR 3.x Broker API example: its GET operation accepts a JSON filter body.
     brokers = legacy.request(
         "/public_api/v1/brokers/",
         method="get",
@@ -145,11 +173,12 @@ file-retrieval download URL.
 API coverage
 ============
 
-This is a partial API client. Dedicated wrappers cover 24 of 124 documented v3
-operations and 34 of 218 v5 operations in the audited references. Other operations
-require ``client.request()`` with caller-supplied paths and payloads; generic
-transport does not provide dedicated models or operation-level verification.
-See `the coverage inventory <docs/API_COVERAGE.md>`__ for the gaps.
+The pinned 2026-09-29 inventory has 124 XDR 3.x operations and 386 XDR 5.x
+operations, including the 10 on-appliance Broker VM operations. All 510
+version/method/path entries map to dedicated public methods. The inventory,
+source hashes, known vendor inconsistencies and offline verification boundary
+are in `the coverage inventory <docs/API_COVERAGE.md>`__. Live tenant
+compatibility remains unverified.
 
 Migrating from client 1.x
 ================================

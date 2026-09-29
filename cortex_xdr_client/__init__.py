@@ -1,2 +1,3 @@
 import cortex_xdr_client.api
 import cortex_xdr_client.client
+from cortex_xdr_client.broker_appliance_client import BrokerApplianceClient

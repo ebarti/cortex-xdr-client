@@ -34,6 +34,17 @@ release = package_version("cortex-xdr-client")
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx_autodoc_typehints']
 
+# Standard-library and third-party annotations are shown as plain text unless
+# their own inventories are configured. Keep strict nitpicky builds focused on
+# references to this package's documented API objects.
+nitpick_ignore_regex = [
+    ('py:class', r'typing\..*'),
+    ('py:data', r'typing\..*'),
+    ('py:class', r'requests\..*'),
+    ('py:class', r'datetime\..*'),
+    ('py:class', r'enum\..*'),
+]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 

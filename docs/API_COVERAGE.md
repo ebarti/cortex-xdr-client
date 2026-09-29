@@ -1,63 +1,33 @@
-# Dedicated API coverage
+# Dedicated Cortex XDR API coverage
 
-This client is **not a complete SDK for either product generation**. The XDR
-3.x/5.x compatibility changes update the existing API wrappers, add native
-Cases/Issues wrappers, and provide authenticated transport for other operations.
-Generic `client.request()` access does not count as a dedicated wrapper or as
-verification of that operation's schema and behavior.
+The 2026-09-29 pinned inventory contains **510 distinct documented operations**, keyed by product version, HTTP method and literal path. Each key maps to a dedicated public method in [`operation_catalog.json`](../cortex_xdr_client/api/operation_catalog.json); the map has no missing or duplicate keys. Shared methods can serve both product versions, so 510 mappings correspond to 432 distinct public methods. This is operation coverage, not a claim that every request or response has a Pydantic model.
 
-The table below compares the client with the specifications downloaded on
-2026-09-22. An operation means one HTTP method plus one path, not just a path.
-Source URLs, hashes and the full operation inventory are in
-[`openapi_operations.json`](../tests/fixtures/openapi_operations.json).
+| Product | Tenant operations | Broker on-appliance operations | Dedicated / total |
+| --- | ---: | ---: | ---: |
+| XDR 3.x | 124 | 0 | 124 / 124 |
+| XDR 5.x | 376 | 10 | 386 / 386 |
+| **Total** | **500** | **10** | **510 / 510** |
 
-| Product | Reference | Published operations | Dedicated wrappers | Without wrappers |
-| --- | --- | ---: | ---: | ---: |
-| 3.x | Core | 106 | 24 | 82 |
-| 3.x | Broker | 18 | 0 | 18 |
-| **3.x total** | | **124** | **24** | **100** |
-| 5.x | Core platform | 121 | 21 | 100 |
-| 5.x | Agent configurations | 20 | 0 | 20 |
-| 5.x | Application Security | 55 | 0 | 55 |
-| 5.x | Asset compliance | 1 | 0 | 1 |
-| 5.x | Notifications | 6 | 0 | 6 |
-| 5.x | Cases reference | 8 | 6 | 2 |
-| 5.x | Issues reference | 7 | 7 | 0 |
-| **5.x total** | | **218** | **34** | **184** |
+The [GitBook `llms.txt` index](https://cortex-docs.paloaltonetworks.com/llms.txt) listed 190 XDR 3.x/5.x Markdown pages. Every indexed page was fetched and parsed. Their embedded OpenAPI blocks yielded 506 keys. The seven downloaded specifications and embedded references captured in [`openapi_operations.json`](../tests/fixtures/openapi_operations.json) add four keys absent from the current page index: v3 automation rule lookup, v3 endpoint process/causality termination and v5 AppSec operational risk. The union is 510. The pinned [`indexed_openapi_blocks.json`](../tests/fixtures/indexed_openapi_blocks.json) contains all 190 source URLs, page SHA-256 hashes and embedded OpenAPI blocks, including pages with no operation block. Its index SHA-256 is `1d9ad5679becf2aee266d41077e8533fbd55fa6204f3a2f98010165204f2ef28`. The [`operation_contracts.json`](../tests/fixtures/operation_contracts.json) fixture records the normalized contract for every catalog entry. [`generate_operation_coverage.py`](../tools/generate_operation_coverage.py) reproducibly generates the 168 supplementary methods from this pinned snapshot and preserves the initial 342-method contract base.
 
-The five v5 downloads contain 203 operations; the embedded Cases/Issues
-references add 15. Cases/Issues describe XDR 5.2. The download helper is not
-counted because its route is described in prose rather than the paths inventory.
-Aliases such as `start_xql` and conveniences such as `scan_all_endpoints` do not
-count twice. The malformed AppSec route remains in the published denominator;
-its corrected route has not been verified.
+The client keeps the original family classes and established signatures. The newly added family methods use named keyword-only parameters for published path, query, header and body fields. They preserve `UNSET` versus explicit JSON `null`, `false`, zero and empty collections; quote path parameters; encode query arrays according to their `explode` setting; and retain the documented `request`, `request_data` or unwrapped JSON shape. Multipart file operations use `files`, while text and binary responses return text or bytes, and empty/204 responses return `None`. The response is otherwise complete JSON. The server remains responsible for schema, license, permission and business-rule validation.
 
-## What has dedicated wrappers
+## Broker VM transport boundary
 
-- Both products: eight endpoint operations (`get_endpoints`, `get_endpoint`,
-  `isolate`, `unisolate`, `scan`, `update_agent_name`, `file_retrieval`,
-  `quarantine`), two action lookups, seven script operations, three XQL operations
-  and indicator insertion.
-- XDR 3.x: incident search, extra incident data and multi-event alert search.
-- XDR 5.x: case search/update/artifacts/schema/timeline/add-record and all seven
-  operations in the supplied Issues reference (including issue exceptions).
+The XDR 5.x index includes six [Broker VM on-appliance pages](https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/broker-vm-appliance-overview.md) with 10 operation blocks. Their OpenAPI server is `https://{broker_host}`, not the tenant API host. The [bootstrap contract](https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/auth-bootstrap.md) uses a local admin password to reset the factory password and obtain a 10-minute Bearer token; the other operations use that token. `BrokerApplianceClient` is an explicit separate client taking an HTTPS appliance origin. It does not make a request on construction, add `api-` to the hostname or send tenant API-key headers. Its log-bundle operation returns binary bytes. The 18 XDR 5.x tenant-side Broker operations remain on `CortexXDRClient.brokers_v5_api` with normal tenant API-key transport.
 
-Some wrappers return dictionaries, and the models cover selected documented
-fields. These counts do not imply fully typed request/response schemas or every
-optional parameter for each operation.
+## Published contract irregularities
 
-## What remains
+- The [AppSec Package Explorer page](https://cortex-docs.paloaltonetworks.com/xdr-5-api/aspm-cicd-and-application-security/package-explorer.md) publishes `/get /public_api/appsec/v1/package_explorer/packages/{name}/versions/{version}`. The catalog preserves that literal path and records the inferred wire path `/public_api/appsec/v1/package_explorer/packages/{name}/versions/{version}`. This one correction needs live tenant confirmation.
+- The [Forensics reference](https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md) has a malformed `https://api-{{fqdn}}` server template. The [Policy reference](https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md) has a relative `/` server. Methods use the caller's configured tenant HTTPS origin plus each literal published path; the effective host needs live tenant confirmation.
+- Three [CWP registry operations](https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/registry-onboarding.md) require a literal `Authentication` header. Their methods expose it as a separate caller-supplied argument alongside the normal tenant `Authorization` and `x-xdr-auth-id` headers. The client does not infer its value from the API key. Live tenant authentication behavior is unverified.
+- Several indexed blocks retain `{path_parameter}` placeholders without declaring their parameters. Methods expose those literal placeholders as required keyword-only string arguments and percent-encode the supplied values. This includes tenant Broker, CWP registry and vulnerability-finding routes. The parameter type is inferred from the literal route; the route itself is not changed.
+- The [Compliance Controls assessment-profile page](https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md) (pinned SHA-256 `a9ce57e0565fb6c35f8ee1bd35d849ff0f2e88f7d27369b97edf6e657fb8975b`) wraps `EditAssessmentProfileRequest` beneath an empty-string JSON property. `edit_assessment_profile(body=...)` sends a caller-supplied complete JSON object unchanged. The tenant-accepted envelope cannot be inferred from that schema and needs live confirmation.
+- One legacy XQL stream block prints an invalid header name, `'Accept-Encoding: gzip' : " "`. Its compatibility argument sends the valid `Accept-Encoding` header when supplied. The invalid published spelling is retained in the source contract.
+- The [v5 prevention-profile contracts](https://cortex-docs.paloaltonetworks.com/xdr-5-api/cortex-platform/endpoint-management.md), [asset search contract](https://cortex-docs.paloaltonetworks.com/xdr-5-api/cortex-platform/asset-inventory.md), and [RBAC user lookup contract](https://cortex-docs.paloaltonetworks.com/xdr-5-api/cortex-platform/system-management.md) place their JSON payload beneath `request_data`. The corresponding v3 profile and RBAC contracts use an unwrapped body. Shared methods apply the envelope only for v5; `get_users(body=UNSET)` still omits the optional body.
 
-All operations in the supplemental families lack dedicated wrappers. Core
-coverage is also partial: examples include distributions, RBAC, integrations,
-audit logs, device control and additional endpoint/XQL operations. The v5 core
-also includes assets/groups, API keys, BIOCs, correlations, dashboards/widgets,
-playbooks, policies and scheduled queries without wrappers.
+The seven downloaded source contracts were first captured on 2026-09-22. On 2026-09-29 the legacy Broker YAML and platform JSON raw SHA-256 values had changed, while their operation sets and normalized wire contracts remained equivalent. The pinned snapshot keeps the prior source hashes and the current page hashes separately; source changes should be reviewed before regenerating.
 
-The Cases reference's `/public_api/v1/entries/get` and
-`/public_api/v1/entries/insert` operations are not wrapped.
+## Verification boundary
 
-These operations require callers to use `client.request()` with the documented
-method, exact path and complete payload, and interpret the raw response. Only
-representative generic transport calls are tested; the inventory is not an
-endpoint-by-endpoint test suite. No live tenant validation has been performed.
+Offline tests use public client methods and independently pinned OpenAPI blocks to exercise every new indexed operation's method, path, fields and declared success media. They also exercise all 342 initial catalog routes and their indexed request fields, request omission versus explicit values, query array encoding, version-specific envelopes, multipart, binary/text/204 responses, HTTP errors, redirects, timeouts, version guards and the Broker appliance auth boundary. These tests do not prove authentication, licensing, server-side validation or side effects on a live tenant. No tenant credentials or tenant calls were used.

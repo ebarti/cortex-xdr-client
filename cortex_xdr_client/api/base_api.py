@@ -5,10 +5,11 @@ from urllib.parse import urlsplit
 import requests
 
 from cortex_xdr_client.api.authentication import Authentication
+from cortex_xdr_client.api.operation import OperationAPI
 from cortex_xdr_client.api.version import APIVersion
 
 
-class BaseAPI:
+class BaseAPI(OperationAPI):
     def __init__(self, auth: Authentication, fqdn: str, api_name: str, timeout: Tuple[int, int],
                  api_version: APIVersion = APIVersion.V3) -> None:
         self._auth = auth
