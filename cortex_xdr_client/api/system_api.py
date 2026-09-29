@@ -150,6 +150,7 @@ class SystemAPI(BaseAPI):
         """
         self._require_versions((5,))
         body = self._values({'filters': filters, 'on_demand_fields': on_demand_fields, 'sort': sort, 'search_from': search_from, 'search_to': search_to})
+        body = {'request_data': body}
         return self._operation(
             '/public_api/v1/assets', method='post',
             body=body,

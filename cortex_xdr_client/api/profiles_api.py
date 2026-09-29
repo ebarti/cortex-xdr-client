@@ -39,6 +39,7 @@ class ProfilesAPI(BaseAPI):
             )
         elif self._api_version == APIVersion.V5:
             body = self._values({'name': name, 'profile_type': profile_type, 'platform': platform, 'description': description, 'modules': modules})
+            body = {'request_data': body}
             return self._operation(
                 '/public_api/v1/profiles/prevention/add', method='post',
                 body=body,
@@ -65,6 +66,7 @@ class ProfilesAPI(BaseAPI):
             )
         elif self._api_version == APIVersion.V5:
             body = self._values({'profile_name': profile_name, 'signers': signers})
+            body = {'request_data': body}
             return self._operation(
                 '/public_api/v1/profiles/add_signer_cn_to_allowlist', method='post',
                 body=body,
@@ -91,6 +93,7 @@ class ProfilesAPI(BaseAPI):
             )
         elif self._api_version == APIVersion.V5:
             body = self._values({'profile_id': profile_id, 'update_data': update_data})
+            body = {'request_data': body}
             return self._operation(
                 '/public_api/v1/profiles/prevention/edit', method='post',
                 body=body,
@@ -117,6 +120,7 @@ class ProfilesAPI(BaseAPI):
             )
         elif self._api_version == APIVersion.V5:
             body = self._values({'profile_type': profile_type, 'platform': platform})
+            body = {'request_data': body}
             return self._operation(
                 '/public_api/v1/profiles/prevention/get_modules', method='post',
                 body=body,

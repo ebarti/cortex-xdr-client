@@ -34,7 +34,8 @@ class RbacAPI(BaseAPI):
             )
         elif self._api_version == APIVersion.V5:
             self._reject_fields(accept_encoding=accept_encoding)
-            body = body
+            if body is not UNSET:
+                body = {'request_data': body}
             return self._operation(
                 '/public_api/v1/rbac/get_users', method='post',
                 body=body,

@@ -104,6 +104,14 @@ def sample(schema):
             'object': {'nested': 1}}.get(kind, {'nested': 1})
 
 
+def expected_wire_scalar(value):
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+    if value is None:
+        return ''
+    return str(value)
+
+
 def fake_response(status=200, media='application/json', payload=b'{"ok":true}'):
     response = Response()
     response.status_code = status
@@ -198,21 +206,84 @@ def test_catalog_covers_all_indexed_operations_and_four_download_only_operations
 
 @pytest.mark.parametrize('entry', INITIAL, ids=lambda e: f"{e['version']} {e['http_method']} {e['path']}")
 def test_initial_operation_uses_documented_route_through_public_client(entry):
-    """The checkpoint's 342 mappings must reach the exact vendor method/path."""
+    """Exercise the checkpoint's 342 mappings against independently pinned fields."""
     client = client_for(entry)
     method = getattr(getattr(client, entry['api']), entry['method'])
-    required = {name: 'probe' for name, parameter in inspect.signature(method).parameters.items()
+    key = entry['version'], entry['path'], entry['http_method']
+    operation, spec = SOURCE[key] if key in SOURCE else ({}, {})
+    vendor, envelope, _ = vendor_fields(operation, spec, entry['path'])
+    supplied = {name: 'probe' for name, parameter in inspect.signature(method).parameters.items()
                 if parameter.default is inspect.Parameter.empty}
+    for field, name in entry['arguments'].items():
+        if field in vendor:
+            supplied[name] = sample(vendor[field])
+        elif field.startswith('payload:'):
+            supplied[name] = {'nested': 1}
+        elif field.startswith('outer:'):
+            supplied[name] = False
+        elif field.startswith('file:'):
+            supplied[name] = ('upload.txt', b'content')
+        elif field.startswith('header:'):
+            supplied[name] = 'gzip'
+    # The published legacy header spelling is malformed; both compatibility
+    # arguments map to one valid Accept-Encoding field and cannot be combined.
+    if 'accept_encoding_gzip' in supplied:
+        supplied.pop('accept_encoding', None)
+        supplied['accept_encoding_gzip'] = 'gzip'
     with patch('requests.request', return_value=fake_response(payload=b'{"reply":{}}')) as request:
-        method(**required)
+        method(**supplied)
     assert request.call_count == 1
     args, kwargs = request.call_args
     expected_path = entry['wire_path']
-    for placeholder in re.findall(r'\{([^}]+)\}', expected_path):
-        expected_path = expected_path.replace('{' + placeholder + '}', 'probe')
+    for field, name in entry['arguments'].items():
+        if field.startswith('path:'):
+            expected_path = expected_path.replace('{' + field[5:] + '}',
+                                                  quote(str(supplied[name]), safe=''))
     assert args[:2] == (entry['http_method'], 'https://api-tenant.example' + expected_path)
     assert kwargs['allow_redirects'] is False
     assert kwargs['timeout'] == (10, 60)
+    if envelope:
+        assert envelope in kwargs['json']
+    for field, schema in vendor.items():
+        location, wire = field.split(':', 1)
+        name = entry['arguments'].get(field)
+        if location in {'path', 'query', 'header', 'body'}:
+            assert name or (location == 'body' and any(
+                prefix + wire in entry['arguments'] for prefix in ('payload:', 'outer:', 'file:'))), field
+        if location == 'body':
+            name = name or entry['arguments'].get('payload:' + wire)
+            name = name or entry['arguments'].get('outer:' + wire)
+            if name:
+                body = kwargs['json'][envelope] if envelope else kwargs['json']
+                assert body[wire] == supplied[name]
+            elif 'file:' + wire in entry['arguments']:
+                assert kwargs['files'][wire] == supplied[entry['arguments']['file:' + wire]]
+        elif location == 'raw_body':
+            name = entry['arguments'].get('payload:body')
+            name = name or entry['arguments'].get('payload:request_data')
+            if name:
+                body = kwargs['json'][envelope] if envelope else kwargs['json']
+                assert body == supplied[name]
+        elif location == 'header' and name:
+            if wire == '\'Accept-Encoding: gzip\' : " "':
+                assert kwargs['headers']['Accept-Encoding'] == 'gzip'
+            elif name in supplied:
+                assert kwargs['headers'][wire] == expected_wire_scalar(supplied[name])
+        elif location == 'query' and name:
+            values = [value for key, value in kwargs['params'] if key == wire]
+            value = supplied[name]
+            parameter = next(p for p in operation['parameters']
+                             if p.get('in') == 'query' and p.get('name') == wire)
+            if isinstance(value, list):
+                items = [expected_wire_scalar(item) for item in value]
+                expected = items if parameter.get('explode', True) else [','.join(items)]
+            else:
+                expected = [expected_wire_scalar(value)]
+            assert values == expected, (entry['path'], wire)
+    if envelope and 'payload:body' in entry['arguments']:
+        assert kwargs['json'] == {envelope: supplied[entry['arguments']['payload:body']]}
+    if envelope and 'payload:' + envelope in entry['arguments']:
+        assert kwargs['json'][envelope] == supplied[entry['arguments']['payload:' + envelope]]
 
 
 def test_unset_is_distinct_from_null_false_zero_and_empty_array():
@@ -356,3 +427,29 @@ def test_ambiguous_compliance_edit_body_is_sent_unchanged():
         'post', 'https://api-tenant.example/public_api/v1/compliance/edit_assessment_profile')
     assert request.call_args.kwargs['json'] == body
     assert '' not in request.call_args.kwargs['json']
+
+
+@pytest.mark.parametrize('api,method,arguments,inner,v3_unwrapped', [
+    ('profiles_api', 'prevention_add', {'name': 'profile-1', 'modules': {}},
+     {'name': 'profile-1', 'modules': {}}, True),
+    ('profiles_api', 'add_signer_cn_to_allowlist',
+     {'profile_name': 'profile-1', 'signers': ['CN=Example']},
+     {'profile_name': 'profile-1', 'signers': ['CN=Example']}, True),
+    ('profiles_api', 'prevention_edit', {'profile_id': 0, 'update_data': {'enabled': False}},
+     {'profile_id': 0, 'update_data': {'enabled': False}}, True),
+    ('profiles_api', 'prevention_get_modules', {'profile_type': 'endpoint', 'platform': 'linux'},
+     {'profile_type': 'endpoint', 'platform': 'linux'}, True),
+    ('system_api', 'assets', {'filters': [], 'search_from': 0},
+     {'filters': [], 'search_from': 0}, False),
+    ('rbac_api', 'get_users', {'body': {'filters': []}}, {'filters': []}, True),
+])
+def test_version_specific_request_data_envelopes(api, method, arguments, inner, v3_unwrapped):
+    client = client_for({'api': api, 'version': 5})
+    with patch('requests.request', return_value=fake_response()) as request:
+        getattr(getattr(client, api), method)(**arguments)
+    assert request.call_args.kwargs['json'] == {'request_data': inner}
+    if v3_unwrapped:
+        legacy = client_for({'api': api, 'version': 3})
+        with patch('requests.request', return_value=fake_response()) as request:
+            getattr(getattr(legacy, api), method)(**arguments)
+        assert request.call_args.kwargs['json'] == inner
