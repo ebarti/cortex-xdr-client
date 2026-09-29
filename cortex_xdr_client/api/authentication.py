@@ -31,7 +31,7 @@ class Authentication:
                 'Authorization': self._api_key
             }
         nonce = "".join([secrets.choice(string.ascii_letters + string.digits) for _ in range(64)])
-        timestamp = int(datetime.now(timezone.utc).timestamp()) * 1000
+        timestamp = int(datetime.now(timezone.utc).timestamp() * 1000)
         auth_key = "%s%s%s" % (self._api_key, nonce, timestamp)
         auth_key = auth_key.encode("utf-8")
         api_key_hash = hashlib.sha256(auth_key).hexdigest()

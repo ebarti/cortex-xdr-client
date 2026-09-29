@@ -2,6 +2,7 @@ from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.version import APIVersion
 from cortex_xdr_client.api.models.filters import (new_request_data,
                                                   request_eq_neq_filter,
                                                   request_filter,
@@ -12,8 +13,9 @@ from cortex_xdr_client.api.models.incidents import (GetExtraIncidentDataResponse
 
 
 class IncidentsAPI(BaseAPI):
-    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(IncidentsAPI, self).__init__(auth, fqdn, "incidents", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int],
+                 api_version: APIVersion = APIVersion.V3) -> None:
+        super(IncidentsAPI, self).__init__(auth, fqdn, "incidents", timeout, api_version)
 
     @staticmethod
     def _get_incident_extra_data_filter(incident_id: str, alerts_limit: int) -> dict:
@@ -36,6 +38,7 @@ class IncidentsAPI(BaseAPI):
                       status_equal: bool = True,
                       search_from: int = None,
                       search_to: int = None,
+                      sort: dict = None,
                       ) -> Optional[GetIncidentsResponse]:
         """
         Get a list of incidents filtered by a list of incident IDs, modification time, or creation time.
@@ -52,6 +55,7 @@ class IncidentsAPI(BaseAPI):
         :param status_equal: If the status will be equal to the given status.
         :param search_from: Integer representing the starting offset within the query result set from which you want incidents returned.
         :param search_to: Integer representing the end offset within the result set after which you do not want incidents returned.
+        :param sort: Sort field and keyword (asc or desc).
         :return: Returns a GetIncidentsResponse object if successful.
         """
         filters = []
@@ -73,7 +77,7 @@ class IncidentsAPI(BaseAPI):
         if status is not None:
             filters.append(request_eq_neq_filter("status", status, status_equal))
 
-        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
+        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to, sort=sort)
         response = self._call(call_name="get_incidents", json_value=request_data)
         return GetIncidentsResponse.parse_obj(response.json())
 

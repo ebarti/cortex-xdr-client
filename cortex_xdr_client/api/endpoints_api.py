@@ -1,7 +1,9 @@
+from enum import Enum
 from typing import Dict, List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.version import APIVersion
 from cortex_xdr_client.api.models.endpoints import (EndpointPlatform,
                                                     EndpointStatus,
                                                     GetAllEndpointsResponse,
@@ -15,8 +17,17 @@ from cortex_xdr_client.api.models.filters import (new_request_data, request_filt
 
 
 class EndpointsAPI(BaseAPI):
-    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(EndpointsAPI, self).__init__(auth, fqdn, "endpoints", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int],
+                 api_version: APIVersion = APIVersion.V3) -> None:
+        super(EndpointsAPI, self).__init__(auth, fqdn, "endpoints", timeout, api_version)
+
+    @staticmethod
+    def _get_filter_value(value):
+        if isinstance(value, list):
+            return [EndpointsAPI._get_filter_value(item) for item in value]
+        if isinstance(value, Enum):
+            return {"mac": "macos", "cancel": "canceled"}.get(value.name, value.name)
+        return value
 
     @staticmethod
     def _get_common_endpoint_filters(endpoint_id_list: List[str] = None,
@@ -48,15 +59,15 @@ class EndpointsAPI(BaseAPI):
         if group_name is not None:
             filters.append(request_filter("group_name", "in", group_name))
         if platform is not None:
-            filters.append(request_filter("platform", "in", platform))
+            filters.append(request_filter("platform", "in", EndpointsAPI._get_filter_value(platform)))
         if alias is not None:
             filters.append(request_filter("alias", "in", alias))
         if hostname is not None:
             filters.append(request_filter("hostname", "in", hostname))
         if isolate is not None:
-            filters.append(request_filter("isolate", "in", isolate))
+            filters.append(request_filter("isolate", "in", EndpointsAPI._get_filter_value(isolate)))
         if scan_status is not None:
-            filters.append(request_filter("scan_status", "in", scan_status))
+            filters.append(request_filter("scan_status", "in", EndpointsAPI._get_filter_value(scan_status)))
         if username is not None:
             filters.append(request_filter("username", "in", username))
         return filters
@@ -88,6 +99,13 @@ class EndpointsAPI(BaseAPI):
                      username: List[str] = None,
                      search_from: int = None,
                      search_to: int = None,
+                     sort: dict = None,
+                     public_ip_list: List[str] = None,
+                     cloud_provider: List[str] = None,
+                     cloud_region: List[str] = None,
+                     cloud_provider_account_id: List[str] = None,
+                     cloud_instance_id: List[str] = None,
+                     cloud_id: List[str] = None,
                      ) -> Optional[GetEndpointResponse]:
         """
         Gets a list of filtered endpoints.
@@ -109,6 +127,13 @@ class EndpointsAPI(BaseAPI):
         :param username: Username.
         :param search_from: Integer representing the starting offset within the query result set from which you want incidents returned.
         :param search_to: Integer representing the end offset within the result set after which you do not want incidents returned.
+        :param sort: Sort field and keyword (asc or desc).
+        :param public_ip_list: Last origin IP addresses.
+        :param cloud_provider: Cloud providers to match (XDR 5.x).
+        :param cloud_region: Cloud regions to match (XDR 5.x).
+        :param cloud_provider_account_id: Cloud account IDs (XDR 5.x).
+        :param cloud_instance_id: Cloud instance IDs (XDR 5.x).
+        :param cloud_id: Cloud IDs (XDR 5.x).
         :return: A GetEndpointResponse object if successful.
         """
         filters = self._get_common_endpoint_filters(endpoint_id_list=endpoint_id_list,
@@ -126,9 +151,19 @@ class EndpointsAPI(BaseAPI):
                                                     scan_status=scan_status,
                                                     username=username)
         if endpoint_status is not None:
-            filters.append(request_filter("endpoint_status", "in", endpoint_status))
+            filters.append(request_filter("endpoint_status", "in", self._get_filter_value(endpoint_status)))
 
-        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to)
+        if public_ip_list is not None:
+            filters.append(request_filter("public_ip_list", "in", public_ip_list))
+        cloud_filters = {"cloud_provider": cloud_provider, "cloud_region": cloud_region,
+                         "cloud_provider_account_id": cloud_provider_account_id,
+                         "cloud_instance_id": cloud_instance_id, "cloud_id": cloud_id}
+        for field, value in cloud_filters.items():
+            if value is not None:
+                self._require_version(APIVersion.V5)
+                filters.append(request_filter(field, "in", value))
+
+        request_data = new_request_data(filters=filters, search_from=search_from, search_to=search_to, sort=sort)
 
         response = self._call(call_name="get_endpoint",
                               json_value=request_data)
@@ -258,7 +293,7 @@ class EndpointsAPI(BaseAPI):
                                                     isolate=isolate,
                                                     hostname=hostname)
         if endpoint_status is not None:
-            filters.append(request_filter("endpoint_status", "in", endpoint_status))
+            filters.append(request_filter("endpoint_status", "in", self._get_filter_value(endpoint_status)))
 
         request_data = new_request_data(filters=filters, other={"alias": new_alias})
 
@@ -284,15 +319,11 @@ class EndpointsAPI(BaseAPI):
 
         filters = [request_filter("endpoint_id_list", "in", endpoint_id_list)]
 
-        # Check if the dictionary contains anything other than supported Os.
-        acceptable_oses = list(["windows", "linux", "macos"])
-
-        for os in set(acceptable_oses).intersection(files):
-            if os not in acceptable_oses:
-                return None
-        request_data = new_request_data(filters=filters, other=files)
+        if not files or any(os not in ("windows", "linux", "macos") for os in files):
+            raise ValueError("files must contain paths keyed by windows, linux or macos")
+        request_data = new_request_data(filters=filters, other={"files": files})
         if incident_id is not None:
-            request_data["incident_id"] = incident_id
+            request_data["request_data"]["incident_id"] = incident_id
 
         response = self._call(call_name="file_retrieval",
                               json_value=request_data)
@@ -319,7 +350,7 @@ class EndpointsAPI(BaseAPI):
 
         request_data = new_request_data(filters=filters, other={"file_path": file_path, "file_hash": file_hash})
         if incident_id is not None:
-            request_data["incident_id"] = incident_id
+            request_data["request_data"]["incident_id"] = incident_id
 
         response = self._call(call_name="quarantine",
                               json_value=request_data)

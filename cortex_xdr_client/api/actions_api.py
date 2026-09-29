@@ -2,13 +2,15 @@ from typing import Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
+from cortex_xdr_client.api.version import APIVersion
 from cortex_xdr_client.api.models.action_status import GetActionStatus
 from cortex_xdr_client.api.models.filters import new_request_data
 
 
 class ActionsAPI(BaseAPI):
-    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int]) -> None:
-        super(ActionsAPI, self).__init__(auth, fqdn, "actions", timeout)
+    def __init__(self, auth: Authentication, fqdn: str, timeout: Tuple[int, int],
+                 api_version: APIVersion = APIVersion.V3) -> None:
+        super(ActionsAPI, self).__init__(auth, fqdn, "actions", timeout, api_version)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/response-actions/get-action-status.html
     def get_action_status(self,
