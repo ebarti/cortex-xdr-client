@@ -1,5 +1,8 @@
+from typing import Any, Dict, List, Optional, Tuple, Union
+
+from cortex_xdr_client.api.operation import UNSET, UnsetType
+
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -370,3 +373,494 @@ class EndpointsAPI(BaseAPI):
         response = self._call(call_name="scan",
                               json_value=request_data)
         return ResponseActionResponse.model_validate(response.json())
+
+
+    def get_endpoints(self, *,
+                      accept_encoding: Union[str, None, UnsetType] = UNSET,
+                      body: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get all Endpoints
+
+        POST /public_api/v1/endpoints/get_endpoints
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param body: payload field body.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = body
+            return self._operation(
+                '/public_api/v1/endpoints/get_endpoints', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = body
+            return self._operation(
+                '/public_api/v1/endpoints/get_endpoints', method='post',
+                body=body,
+            )
+
+    def get_endpoint_request(self, *,
+                             accept_encoding: Union[str, None, UnsetType] = UNSET,
+                             filters: Union[List[dict], None, UnsetType] = UNSET,
+                             search_from: Union[int, None, UnsetType] = UNSET,
+                             search_to: Union[int, None, UnsetType] = UNSET,
+                             sort: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get Endpoint
+
+        POST /public_api/v1/endpoints/get_endpoint
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param search_from: body field search_from.
+        :param search_to: body field search_to.
+        :param sort: body field sort.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_endpoint', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_endpoint', method='post',
+                body=body,
+            )
+
+    def update_agent_name(self, *,
+                          accept_encoding: Union[str, None, UnsetType] = UNSET,
+                          filters: Union[List[dict], None, UnsetType] = UNSET,
+                          alias: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Set an Endpoint Alias
+
+        POST /public_api/v1/endpoints/update_agent_name
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param alias: body field alias.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'alias': alias})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/update_agent_name', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'alias': alias})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/update_agent_name', method='post',
+                body=body,
+            )
+
+    def get_policy(self, *,
+                   accept_encoding: Union[str, None, UnsetType] = UNSET,
+                   endpoint_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Policy
+
+        POST /public_api/v1/endpoints/get_policy
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param endpoint_id: body field endpoint_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'endpoint_id': endpoint_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_policy', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'endpoint_id': endpoint_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_policy', method='post',
+                body=body,
+            )
+
+    def terminate_process(self, *,
+                          accept_encoding: Union[str, None, UnsetType] = UNSET,
+                          agent_id: Union[str, None, UnsetType] = UNSET,
+                          instance_id: Union[str, None, UnsetType] = UNSET,
+                          process_name: Union[str, None, UnsetType] = UNSET,
+                          incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Terminate the specified agent process
+
+        POST /public_api/v1/endpoints/terminate_process
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param agent_id: body field agent_id.
+        :param instance_id: body field instance_id.
+        :param process_name: body field process_name.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3,))
+        body = self._values({'agent_id': agent_id, 'instance_id': instance_id, 'process_name': process_name, 'incident_id': incident_id})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/endpoints/terminate_process', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def terminate_causality(self, *,
+                            accept_encoding: Union[str, None, UnsetType] = UNSET,
+                            agent_id: Union[str, None, UnsetType] = UNSET,
+                            causality_id: Union[str, None, UnsetType] = UNSET,
+                            process_name: Union[str, None, UnsetType] = UNSET,
+                            incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Terminate a process by causality ID
+
+        POST /public_api/v1/endpoints/terminate_causality
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param agent_id: body field agent_id.
+        :param causality_id: body field causality_id.
+        :param process_name: body field process_name.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3,))
+        body = self._values({'agent_id': agent_id, 'causality_id': causality_id, 'process_name': process_name, 'incident_id': incident_id})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/endpoints/terminate_causality', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def delete(self, *,
+               accept_encoding: Union[str, None, UnsetType] = UNSET,
+               filters: Union[List[dict], None, UnsetType] = UNSET) -> Any:
+        """Delete Endpoints
+
+        POST /public_api/v1/endpoints/delete
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/delete', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/delete', method='post',
+                body=body,
+            )
+
+    def get_profiles(self, *,
+                     type: Union[str, None, UnsetType] = UNSET,
+                     profile_ids: Union[List[int], None, UnsetType] = UNSET) -> Any:
+        """Get endpoint security profiles
+
+        POST /public_api/v1/endpoints/get_profiles
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param type: body field type.
+        :param profile_ids: body field profile_ids.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'type': type, 'profile_ids': profile_ids})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_profiles', method='post',
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            body = self._values({'type': type, 'profile_ids': profile_ids})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/get_profiles', method='post',
+                body=body,
+            )
+
+    def restore(self, *,
+                accept_encoding: Union[str, None, UnsetType] = UNSET,
+                file_hash: Union[str, None, UnsetType] = UNSET,
+                endpoint_id: Union[str, None, UnsetType] = UNSET,
+                incident_id: Union[int, None, UnsetType] = UNSET) -> Any:
+        """Restore File
+
+        POST /public_api/v1/endpoints/restore
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param file_hash: body field file_hash.
+        :param endpoint_id: body field endpoint_id.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'file_hash': file_hash, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/restore', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'file_hash': file_hash, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/restore', method='post',
+                body=body,
+            )
+
+    def quarantine(self, *,
+                   accept_encoding: Union[str, None, UnsetType] = UNSET,
+                   filters: Union[List[dict], None, UnsetType] = UNSET,
+                   file_path: Union[str, None, UnsetType] = UNSET,
+                   file_hash: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Quarantine Files
+
+        POST /public_api/v1/endpoints/quarantine
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param file_path: body field file_path.
+        :param file_hash: body field file_hash.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'file_path': file_path, 'file_hash': file_hash})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/quarantine', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'file_path': file_path, 'file_hash': file_hash})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/quarantine', method='post',
+                body=body,
+            )
+
+    def unisolate(self, *,
+                  accept_encoding: Union[str, None, UnsetType] = UNSET,
+                  filters: Union[List[dict], None, UnsetType] = UNSET,
+                  endpoint_id: Union[str, None, UnsetType] = UNSET,
+                  incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Unisolate Endpoints
+
+        POST /public_api/v1/endpoints/unisolate
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param endpoint_id: body field endpoint_id.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/unisolate', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/unisolate', method='post',
+                body=body,
+            )
+
+    def abort_scan(self, *,
+                   accept_encoding: Union[str, None, UnsetType] = UNSET,
+                   filters: Union[List[dict], None, UnsetType] = UNSET,
+                   incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Cancel Scan Endpoints
+
+        POST /public_api/v1/endpoints/abort_scan
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/abort_scan', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/abort_scan', method='post',
+                body=body,
+            )
+
+    def scan(self, *,
+             filters: Union[dict, None, UnsetType] = UNSET,
+             incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Scan Endpoints
+
+        POST /public_api/v1/endpoints/scan
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param filters: body field filters.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/scan', method='post',
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            body = self._values({'filters': filters, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/scan', method='post',
+                body=body,
+            )
+
+    def file_retrieval(self, *,
+                       accept_encoding: Union[str, None, UnsetType] = UNSET,
+                       filters: Union[List[dict], None, UnsetType] = UNSET,
+                       files: Union[dict, None, UnsetType] = UNSET,
+                       incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Retrieve File
+
+        POST /public_api/v1/endpoints/file_retrieval
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param files: body field files.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'files': files, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/file_retrieval', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'files': files, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/file_retrieval', method='post',
+                body=body,
+            )
+
+    def isolate(self, *,
+                accept_encoding: Union[str, None, UnsetType] = UNSET,
+                filters: Union[List[dict], None, UnsetType] = UNSET,
+                endpoint_id: Union[str, None, UnsetType] = UNSET,
+                incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Isolate Endpoints
+
+        POST /public_api/v1/endpoints/isolate
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param endpoint_id: body field endpoint_id.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/isolate', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'endpoint_id': endpoint_id, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/endpoints/isolate', method='post',
+                body=body,
+            )
+
+    def upgrade(self, *,
+                endpoint_ids: Union[List[str], None, UnsetType] = UNSET,
+                target_versions: Union[dict, None, UnsetType] = UNSET,
+                upgrade_timeframe_window: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Upgrade Agents
+
+        POST /public_api/v1/endpoints/upgrade
+        Available in Cortex XDR 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param endpoint_ids: body field endpoint_ids.
+        :param target_versions: body field target_versions.
+        :param upgrade_timeframe_window: body field upgrade_timeframe_window.
+        """
+        self._require_versions((5,))
+        body = self._values({'endpoint_ids': endpoint_ids, 'target_versions': target_versions, 'upgrade_timeframe_window': upgrade_timeframe_window})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/endpoints/upgrade', method='post',
+            body=body,
+        )

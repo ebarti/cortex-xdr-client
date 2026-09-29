@@ -1,4 +1,7 @@
-from typing import List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, Union
+
+from cortex_xdr_client.api.operation import UNSET, UnsetType
+
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -216,3 +219,313 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
         return resp_json["reply"]
+
+
+    def run_snippet_code_script_request(self, *,
+                                        accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                        filters: Union[List[dict], None, UnsetType] = UNSET,
+                                        timeout: Union[int, None, UnsetType] = UNSET,
+                                        snippet_code: Union[str, None, UnsetType] = UNSET,
+                                        incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Run Snippet Code Script
+
+        POST /public_api/v1/scripts/run_snippet_code_script
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param timeout: body field timeout.
+        :param snippet_code: body field snippet_code.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'timeout': timeout, 'snippet_code': snippet_code, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/run_snippet_code_script', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'timeout': timeout, 'snippet_code': snippet_code, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/run_snippet_code_script', method='post',
+                body=body,
+            )
+
+    def run_script_request(self, *,
+                           accept_encoding: Union[str, None, UnsetType] = UNSET,
+                           filters: Union[List[dict], None, UnsetType] = UNSET,
+                           script_uid: Union[str, None, UnsetType] = UNSET,
+                           parameters_values: Union[dict, None, UnsetType] = UNSET,
+                           timeout: Union[int, None, UnsetType] = UNSET,
+                           incident_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Run Script
+
+        POST /public_api/v1/scripts/run_script
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param script_uid: body field script_uid.
+        :param parameters_values: body field parameters_values.
+        :param timeout: body field timeout.
+        :param incident_id: body field incident_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters, 'script_uid': script_uid, 'parameters_values': parameters_values, 'timeout': timeout, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/run_script', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters, 'script_uid': script_uid, 'parameters_values': parameters_values, 'timeout': timeout, 'incident_id': incident_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/run_script', method='post',
+                body=body,
+            )
+
+    def get_script_metadata_request(self, *,
+                                    accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                    script_uid: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Script Metadata
+
+        POST /public_api/v1/scripts/get_script_metadata
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param script_uid: body field script_uid.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'script_uid': script_uid})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_metadata', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'script_uid': script_uid})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_metadata', method='post',
+                body=body,
+            )
+
+    def get_scripts_request(self, *,
+                            accept_encoding: Union[str, None, UnsetType] = UNSET,
+                            filters: Union[List[dict], None, UnsetType] = UNSET) -> Any:
+        """Get Scripts
+
+        POST /public_api/v1/scripts/get_scripts
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'filters': filters})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_scripts', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'filters': filters})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_scripts', method='post',
+                body=body,
+            )
+
+    def get_script_execution_status_request(self, *,
+                                            accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                            action_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Script Execution Status
+
+        POST /public_api/v1/scripts/get_script_execution_status
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param action_id: body field action_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'action_id': action_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_status', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'action_id': action_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_status', method='post',
+                body=body,
+            )
+
+    def get_script_execution_results_request(self, *,
+                                             accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                             action_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Script Execution Results
+
+        POST /public_api/v1/scripts/get_script_execution_results
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param action_id: body field action_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'action_id': action_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_results', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'action_id': action_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_results', method='post',
+                body=body,
+            )
+
+    def get_script_execution_results_files(self, *,
+                                           accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                           action_id: Union[str, None, UnsetType] = UNSET,
+                                           endpoint_id: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Script Execution Result Files
+
+        POST /public_api/v1/scripts/get_script_execution_results_files
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param action_id: body field action_id.
+        :param endpoint_id: body field endpoint_id.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'action_id': action_id, 'endpoint_id': endpoint_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_results_files', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'action_id': action_id, 'endpoint_id': endpoint_id})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_execution_results_files', method='post',
+                body=body,
+            )
+
+    def get_script_code(self, *,
+                        accept_encoding: Union[str, None, UnsetType] = UNSET,
+                        script_uid: Union[str, None, UnsetType] = UNSET) -> Any:
+        """Get Script Code
+
+        POST /public_api/v1/scripts/get_script_code
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param script_uid: body field script_uid.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'script_uid': script_uid})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_code', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'script_uid': script_uid})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/scripts/get_script_code', method='post',
+                body=body,
+            )
+
+    def get(self, *,
+            filter: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get a script
+
+        POST /public_api/v1/scripts/get
+        Available in Cortex XDR 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param filter: body field filter.
+        """
+        self._require_versions((5,))
+        body = self._values({'filter': filter})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/scripts/get', method='post',
+            body=body,
+        )
+
+    def insert(self, *,
+               file: Union[Any, None, UnsetType] = UNSET) -> Any:
+        """Insert or update a script
+
+        POST /public_api/v1/scripts/insert
+        Available in Cortex XDR 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param file: file field file.
+        """
+        self._require_versions((5,))
+        body = self._values({})
+        return self._operation(
+            '/public_api/v1/scripts/insert', method='post',
+            data=body, files={'file': file},
+        )
+
+    def delete(self, *,
+               filter: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Delete a script
+
+        POST /public_api/v1/scripts/delete
+        Available in Cortex XDR 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param filter: body field filter.
+        """
+        self._require_versions((5,))
+        body = self._values({'filter': filter})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/scripts/delete', method='post',
+            body=body,
+        )

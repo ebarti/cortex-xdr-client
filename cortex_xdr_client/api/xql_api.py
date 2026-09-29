@@ -1,6 +1,9 @@
+from typing import Any, List, Optional, Tuple, Union
+
+from cortex_xdr_client.api.operation import UNSET, UnsetType
+
 import gzip
 import json
-from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -107,3 +110,336 @@ class XQLAPI(BaseAPI):
         data = content.decode("utf-8")
         logs = [json.loads(line) for line in data.splitlines() if line.strip() != ""]
         return {"data": logs}
+
+
+    def start_xql_query_request(self, *,
+                                accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                query: Union[str, None, UnsetType] = UNSET,
+                                tenants: Union[List[str], None, UnsetType] = UNSET,
+                                timeframe: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Start an XQL Query
+
+        POST /public_api/v1/xql/start_xql_query
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param query: body field query.
+        :param tenants: body field tenants.
+        :param timeframe: body field timeframe.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'query': query, 'tenants': tenants, 'timeframe': timeframe})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/start_xql_query', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'query': query, 'tenants': tenants, 'timeframe': timeframe})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/start_xql_query', method='post',
+                body=body,
+            )
+
+    def get_query_results_request(self, *,
+                                  accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                  query_id: Union[str, None, UnsetType] = UNSET,
+                                  pending_flag: Union[bool, None, UnsetType] = UNSET,
+                                  limit: Union[int, None, UnsetType] = UNSET,
+                                  format: Union[Any, None, UnsetType] = UNSET) -> Any:
+        """Get XQL Query Results
+
+        POST /public_api/v1/xql/get_query_results
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param query_id: body field query_id.
+        :param pending_flag: body field pending_flag.
+        :param limit: body field limit.
+        :param format: body field format.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'query_id': query_id, 'pending_flag': pending_flag, 'limit': limit, 'format': format})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_query_results', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'query_id': query_id, 'pending_flag': pending_flag, 'limit': limit, 'format': format})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_query_results', method='post',
+                body=body,
+            )
+
+    def get_quota(self, *,
+                  accept_encoding: Union[str, None, UnsetType] = UNSET,
+                  body: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get XQL Query Quota
+
+        POST /public_api/v1/xql/get_quota
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param body: payload field body.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = body
+            return self._operation(
+                '/public_api/v1/xql/get_quota', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = body
+            return self._operation(
+                '/public_api/v1/xql/get_quota', method='post',
+                body=body,
+            )
+
+    def get_query_results_stream_request(self, *,
+                                         accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                         accept_encoding_gzip: Union[str, None, UnsetType] = UNSET,
+                                         stream_id: Union[str, None, UnsetType] = UNSET,
+                                         is_gzip_compressed: Union[bool, None, UnsetType] = UNSET) -> Any:
+        """Get XQL Query Results Stream
+
+        POST /public_api/v1/xql/get_query_results_stream
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param accept_encoding_gzip: header field 'Accept-Encoding: gzip' : " ".
+        :param stream_id: body field stream_id.
+        :param is_gzip_compressed: body field is_gzip_compressed.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'stream_id': stream_id, 'is_gzip_compressed': is_gzip_compressed})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_query_results_stream', method='post',
+                headers={'Accept-Encoding': accept_encoding, '\'Accept-Encoding: gzip\' : " "': accept_encoding_gzip},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding_gzip=accept_encoding_gzip)
+            body = self._values({'stream_id': stream_id, 'is_gzip_compressed': is_gzip_compressed})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_query_results_stream', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+
+    def add_dataset(self, *,
+                    accept_encoding: Union[str, None, UnsetType] = UNSET,
+                    dataset_name: Union[str, None, UnsetType] = UNSET,
+                    dataset_type: Union[Any, None, UnsetType] = UNSET,
+                    dataset_schema: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Add Dataset
+
+        POST /public_api/v1/xql/add_dataset
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param dataset_name: body field dataset_name.
+        :param dataset_type: body field dataset_type.
+        :param dataset_schema: body field dataset_schema.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'dataset_name': dataset_name, 'dataset_type': dataset_type, 'dataset_schema': dataset_schema})
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/add_dataset', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'dataset_name': dataset_name, 'dataset_type': dataset_type, 'dataset_schema': dataset_schema})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/add_dataset', method='post',
+                body=body,
+            )
+
+    def delete_dataset(self, *,
+                       accept_encoding: Union[str, None, UnsetType] = UNSET,
+                       dataset_name: Union[str, None, UnsetType] = UNSET,
+                       force: Union[bool, None, UnsetType] = UNSET) -> Any:
+        """Delete a dataset
+
+        POST /public_api/v2/xql/delete_dataset
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param dataset_name: body field dataset_name.
+        :param force: body field force.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'dataset_name': dataset_name, 'force': force})
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v2/xql/delete_dataset', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'dataset_name': dataset_name, 'force': force})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v2/xql/delete_dataset', method='post',
+                body=body,
+            )
+
+    def get_datasets(self, *,
+                     accept_encoding: Union[str, None, UnsetType] = UNSET,
+                     request: Union[dict, None, UnsetType] = UNSET,
+                     request_data: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get all datasets
+
+        POST /public_api/v1/xql/get_datasets
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param request: payload field request.
+        :param request_data: payload field request_data.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            self._reject_fields(request_data=request_data)
+            body = request
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_datasets', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding, request=request)
+            body = request_data
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/get_datasets', method='post',
+                body=body,
+            )
+
+    def lookups_add_data(self, *,
+                         accept_encoding: Union[str, None, UnsetType] = UNSET,
+                         dataset_name: Union[str, None, UnsetType] = UNSET,
+                         key_fields: Union[List[str], None, UnsetType] = UNSET,
+                         data: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Add or update data in a lookup dataset
+
+        POST /public_api/v1/xql/lookups/add_data
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param dataset_name: body field dataset_name.
+        :param key_fields: body field key_fields.
+        :param data: body field data.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'dataset_name': dataset_name, 'key_fields': key_fields, 'data': data})
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/add_data', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'dataset_name': dataset_name, 'key_fields': key_fields, 'data': data})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/add_data', method='post',
+                body=body,
+            )
+
+    def lookups_remove_data(self, *,
+                            accept_encoding: Union[str, None, UnsetType] = UNSET,
+                            dataset_name: Union[str, None, UnsetType] = UNSET,
+                            filters: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Remove data from a lookup dataset
+
+        POST /public_api/v1/xql/lookups/remove_data
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param dataset_name: body field dataset_name.
+        :param filters: body field filters.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'dataset_name': dataset_name, 'filters': filters})
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/remove_data', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'dataset_name': dataset_name, 'filters': filters})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/remove_data', method='post',
+                body=body,
+            )
+
+    def lookups_get_data(self, *,
+                         accept_encoding: Union[str, None, UnsetType] = UNSET,
+                         dataset_name: Union[str, None, UnsetType] = UNSET,
+                         filters: Union[List[dict], None, UnsetType] = UNSET,
+                         limit: Union[int, None, UnsetType] = UNSET) -> Any:
+        """Get data from a lookup dataset
+
+        POST /public_api/v1/xql/lookups/get_data
+        Available in Cortex XDR 3.x, 5.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param dataset_name: body field dataset_name.
+        :param filters: body field filters.
+        :param limit: body field limit.
+        """
+        self._require_versions((3, 5))
+        if self._api_version == APIVersion.V3:
+            body = self._values({'dataset_name': dataset_name, 'filters': filters, 'limit': limit})
+            body = self._values({'request': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/get_data', method='post',
+                headers={'Accept-Encoding': accept_encoding},
+                body=body,
+            )
+        elif self._api_version == APIVersion.V5:
+            self._reject_fields(accept_encoding=accept_encoding)
+            body = self._values({'dataset_name': dataset_name, 'filters': filters, 'limit': limit})
+            body = self._values({'request_data': body, **{}})
+            return self._operation(
+                '/public_api/v1/xql/lookups/get_data', method='post',
+                body=body,
+            )

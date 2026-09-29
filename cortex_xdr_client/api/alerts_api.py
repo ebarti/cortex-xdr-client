@@ -1,5 +1,8 @@
+from typing import Any, List, Optional, Tuple, Union
+
+from cortex_xdr_client.api.operation import UNSET, UnsetType
+
 from enum import Enum
-from typing import List, Optional, Tuple
 
 from cortex_xdr_client.api.authentication import Authentication
 from cortex_xdr_client.api.base_api import BaseAPI
@@ -75,6 +78,174 @@ class AlertsAPI(BaseAPI):
         response = self._call(call_name="get_alerts_multi_events",
                               json_value=request_data)
         return GetAlertsResponse.model_validate(response.json())
+
+
+    def get_alerts_request(self, *,
+                           accept_encoding: Union[str, None, UnsetType] = UNSET,
+                           filters: Union[List[dict], None, UnsetType] = UNSET,
+                           search_from: Union[int, None, UnsetType] = UNSET,
+                           search_to: Union[int, None, UnsetType] = UNSET,
+                           sort: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get all Alerts
+
+        POST /public_api/v1/alerts/get_alerts
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param search_from: body field search_from.
+        :param search_to: body field search_to.
+        :param sort: body field sort.
+        """
+        self._require_versions((3,))
+        body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/get_alerts', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def update_alerts(self, *,
+                      accept_encoding: Union[str, None, UnsetType] = UNSET,
+                      alert_id_list: Union[List[str], None, UnsetType] = UNSET,
+                      update_data: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Update Alerts
+
+        POST /public_api/v1/alerts/update_alerts
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param alert_id_list: body field alert_id_list.
+        :param update_data: body field update_data.
+        """
+        self._require_versions((3,))
+        body = self._values({'alert_id_list': alert_id_list, 'update_data': update_data})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/update_alerts', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def insert_cef_alerts(self, *,
+                          accept_encoding: Union[str, None, UnsetType] = UNSET,
+                          alerts: Union[List[str], None, UnsetType] = UNSET) -> Any:
+        """Insert CEF Alerts
+
+        POST /public_api/v1/alerts/insert_cef_alerts
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param alerts: body field alerts.
+        """
+        self._require_versions((3,))
+        body = self._values({'alerts': alerts})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/insert_cef_alerts', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def insert_parsed_alerts(self, *,
+                             accept_encoding: Union[str, None, UnsetType] = UNSET,
+                             alerts: Union[List[dict], None, UnsetType] = UNSET) -> Any:
+        """Insert Parsed Alerts
+
+        POST /public_api/v1/alerts/insert_parsed_alerts
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param alerts: body field alerts.
+        """
+        self._require_versions((3,))
+        body = self._values({'alerts': alerts})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/insert_parsed_alerts', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def get_alerts_pcap(self, *,
+                        accept_encoding: Union[str, None, UnsetType] = UNSET,
+                        filters: Union[List[dict], None, UnsetType] = UNSET,
+                        search_from: Union[str, None, UnsetType] = UNSET,
+                        search_to: Union[str, None, UnsetType] = UNSET,
+                        sort: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Retrieve PCAP Packet
+
+        POST /public_api/v1/alerts/get_alerts_pcap
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param search_from: body field search_from.
+        :param search_to: body field search_to.
+        :param sort: body field sort.
+        """
+        self._require_versions((3,))
+        body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/get_alerts_pcap', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def get_alerts_multi_events(self, *,
+                                accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                filters: Union[List[Any], None, UnsetType] = UNSET) -> Any:
+        """Get Alerts Multi-Events v2
+
+        POST /public_api/v2/alerts/get_alerts_multi_events
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        """
+        self._require_versions((3,))
+        body = self._values({'filters': filters})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v2/alerts/get_alerts_multi_events', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
+
+    def get_alerts_multi_events_v1(self, *,
+                                   accept_encoding: Union[str, None, UnsetType] = UNSET,
+                                   filters: Union[List[dict], None, UnsetType] = UNSET,
+                                   search_from: Union[int, None, UnsetType] = UNSET,
+                                   search_to: Union[int, None, UnsetType] = UNSET,
+                                   sort: Union[dict, None, UnsetType] = UNSET) -> Any:
+        """Get Alerts Multi-Events v1
+
+        POST /public_api/v1/alerts/get_alerts_multi_events
+        Available in Cortex XDR 3.x.
+        Returns the complete JSON response, bytes for downloads, or None for an empty response.
+        Omit optional fields with UNSET; explicit None is sent as JSON null.
+        :param accept_encoding: header field Accept-Encoding.
+        :param filters: body field filters.
+        :param search_from: body field search_from.
+        :param search_to: body field search_to.
+        :param sort: body field sort.
+        """
+        self._require_versions((3,))
+        body = self._values({'filters': filters, 'search_from': search_from, 'search_to': search_to, 'sort': sort})
+        body = self._values({'request_data': body, **{}})
+        return self._operation(
+            '/public_api/v1/alerts/get_alerts_multi_events', method='post',
+            headers={'Accept-Encoding': accept_encoding},
+            body=body,
+        )
 
 
 def get_enum_values(p: List[Enum]) -> List[str]:
