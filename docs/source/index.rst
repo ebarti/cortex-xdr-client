@@ -14,6 +14,7 @@ Welcome to the cortex-xdr-client's documentation!
    readme
    cortex_xdr_client
    cortex_xdr_client.api
+   operation_families
    cortex_xdr_client.api.models
 
 

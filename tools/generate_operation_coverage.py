@@ -70,7 +70,9 @@ def python_name(name):
     name = re.sub(r'^(get|post|put|delete|patch)(v\d+)', r'\1_\2', name, flags=re.I)
     name = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name)
     name = re.sub(r'[^A-Za-z0-9]+', '_', name).strip('_').lower()
-    if not name or name[0].isdigit():
+    if not name:
+        name = 'field_value'
+    elif name[0].isdigit():
         name = 'field_' + name
     if keyword.iskeyword(name) or name in {'self', 'body', 'data', 'files'}:
         name += '_value'
@@ -149,6 +151,24 @@ def fields_for(operation, spec, path):
 
 
 def render_method(name, operation, path, http_method, spec, version):
+    if path == '/public_api/v1/compliance/edit_assessment_profile' and http_method == 'post':
+        # The published schema wraps EditAssessmentProfileRequest in a JSON key
+        # whose name is the empty string. There is no reliable named field or
+        # envelope to infer. Keep the method explicit but let the caller provide
+        # the complete tenant-accepted JSON body without modifying its shape.
+        return ('''    def edit_assessment_profile(self, *, body: dict) -> Any:
+        """Edit an assessment profile with a caller-supplied complete JSON body.
+
+        POST /public_api/v1/compliance/edit_assessment_profile (XDR 5.x).
+        The published request schema has an empty-string property name;
+        the accepted envelope requires live tenant confirmation.
+        :param body: Complete JSON object sent unchanged.
+        """
+        self._require_versions((5,))
+        return self._operation(
+            '/public_api/v1/compliance/edit_assessment_profile', method='post', body=body,
+        )
+''', {'raw_body:body': 'body'})
     fields, envelope, media, body_spec = fields_for(operation, spec, path)
     used = set()
     named = []

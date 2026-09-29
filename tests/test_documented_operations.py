@@ -60,6 +60,10 @@ def dereference(schema, spec):
 
 
 def vendor_fields(operation, spec, path):
+    if path == '/public_api/v1/compliance/edit_assessment_profile':
+        # The literal source has an empty-string property name. The public
+        # method accepts the whole object without guessing its envelope.
+        return {'raw_body:body': {'type': 'object'}}, None, 'application/json'
     fields = {}
     for parameter in operation.get('parameters', []):
         parameter = dereference(parameter, spec)
@@ -341,3 +345,14 @@ def test_forensics_policy_and_cwp_use_configured_origin_and_literal_headers():
     assert request.call_args.kwargs['headers']['Authentication'] == 'registry-secret'
     assert request.call_args.kwargs['headers']['Authorization'] == 'tenant-key'
     assert request.call_args.kwargs['headers']['x-xdr-auth-id'] == '7'
+
+
+def test_ambiguous_compliance_edit_body_is_sent_unchanged():
+    client = client_for({'api': 'compliance_controls_api', 'version': 5})
+    body = {'request_data': {'id': 'profile-7', 'enabled': False}}
+    with patch('requests.request', return_value=fake_response()) as request:
+        client.compliance_controls_api.edit_assessment_profile(body=body)
+    assert request.call_args.args[:2] == (
+        'post', 'https://api-tenant.example/public_api/v1/compliance/edit_assessment_profile')
+    assert request.call_args.kwargs['json'] == body
+    assert '' not in request.call_args.kwargs['json']

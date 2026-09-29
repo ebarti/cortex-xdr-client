@@ -5384,7 +5384,7 @@
     "api": "compliance_controls_api",
     "method": "edit_assessment_profile",
     "arguments": {
-      "body:": "field_"
+      "raw_body:body": "body"
     },
     "wire_path": "/public_api/v1/compliance/edit_assessment_profile",
     "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"

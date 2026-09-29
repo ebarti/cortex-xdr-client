@@ -99,21 +99,17 @@ class ComplianceControlsAPI(BaseAPI):
             body=body,
         )
 
-    def edit_assessment_profile(self, *, field_: Union[dict, None, UnsetType] = UNSET) -> Any:
-        """Edit assessment profile
+    def edit_assessment_profile(self, *, body: dict) -> Any:
+        """Edit an assessment profile with a caller-supplied complete JSON body.
 
-        POST /public_api/v1/compliance/edit_assessment_profile
-        Available in Cortex XDR 5.x.
-        Returns the complete JSON response, text, bytes, or None for an empty response.
-        Optional fields use UNSET for omission; None is explicit null.
-        The source snapshot records this operation and its parameter schema.
-        :param field_: body field .
+        POST /public_api/v1/compliance/edit_assessment_profile (XDR 5.x).
+        The published request schema has an empty-string property name;
+        the accepted envelope requires live tenant confirmation.
+        :param body: Complete JSON object sent unchanged.
         """
         self._require_versions((5,))
-        body = self._values({'': field_})
         return self._operation(
-            '/public_api/v1/compliance/edit_assessment_profile', method='post',
-            body=body,
+            '/public_api/v1/compliance/edit_assessment_profile', method='post', body=body,
         )
 
     def delete_assessment_profile(self, *, id: str) -> Any:

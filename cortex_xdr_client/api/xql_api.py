@@ -222,8 +222,7 @@ class XQLAPI(BaseAPI):
         Returns the complete JSON response, bytes for downloads, or None for an empty response.
         Omit optional fields with UNSET; explicit None is sent as JSON null.
         :param accept_encoding: header field Accept-Encoding.
-        :param accept_encoding_gzip: Compatibility alias for Accept-Encoding on v3.
-            The published header name is malformed; pass 'gzip' to request gzip.
+        :param accept_encoding_gzip: Compatibility alias for the v3 Accept-Encoding header; pass 'gzip'.
         :param stream_id: body field stream_id.
         :param is_gzip_compressed: body field is_gzip_compressed.
         """

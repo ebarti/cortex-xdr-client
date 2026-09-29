@@ -79,6 +79,10 @@ do not imply universal typed Pydantic request/response models.
   paths; those literal placeholders become required, percent-encoded method
   parameters. The legacy XQL stream reference prints an invalid gzip header
   name; the method sends a valid `Accept-Encoding` header instead.
+- The Compliance Controls assessment-profile edit schema has an empty-string
+  JSON property wrapping its request type. Its dedicated method accepts a
+  complete caller-supplied body without guessing the envelope; live tenant
+  confirmation is required.
 - Some schemas and examples disagree: legacy XQL `relativeTime` is typed as a
   string despite integer usage; script filters have differing empty/all
   examples; indicator expiration describes `Never` despite an integer schema.
