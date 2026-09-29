@@ -177,7 +177,7 @@ The pinned 2026-09-29 inventory has 124 XDR 3.x operations and 386 XDR 5.x
 operations, including the 10 on-appliance Broker VM operations. All 510
 version/method/path entries map to dedicated public methods. The inventory,
 source hashes, known vendor inconsistencies and offline verification boundary
-are in `the coverage inventory <docs/API_COVERAGE.md>`__. Live tenant
+are in `the coverage inventory <https://github.com/ebarti/cortex-xdr-client/blob/master/docs/API_COVERAGE.md>`__. Live tenant
 compatibility remains unverified.
 
 Migrating from client 1.x
@@ -200,7 +200,7 @@ product version is independent: client 2.0 still supports both XDR 3.x and 5.x.
   stay required. Pydantic v2's validation and model equality rules apply; number
   inputs are not implicitly converted to strings.
 
-See `the Pydantic migration notes <docs/PYDANTIC_V2.md>`__ for details.
+See `the Pydantic migration notes <https://github.com/ebarti/cortex-xdr-client/blob/master/docs/PYDANTIC_V2.md>`__ for details.
 
 Compatibility notes
 ===================
@@ -222,10 +222,10 @@ Compatibility notes
   ``IoCSeverity.informational`` maps to ``INFO`` on the wire. The legacy
   ``unknown`` severity is rejected locally for v5, whose schema excludes it.
 
-See `the compatibility audit <docs/API_COMPATIBILITY.md>`__ for sources,
+See `the compatibility audit <https://github.com/ebarti/cortex-xdr-client/blob/master/docs/API_COMPATIBILITY.md>`__ for sources,
 documentation inconsistencies and verification limits.
 
 Contributing
 ============
 
-See `CONTRIBUTING.md <CONTRIBUTING.md>`__ for setup and testing.
+See `CONTRIBUTING.md <https://github.com/ebarti/cortex-xdr-client/blob/master/CONTRIBUTING.md>`__ for setup and testing.

@@ -10,6 +10,7 @@ license = "MIT"
 readme = "README.rst"
 homepage = "https://github.com/ebarti/cortex-xdr-client"
 repository = "https://github.com/ebarti/cortex-xdr-client"
+documentation = "https://cortex-xdr-client.readthedocs.io/en/latest/"
 
 [tool.poetry.dependencies]
 python = "^3.11"
