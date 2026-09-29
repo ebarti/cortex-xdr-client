@@ -36,6 +36,25 @@ from cortex_xdr_client.api.widgets_api import WidgetsAPI
 from cortex_xdr_client.api.asset_groups_api import AssetGroupsAPI
 from cortex_xdr_client.api.policies_api import PoliciesAPI
 from cortex_xdr_client.api.notifications_api import NotificationsAPI
+from cortex_xdr_client.api.brokers_v5_api import BrokersV5API
+from cortex_xdr_client.api.ciem_api import CiemAPI
+from cortex_xdr_client.api.cloud_onboarding_api import CloudOnboardingAPI
+from cortex_xdr_client.api.cloud_workload_protection_api import CloudWorkloadProtectionAPI
+from cortex_xdr_client.api.compliance_controls_api import ComplianceControlsAPI
+from cortex_xdr_client.api.data_security_api import DataSecurityAPI
+from cortex_xdr_client.api.detection_rules_api import DetectionRulesAPI
+from cortex_xdr_client.api.prevention_rules_v5_api import PreventionRulesV5API
+from cortex_xdr_client.api.external_applications_api import ExternalApplicationsAPI
+from cortex_xdr_client.api.forensics_api import ForensicsAPI
+from cortex_xdr_client.api.iam_api import IamAPI
+from cortex_xdr_client.api.clcs_api import ClcsAPI
+from cortex_xdr_client.api.managed_services_api import ManagedServicesAPI
+from cortex_xdr_client.api.netscan_api import NetscanAPI
+from cortex_xdr_client.api.cloud_security_policies_api import CloudSecurityPoliciesAPI
+from cortex_xdr_client.api.restore_distributions_api import RestoreDistributionsAPI
+from cortex_xdr_client.api.unified_rules_api import UnifiedRulesAPI
+from cortex_xdr_client.api.vulnerability_intelligence_api import VulnerabilityIntelligenceAPI
+from cortex_xdr_client.api.vulnerability_management_api import VulnerabilityManagementAPI
 from cortex_xdr_client.api.actions_api import ActionsAPI
 from cortex_xdr_client.api.alerts_api import AlertsAPI
 from cortex_xdr_client.api.authentication import Authentication
@@ -52,6 +71,25 @@ from cortex_xdr_client.api.xql_api import XQLAPI
 
 
 class CortexXDRClient(object):
+    brokers_v5_api: BrokersV5API
+    ciem_api: CiemAPI
+    cloud_onboarding_api: CloudOnboardingAPI
+    cloud_workload_protection_api: CloudWorkloadProtectionAPI
+    compliance_controls_api: ComplianceControlsAPI
+    data_security_api: DataSecurityAPI
+    detection_rules_api: DetectionRulesAPI
+    prevention_rules_v5_api: PreventionRulesV5API
+    external_applications_api: ExternalApplicationsAPI
+    forensics_api: ForensicsAPI
+    iam_api: IamAPI
+    clcs_api: ClcsAPI
+    managed_services_api: ManagedServicesAPI
+    netscan_api: NetscanAPI
+    cloud_security_policies_api: CloudSecurityPoliciesAPI
+    restore_distributions_api: RestoreDistributionsAPI
+    unified_rules_api: UnifiedRulesAPI
+    vulnerability_intelligence_api: VulnerabilityIntelligenceAPI
+    vulnerability_management_api: VulnerabilityManagementAPI
     brokers_api: BrokersAPI
     featured_fields_api: FeaturedFieldsAPI
     legacy_exceptions_api: LegacyExceptionsAPI
@@ -175,6 +213,44 @@ class CortexXDRClient(object):
                                         api_version=self.api_version)
         self.notifications_api = NotificationsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
                                                   api_version=self.api_version)
+        self.brokers_v5_api = BrokersV5API(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                           api_version=self.api_version)
+        self.ciem_api = CiemAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                 api_version=self.api_version)
+        self.cloud_onboarding_api = CloudOnboardingAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                       api_version=self.api_version)
+        self.cloud_workload_protection_api = CloudWorkloadProtectionAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                         api_version=self.api_version)
+        self.compliance_controls_api = ComplianceControlsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                               api_version=self.api_version)
+        self.data_security_api = DataSecurityAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                 api_version=self.api_version)
+        self.detection_rules_api = DetectionRulesAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                     api_version=self.api_version)
+        self.prevention_rules_v5_api = PreventionRulesV5API(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                             api_version=self.api_version)
+        self.external_applications_api = ExternalApplicationsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                 api_version=self.api_version)
+        self.forensics_api = ForensicsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                         api_version=self.api_version)
+        self.iam_api = IamAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                             api_version=self.api_version)
+        self.clcs_api = ClcsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                               api_version=self.api_version)
+        self.managed_services_api = ManagedServicesAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                       api_version=self.api_version)
+        self.netscan_api = NetscanAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                     api_version=self.api_version)
+        self.cloud_security_policies_api = CloudSecurityPoliciesAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                     api_version=self.api_version)
+        self.restore_distributions_api = RestoreDistributionsAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                 api_version=self.api_version)
+        self.unified_rules_api = UnifiedRulesAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                 api_version=self.api_version)
+        self.vulnerability_intelligence_api = VulnerabilityIntelligenceAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                           api_version=self.api_version)
+        self.vulnerability_management_api = VulnerabilityManagementAPI(auth=auth, fqdn=fqdn, timeout=default_timeout,
+                                                                       api_version=self.api_version)
         self._api = BaseAPI(auth, fqdn, "", default_timeout, self.api_version)
         self.cases_api = CasesAPI(auth=auth,
                                   fqdn=fqdn,

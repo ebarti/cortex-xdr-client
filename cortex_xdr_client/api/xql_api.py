@@ -222,17 +222,21 @@ class XQLAPI(BaseAPI):
         Returns the complete JSON response, bytes for downloads, or None for an empty response.
         Omit optional fields with UNSET; explicit None is sent as JSON null.
         :param accept_encoding: header field Accept-Encoding.
-        :param accept_encoding_gzip: header field 'Accept-Encoding: gzip' : " ".
+        :param accept_encoding_gzip: Compatibility alias for Accept-Encoding on v3.
+            The published header name is malformed; pass 'gzip' to request gzip.
         :param stream_id: body field stream_id.
         :param is_gzip_compressed: body field is_gzip_compressed.
         """
         self._require_versions((3, 5))
         if self._api_version == APIVersion.V3:
+            if accept_encoding is not UNSET and accept_encoding_gzip is not UNSET:
+                raise ValueError('Specify one Accept-Encoding value')
+            encoding = accept_encoding_gzip if accept_encoding_gzip is not UNSET else accept_encoding
             body = self._values({'stream_id': stream_id, 'is_gzip_compressed': is_gzip_compressed})
             body = self._values({'request_data': body, **{}})
             return self._operation(
                 '/public_api/v1/xql/get_query_results_stream', method='post',
-                headers={'Accept-Encoding': accept_encoding, '\'Accept-Encoding: gzip\' : " "': accept_encoding_gzip},
+                headers={'Accept-Encoding': encoding},
                 body=body,
             )
         elif self._api_version == APIVersion.V5:

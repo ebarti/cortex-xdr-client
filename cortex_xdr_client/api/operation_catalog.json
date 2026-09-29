@@ -4386,5 +4386,2521 @@
       "body:sort": "sort"
     },
     "wire_path": "/public_api/v1/issue_exceptions/search/"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/auth/reset-initial-password",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "reset_initial_password",
+    "arguments": {
+      "body:current_password": "current_password",
+      "body:new_password": "new_password"
+    },
+    "wire_path": "/public_api/v1/auth/reset-initial-password",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/auth-bootstrap.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/auth/token",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "generate_token",
+    "arguments": {
+      "body:password": "password"
+    },
+    "wire_path": "/public_api/v1/auth/token",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/auth-bootstrap.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/logs",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "issue_log_bundle",
+    "arguments": {},
+    "wire_path": "/public_api/v1/logs",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/local-log-bundle.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/interface",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_network_interface",
+    "arguments": {
+      "body:interface_type": "interface_type",
+      "body:name": "name",
+      "body:address": "address",
+      "body:dns": "dns",
+      "body:gateway": "gateway",
+      "body:is_admin": "is_admin",
+      "body:netmask": "netmask"
+    },
+    "wire_path": "/public_api/v1/network/interface",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/internal_subnet",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_internal_subnet",
+    "arguments": {
+      "body:docker_subnet": "docker_subnet"
+    },
+    "wire_path": "/public_api/v1/network/internal_subnet",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/proxy",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_proxy",
+    "arguments": {
+      "body:proxy_type": "proxy_type",
+      "body:host": "host",
+      "body:port": "port",
+      "body:pwd": "pwd",
+      "body:user": "user"
+    },
+    "wire_path": "/public_api/v1/network/proxy",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/ntp",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_ntp",
+    "arguments": {
+      "body:ntp": "ntp"
+    },
+    "wire_path": "/public_api/v1/network/ntp",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/ssl_certificate",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_ssl_certificate",
+    "arguments": {
+      "body:ssl_cert": "ssl_cert",
+      "body:ssl_key": "ssl_key",
+      "body:ssl_key_name": "ssl_key_name"
+    },
+    "wire_path": "/public_api/v1/network/ssl_certificate",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/network/trusted_ca",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "set_trusted_ca",
+    "arguments": {
+      "body:file": "file"
+    },
+    "wire_path": "/public_api/v1/network/trusted_ca",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/network-configuration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/register",
+    "http_method": "post",
+    "api": "broker_appliance",
+    "method": "register_broker",
+    "arguments": {
+      "body:token": "token"
+    },
+    "wire_path": "/public_api/v1/register",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-on-appliance/registration.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/action_status/{action_id}/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "get_action_status",
+    "arguments": {
+      "path:action_id": "action_id"
+    },
+    "wire_path": "/public_api/v1/brokers/action_status/{action_id}/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/actions.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "get_applet",
+    "arguments": {
+      "path:device_id": "device_id",
+      "path:applet_name": "applet_name"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/config/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "edit_applet",
+    "arguments": {
+      "path:device_id": "device_id",
+      "path:applet_name": "applet_name",
+      "raw_body:payload": "payload"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/config/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/activate/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "activate_applet",
+    "arguments": {
+      "path:device_id": "device_id",
+      "path:applet_name": "applet_name",
+      "raw_body:payload": "payload"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/activate/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/deactivate/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "deactivate_applet",
+    "arguments": {
+      "path:device_id": "device_id",
+      "path:applet_name": "applet_name",
+      "body:save_config": "save_config"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/{applet_name}/deactivate/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/wec/wef_cert/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "download_wef_cert",
+    "arguments": {
+      "path:device_id": "device_id",
+      "body:password": "password"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/wec/wef_cert/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/applets/network_mapper/scan_now/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "network_mapper_scan_now",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/applets/network_mapper/scan_now/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/applets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "get_brokers",
+    "arguments": {
+      "body:id": "id",
+      "body:name": "name"
+    },
+    "wire_path": "/public_api/v1/brokers/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "edit_broker",
+    "arguments": {
+      "path:device_id": "device_id",
+      "body:allow_monitoring": "allow_monitoring",
+      "body:auto_upgrade": "auto_upgrade",
+      "body:broker_ui_password": "broker_ui_password",
+      "body:custom_ca": "custom_ca",
+      "body:fqdn": "fqdn",
+      "body:internal_network": "internal_network",
+      "body:name": "name",
+      "body:ntp": "ntp",
+      "body:proxy": "proxy",
+      "body:ssh_enabled": "ssh_enabled",
+      "body:ssh_keys": "ssh_keys",
+      "body:ssl_crt": "ssl_crt",
+      "body:ssl_crt_file_name": "ssl_crt_file_name",
+      "body:ssl_key": "ssl_key",
+      "body:ssl_key_file_name": "ssl_key_file_name",
+      "body:upgrade_window": "upgrade_window",
+      "body:webui_port": "webui_port",
+      "body:welcome_message": "welcome_message"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/delete/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "remove_broker",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/delete/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/registration_token/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "generate_registration_token",
+    "arguments": {},
+    "wire_path": "/public_api/v1/brokers/registration_token/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/reboot/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "reboot_broker",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/reboot/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/shutdown/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "shutdown_broker",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/shutdown/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/upgrade/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "upgrade_broker",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/upgrade/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/brokers.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/images/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "download_install_image",
+    "arguments": {
+      "body:type": "type"
+    },
+    "wire_path": "/public_api/v1/brokers/images/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/install-images.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/logs/generate/",
+    "http_method": "post",
+    "api": "brokers_v5_api",
+    "method": "generate_log_bundle",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/logs/generate/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/remote-log-bundle.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/logs/status/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "get_log_bundle_status",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/logs/status/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/remote-log-bundle.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/brokers/{device_id}/logs/download/",
+    "http_method": "get",
+    "api": "brokers_v5_api",
+    "method": "download_log_bundle",
+    "arguments": {
+      "path:device_id": "device_id"
+    },
+    "wire_path": "/public_api/v1/brokers/{device_id}/logs/download/",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/broker-vm-tenant-side/remote-log-bundle.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/ciem/v1/assets/{assetId}/least-privileged-access",
+    "http_method": "get",
+    "api": "ciem_api",
+    "method": "least_privilege_access_suggestion_for_an_asset",
+    "arguments": {
+      "path:assetId": "asset_id",
+      "query:output_format": "output_format",
+      "query:lookback_duration_days": "lookback_duration_days",
+      "query:cloud_type": "cloud_type"
+    },
+    "wire_path": "/public_api/ciem/v1/assets/{assetId}/least-privileged-access",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-infrastructure-entitlement-management-ciem/ciem.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/ciem/v1/access/source/{source_uai}",
+    "http_method": "get",
+    "api": "ciem_api",
+    "method": "ciem_access_get_by_source",
+    "arguments": {
+      "path:source_uai": "source_uai",
+      "query:next_page_token": "next_page_token",
+      "body:filter": "filter",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/ciem/v1/access/source/{source_uai}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-infrastructure-entitlement-management-ciem/ciem.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/ciem/v1/access/granter/{granter_uai}",
+    "http_method": "get",
+    "api": "ciem_api",
+    "method": "ciem_access_get_by_granter",
+    "arguments": {
+      "path:granter_uai": "granter_uai",
+      "query:next_page_token": "next_page_token",
+      "body:filter": "filter",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/ciem/v1/access/granter/{granter_uai}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-infrastructure-entitlement-management-ciem/ciem.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/ciem/v1/access/destination/{destination_uai}",
+    "http_method": "get",
+    "api": "ciem_api",
+    "method": "ciem_access_get_by_destination",
+    "arguments": {
+      "path:destination_uai": "destination_uai",
+      "query:next_page_token": "next_page_token",
+      "body:filter": "filter",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/ciem/v1/access/destination/{destination_uai}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-infrastructure-entitlement-management-ciem/ciem.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_accounts",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_get_accounts",
+    "arguments": {
+      "body:instance_id": "instance_id",
+      "body:filter_data": "filter_data"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_accounts",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-account-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/enable_disable_account",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_enable_disable_account",
+    "arguments": {
+      "body:enable": "enable",
+      "body:ids": "ids",
+      "body:instance_id": "instance_id"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/enable_disable_account",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-account-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/create_instance_template",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_create_instance_template",
+    "arguments": {
+      "body:additional_capabilities": "additional_capabilities",
+      "body:cloud_provider": "cloud_provider",
+      "body:collection_configuration": "collection_configuration",
+      "body:custom_resources_tags": "custom_resources_tags",
+      "body:scan_mode": "scan_mode",
+      "body:scope": "scope",
+      "body:scope_modifications": "scope_modifications",
+      "body:account_details": "account_details",
+      "body:cloud_partition": "cloud_partition",
+      "body:gcp_workspace": "gcp_workspace",
+      "body:instance_name": "instance_name",
+      "body:scan_env_id": "scan_env_id"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/create_instance_template",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_instance_details",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_get_instance_details",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_instance_details",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_instances",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_get_instances",
+    "arguments": {
+      "body:filter_data": "filter_data"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_instances",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/edit_instance",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_edit_instance",
+    "arguments": {
+      "body:cloud_provider": "cloud_provider",
+      "body:custom_resources_tags": "custom_resources_tags",
+      "body:id": "id",
+      "body:instance_name": "instance_name",
+      "body:scan_env_id": "scan_env_id",
+      "body:scope_modifications": "scope_modifications",
+      "body:additional_capabilities": "additional_capabilities",
+      "body:collection_configuration": "collection_configuration",
+      "body:gcp_workspace": "gcp_workspace"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/edit_instance",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/enable_disable_instance",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_enable_disable_instance",
+    "arguments": {
+      "body:enable": "enable",
+      "body:ids": "ids"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/enable_disable_instance",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/delete_instance",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_delete_instance",
+    "arguments": {
+      "body:ids": "ids"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/delete_instance",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_identifiers",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "get_identifier_roles_for_cloud_instance",
+    "arguments": {
+      "body:cloud_provider": "cloud_provider",
+      "body:instance_id": "instance_id"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_identifiers",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/cloud-instance-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/list_regions",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_list_regions",
+    "arguments": {
+      "body:cloud_partition": "cloud_partition",
+      "body:cloud_provider": "cloud_provider"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/list_regions",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/general.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_azure_approved_tenants",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_get_azure_approved_tenants",
+    "arguments": {
+      "body:cloud_partition": "cloud_partition"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_azure_approved_tenants",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/general.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/create_outpost_template",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_create_outpost_template",
+    "arguments": {
+      "body:cloud_provider": "cloud_provider",
+      "body:custom_resources_tags": "custom_resources_tags",
+      "body:app_registration_mode": "app_registration_mode",
+      "body:cloud_partition": "cloud_partition",
+      "body:customer_app_client_id": "customer_app_client_id",
+      "body:customer_sp_object_id": "customer_sp_object_id",
+      "body:customer_uami_agentless_id": "customer_uami_agentless_id",
+      "body:customer_uami_dspm_id": "customer_uami_dspm_id",
+      "body:customer_uami_proxy_id": "customer_uami_proxy_id",
+      "body:customer_uami_registry_id": "customer_uami_registry_id",
+      "body:customer_uami_serverless_id": "customer_uami_serverless_id",
+      "body:instance_name": "instance_name",
+      "body:uami_mode": "uami_mode"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/create_outpost_template",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/outpost-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/edit_outpost",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_edit_outpost",
+    "arguments": {
+      "body:custom_resources_tags": "custom_resources_tags",
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/edit_outpost",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/outpost-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cloud_onboarding/get_outposts",
+    "http_method": "post",
+    "api": "cloud_onboarding_api",
+    "method": "post_get_outposts",
+    "arguments": {
+      "body:filter_data": "filter_data"
+    },
+    "wire_path": "/public_api/v1/cloud_onboarding/get_outposts",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-onboarding/outpost-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v2/cwp/policies",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_v2_cwp_policies",
+    "arguments": {
+      "query:types": "types",
+      "query:disableVerbose": "disable_verbose"
+    },
+    "wire_path": "/public_api/v2/cwp/policies",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v2/cwp/policies",
+    "http_method": "post",
+    "api": "cloud_workload_protection_api",
+    "method": "addv2_cwp_policies",
+    "arguments": {
+      "body:action": "action",
+      "body:assetGroups": "asset_groups",
+      "body:assetGroupsIDs": "asset_groups_ids",
+      "body:assetScope": "asset_scope",
+      "body:condition": "condition",
+      "body:createdBy": "created_by",
+      "body:description": "description",
+      "body:disabled": "disabled",
+      "body:evaluationModes": "evaluation_modes",
+      "body:evaluationStage": "evaluation_stage",
+      "body:exception": "exception",
+      "body:gracePeriod": "grace_period",
+      "body:name": "name",
+      "body:policyRules": "policy_rules",
+      "body:remediationGuidance": "remediation_guidance",
+      "body:severity": "severity",
+      "body:type": "type",
+      "body:usingSystemAssetGroups": "using_system_asset_groups",
+      "body:missingInformationAction": "missing_information_action",
+      "body:unifiedPolicyId": "unified_policy_id"
+    },
+    "wire_path": "/public_api/v2/cwp/policies",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v2/cwp/policies/{id}",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_v2_cwp_policiesby_id",
+    "arguments": {
+      "path:id": "id",
+      "query:disableVerbose": "disable_verbose"
+    },
+    "wire_path": "/public_api/v2/cwp/policies/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v2/cwp/policies/{id}",
+    "http_method": "put",
+    "api": "cloud_workload_protection_api",
+    "method": "updatev2_cwp_policies",
+    "arguments": {
+      "path:id": "id",
+      "body:action": "action",
+      "body:assetGroups": "asset_groups",
+      "body:assetGroupsIDs": "asset_groups_ids",
+      "body:assetScope": "asset_scope",
+      "body:condition": "condition",
+      "body:description": "description",
+      "body:disabled": "disabled",
+      "body:evaluationModes": "evaluation_modes",
+      "body:evaluationStage": "evaluation_stage",
+      "body:exception": "exception",
+      "body:gracePeriod": "grace_period",
+      "body:id": "id_field",
+      "body:name": "name",
+      "body:policyRules": "policy_rules",
+      "body:remediationGuidance": "remediation_guidance",
+      "body:severity": "severity",
+      "body:type": "type",
+      "body:usingSystemAssetGroups": "using_system_asset_groups",
+      "body:createdBy": "created_by",
+      "body:missingInformationAction": "missing_information_action",
+      "body:unifiedPolicyId": "unified_policy_id"
+    },
+    "wire_path": "/public_api/v2/cwp/policies/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/policies",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_cwp_policies",
+    "arguments": {
+      "query:types": "types"
+    },
+    "wire_path": "/public_api/v1/cwp/policies",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/policies",
+    "http_method": "post",
+    "api": "cloud_workload_protection_api",
+    "method": "post_cwp_policies",
+    "arguments": {
+      "body:action": "action",
+      "body:assetGroupsIDs": "asset_groups_ids",
+      "body:condition": "condition",
+      "body:description": "description",
+      "body:evaluationStage": "evaluation_stage",
+      "body:missingInformationAction": "missing_information_action",
+      "body:name": "name",
+      "body:rulesIds": "rules_ids",
+      "body:severity": "severity",
+      "body:type": "type",
+      "body:assetGroups": "asset_groups",
+      "body:assetScope": "asset_scope",
+      "body:createdAt": "created_at",
+      "body:createdBy": "created_by",
+      "body:disabled": "disabled",
+      "body:evaluationModes": "evaluation_modes",
+      "body:exception": "exception",
+      "body:id": "id",
+      "body:modifiedAt": "modified_at",
+      "body:remediationGuidance": "remediation_guidance",
+      "body:revision": "revision"
+    },
+    "wire_path": "/public_api/v1/cwp/policies",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/policies/{id}",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_cwp_policies_id",
+    "arguments": {
+      "path:id": "id"
+    },
+    "wire_path": "/public_api/v1/cwp/policies/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/policies/{id}",
+    "http_method": "put",
+    "api": "cloud_workload_protection_api",
+    "method": "put_cwp_policies_id",
+    "arguments": {
+      "path:id": "id",
+      "body:action": "action",
+      "body:assetGroupsIDs": "asset_groups_ids",
+      "body:condition": "condition",
+      "body:description": "description",
+      "body:evaluationStage": "evaluation_stage",
+      "body:missingInformationAction": "missing_information_action",
+      "body:name": "name",
+      "body:rulesIds": "rules_ids",
+      "body:severity": "severity",
+      "body:type": "type",
+      "body:assetGroups": "asset_groups",
+      "body:assetScope": "asset_scope",
+      "body:createdAt": "created_at",
+      "body:createdBy": "created_by",
+      "body:disabled": "disabled",
+      "body:evaluationModes": "evaluation_modes",
+      "body:exception": "exception",
+      "body:id": "id_field",
+      "body:modifiedAt": "modified_at",
+      "body:remediationGuidance": "remediation_guidance",
+      "body:revision": "revision"
+    },
+    "wire_path": "/public_api/v1/cwp/policies/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/policies/{id}",
+    "http_method": "delete",
+    "api": "cloud_workload_protection_api",
+    "method": "delete_cwp_policies_id",
+    "arguments": {
+      "path:id": "id",
+      "query:closeIssues": "close_issues"
+    },
+    "wire_path": "/public_api/v1/cwp/policies/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/registry_onboarding/instances",
+    "http_method": "post",
+    "api": "cloud_workload_protection_api",
+    "method": "create_unmanaged_registry_connector_public_api",
+    "arguments": {
+      "body:auth_token": "auth_token",
+      "body:initial_scan_configuration": "initial_scan_configuration",
+      "body:insecure_pull": "insecure_pull",
+      "body:name": "name",
+      "body:password": "password",
+      "body:region": "region",
+      "body:scanning_mode": "scanning_mode",
+      "body:url": "url",
+      "body:username": "username",
+      "body:vendor": "vendor",
+      "body:allow_static_ips": "allow_static_ips",
+      "body:asset_scope_filters": "asset_scope_filters",
+      "body:broker_id": "broker_id",
+      "body:broker_type": "broker_type",
+      "body:ca_certificate": "ca_certificate",
+      "body:cloud_provider": "cloud_provider",
+      "body:connector_id": "connector_id",
+      "body:enabled": "enabled",
+      "body:filter_type": "filter_type",
+      "body:ip_identifier": "ip_identifier",
+      "body:outpost_id": "outpost_id",
+      "body:registry_type": "registry_type",
+      "body:repository": "repository",
+      "body:tenant_id": "tenant_id",
+      "body:vendor_specific_configuration": "vendor_specific_configuration"
+    },
+    "wire_path": "/public_api/v1/cwp/registry_onboarding/instances",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/registry-onboarding.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_unmanaged_registry_connector_public_api",
+    "arguments": {
+      "path:connectorID": "connector_id",
+      "header:Authentication": "authentication"
+    },
+    "wire_path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/registry-onboarding.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "http_method": "put",
+    "api": "cloud_workload_protection_api",
+    "method": "modify_unmanaged_registry_connector_public_api",
+    "arguments": {
+      "path:connectorID": "connector_id",
+      "header:Authentication": "authentication",
+      "body:auth_token": "auth_token",
+      "body:initial_scan_configuration": "initial_scan_configuration",
+      "body:insecure_pull": "insecure_pull",
+      "body:name": "name",
+      "body:password": "password",
+      "body:region": "region",
+      "body:scanning_mode": "scanning_mode",
+      "body:url": "url",
+      "body:username": "username",
+      "body:vendor": "vendor",
+      "body:allow_static_ips": "allow_static_ips",
+      "body:asset_scope_filters": "asset_scope_filters",
+      "body:broker_id": "broker_id",
+      "body:broker_type": "broker_type",
+      "body:ca_certificate": "ca_certificate",
+      "body:cloud_provider": "cloud_provider",
+      "body:connector_id": "connector_id_field",
+      "body:enabled": "enabled",
+      "body:filter_type": "filter_type",
+      "body:ip_identifier": "ip_identifier",
+      "body:outpost_id": "outpost_id",
+      "body:registry_type": "registry_type",
+      "body:repository": "repository",
+      "body:tenant_id": "tenant_id",
+      "body:vendor_specific_configuration": "vendor_specific_configuration"
+    },
+    "wire_path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/registry-onboarding.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "http_method": "delete",
+    "api": "cloud_workload_protection_api",
+    "method": "delete_unmanaged_registry_connector_public_api",
+    "arguments": {
+      "path:connectorID": "connector_id",
+      "header:Authentication": "authentication"
+    },
+    "wire_path": "/public_api/v1/cwp/registry_onboarding/instances/{connectorID}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/registry-onboarding.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/assets/{assetID}/sbom",
+    "http_method": "get",
+    "api": "cloud_workload_protection_api",
+    "method": "get_the_sbom_of_the_specified_asset",
+    "arguments": {
+      "path:assetID": "asset_id",
+      "query:format": "format",
+      "query:output_format": "output_format",
+      "query:attributes": "attributes"
+    },
+    "wire_path": "/public_api/v1/assets/{assetID}/sbom",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/cloud-workload-protection/sbom.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_assessment_profiles",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_assessment_profiles",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/compliance/get_assessment_profiles",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_assessment_profile",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_assessment_profile",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/get_assessment_profile",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/add_assessment_profile",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "add_assessment_profile",
+    "arguments": {
+      "body:asset_group_id": "asset_group_id",
+      "body:profile_name": "profile_name",
+      "body:standard_id": "standard_id",
+      "body:description": "description",
+      "body:evaluation_frequency": "evaluation_frequency",
+      "body:report_targets": "report_targets",
+      "body:report_type": "report_type"
+    },
+    "wire_path": "/public_api/v1/compliance/add_assessment_profile",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/edit_assessment_profile",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "edit_assessment_profile",
+    "arguments": {
+      "body:": "field_"
+    },
+    "wire_path": "/public_api/v1/compliance/edit_assessment_profile",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/delete_assessment_profile",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "delete_assessment_profile",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/delete_assessment_profile",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-profiles.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_assessment_results",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_assessment_profile_results",
+    "arguments": {
+      "body:filters": "filters"
+    },
+    "wire_path": "/public_api/v1/compliance/get_assessment_results",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/assessment-results.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_control_categories_and_subcategories",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_categories_and_subcategories",
+    "arguments": {},
+    "wire_path": "/public_api/v1/compliance/get_control_categories_and_subcategories",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/categories.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_assets",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_compliance_assets",
+    "arguments": {
+      "body:assessment_profile_revision": "assessment_profile_revision",
+      "body:last_evaluation_time": "last_evaluation_time",
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/compliance/get_assets",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/compliance-assets.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_controls",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_controls",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/compliance/get_controls",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_control",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/get_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/add_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "add_control",
+    "arguments": {
+      "body:category": "category",
+      "body:control_name": "control_name",
+      "body:description": "description",
+      "body:subcategory": "subcategory"
+    },
+    "wire_path": "/public_api/v1/compliance/add_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/edit_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "edit_control",
+    "arguments": {
+      "body:id": "id",
+      "body:category": "category",
+      "body:control_name": "control_name",
+      "body:description": "description",
+      "body:subcategory": "subcategory"
+    },
+    "wire_path": "/public_api/v1/compliance/edit_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/delete_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "delete_control",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/delete_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_control_by_revision",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_control_by_revision",
+    "arguments": {
+      "body:control_revision": "control_revision"
+    },
+    "wire_path": "/public_api/v1/compliance/get_control_by_revision",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/controls.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_reports",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_reports",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/compliance/get_reports",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/reports.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_control_failed_results",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_control_failed_results",
+    "arguments": {
+      "body:assessment_profile_revision": "assessment_profile_revision",
+      "body:control_revision": "control_revision",
+      "body:last_evaluation_time": "last_evaluation_time"
+    },
+    "wire_path": "/public_api/v1/compliance/get_control_failed_results",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/results.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_rule_failed_results",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_rule_failed_results",
+    "arguments": {
+      "body:assessment_profile_revision": "assessment_profile_revision",
+      "body:control_revision": "control_revision",
+      "body:last_evaluation_time": "last_evaluation_time",
+      "body:rule_id": "rule_id"
+    },
+    "wire_path": "/public_api/v1/compliance/get_rule_failed_results",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/results.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/add_rules_to_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "add_rules_to_control",
+    "arguments": {
+      "body:control_id": "control_id",
+      "body:rules": "rules"
+    },
+    "wire_path": "/public_api/v1/compliance/add_rules_to_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/delete_rules_from_control",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "delete_rules_from_control",
+    "arguments": {
+      "body:control_id": "control_id",
+      "body:rules_ids": "rules_ids"
+    },
+    "wire_path": "/public_api/v1/compliance/delete_rules_from_control",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_standards",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_standards",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/compliance/get_standards",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/standards.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/get_standard",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "get_standard",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/get_standard",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/standards.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/add_standard",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "add_standard",
+    "arguments": {
+      "body:standard_name": "standard_name",
+      "body:controls_ids": "controls_ids",
+      "body:description": "description",
+      "body:labels": "labels"
+    },
+    "wire_path": "/public_api/v1/compliance/add_standard",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/standards.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/edit_standard",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "edit_standard",
+    "arguments": {
+      "body:id": "id",
+      "body:controls_ids": "controls_ids",
+      "body:description": "description",
+      "body:labels": "labels",
+      "body:standard_name": "standard_name"
+    },
+    "wire_path": "/public_api/v1/compliance/edit_standard",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/standards.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/compliance/delete_standard",
+    "http_method": "post",
+    "api": "compliance_controls_api",
+    "method": "delete_standard",
+    "arguments": {
+      "body:id": "id"
+    },
+    "wire_path": "/public_api/v1/compliance/delete_standard",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/compliance-controls/standards.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/data-security/data-patterns",
+    "http_method": "post",
+    "api": "data_security_api",
+    "method": "post_get_data_pattern_inventory",
+    "arguments": {
+      "body:filter": "filter",
+      "body:next_page_token": "next_page_token",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/data-security/data-patterns",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/data-security-posture-management/inventory.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/data-security/objects/fields",
+    "http_method": "post",
+    "api": "data_security_api",
+    "method": "post_get_field_inventory_details",
+    "arguments": {
+      "body:filter": "filter",
+      "body:next_page_token": "next_page_token",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/data-security/objects/fields",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/data-security-posture-management/inventory.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/data-security/objects/files",
+    "http_method": "post",
+    "api": "data_security_api",
+    "method": "post_get_file_inventory_details",
+    "arguments": {
+      "body:filter": "filter",
+      "body:next_page_token": "next_page_token",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/data-security/objects/files",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/data-security-posture-management/inventory.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/rule",
+    "http_method": "post",
+    "api": "detection_rules_api",
+    "method": "create_detection_rule",
+    "arguments": {
+      "body:asset_types": "asset_types",
+      "body:name": "name",
+      "body:query": "query",
+      "body:severity": "severity",
+      "body:class": "class_value",
+      "body:compliance_metadata": "compliance_metadata",
+      "body:description": "description",
+      "body:enabled": "enabled",
+      "body:labels": "labels",
+      "body:metadata": "metadata",
+      "body:type": "type"
+    },
+    "wire_path": "/public_api/v1/rule",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/detection-rules-management/detection-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/rule/search",
+    "http_method": "post",
+    "api": "detection_rules_api",
+    "method": "search_detection_rules",
+    "arguments": {
+      "body:filter": "filter",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/rule/search",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/detection-rules-management/detection-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/rule/{id}",
+    "http_method": "get",
+    "api": "detection_rules_api",
+    "method": "get_detection_rule_by_id",
+    "arguments": {
+      "path:id": "id"
+    },
+    "wire_path": "/public_api/v1/rule/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/detection-rules-management/detection-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/rule/{id}",
+    "http_method": "delete",
+    "api": "detection_rules_api",
+    "method": "delete_detection_rule",
+    "arguments": {
+      "path:id": "id"
+    },
+    "wire_path": "/public_api/v1/rule/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/detection-rules-management/detection-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/rule/{id}",
+    "http_method": "patch",
+    "api": "detection_rules_api",
+    "method": "update_detection_rule",
+    "arguments": {
+      "path:id": "id",
+      "body:rule_class": "rule_class",
+      "body:asset_types": "asset_types",
+      "body:compliance_metadata": "compliance_metadata",
+      "body:description": "description",
+      "body:enabled": "enabled",
+      "body:labels": "labels",
+      "body:metadata": "metadata",
+      "body:name": "name",
+      "body:query": "query",
+      "body:severity": "severity",
+      "body:type": "type"
+    },
+    "wire_path": "/public_api/v1/rule/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/detection-rules-management/detection-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_injection_prevention_rules/fetch",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "fetch_disable_injection_prevention_rules",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/disable_injection_prevention_rules/fetch",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-injection-and-prevention-rules/disable-injection-and-prevention-rules-public-api.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_injection_prevention_rules/add",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "add_disable_injection_prevention_rule",
+    "arguments": {
+      "body:description": "description",
+      "body:hours_to_expiration": "hours_to_expiration",
+      "body:path": "path",
+      "body:platform": "platform",
+      "body:process_name": "process_name",
+      "body:rule_name": "rule_name",
+      "body:scope": "scope",
+      "body:profile_ids": "profile_ids"
+    },
+    "wire_path": "/public_api/v1/disable_injection_prevention_rules/add",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-injection-and-prevention-rules/disable-injection-and-prevention-rules-public-api.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_injection_prevention_rules/disable",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "disable_disable_injection_prevention_rules",
+    "arguments": {
+      "body:rule_ids": "rule_ids"
+    },
+    "wire_path": "/public_api/v1/disable_injection_prevention_rules/disable",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-injection-and-prevention-rules/disable-injection-and-prevention-rules-public-api.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_prevention/fetch",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "fetch_disable_prevention_rules",
+    "arguments": {
+      "body:filters": "filters",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/disable_prevention/fetch",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-prevention-rule/disable-prevention-rule-public-apis.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_prevention/get_modules",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "get_disable_prevention_modules",
+    "arguments": {
+      "body:platform": "platform"
+    },
+    "wire_path": "/public_api/v1/disable_prevention/get_modules",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-prevention-rule/disable-prevention-rule-public-apis.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_prevention/add",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "add_disable_prevention_rule",
+    "arguments": {
+      "body:conditions": "conditions",
+      "body:description": "description",
+      "body:module_ids": "module_ids",
+      "body:platform": "platform",
+      "body:rule_name": "rule_name",
+      "body:scope": "scope",
+      "body:status": "status",
+      "body:profile_ids": "profile_ids"
+    },
+    "wire_path": "/public_api/v1/disable_prevention/add",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-prevention-rule/disable-prevention-rule-public-apis.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_prevention/edit",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "edit_disable_prevention_rule",
+    "arguments": {
+      "body:conditions": "conditions",
+      "body:description": "description",
+      "body:module_ids": "module_ids",
+      "body:platform": "platform",
+      "body:rule_name": "rule_name",
+      "body:scope": "scope",
+      "body:status": "status",
+      "body:rule_id": "rule_id",
+      "body:profile_ids": "profile_ids"
+    },
+    "wire_path": "/public_api/v1/disable_prevention/edit",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-prevention-rule/disable-prevention-rule-public-apis.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/disable_prevention/delete",
+    "http_method": "post",
+    "api": "prevention_rules_v5_api",
+    "method": "delete_disable_prevention_rules",
+    "arguments": {
+      "body:rule_ids": "rule_ids"
+    },
+    "wire_path": "/public_api/v1/disable_prevention/delete",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/disable-prevention-rule/disable-prevention-rule-public-apis.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/integration/v1/external-application",
+    "http_method": "get",
+    "api": "external_applications_api",
+    "method": "list_applications",
+    "arguments": {},
+    "wire_path": "/platform/integration/v1/external-application",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/external-application-management/external-applications.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/integration/v1/external-application",
+    "http_method": "post",
+    "api": "external_applications_api",
+    "method": "create_application",
+    "arguments": {
+      "body:request_data": "request_data",
+      "body:last_modified_by": "last_modified_by"
+    },
+    "wire_path": "/platform/integration/v1/external-application",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/external-application-management/external-applications.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/integration/v1/external-application/{application_id}",
+    "http_method": "put",
+    "api": "external_applications_api",
+    "method": "update_application",
+    "arguments": {
+      "path:application_id": "application_id",
+      "body:application_type": "application_type",
+      "body:connection_config": "connection_config",
+      "body:name": "name",
+      "body:description": "description"
+    },
+    "wire_path": "/platform/integration/v1/external-application/{application_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/external-application-management/external-applications.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/integration/v1/external-application/{application_type}/id/{application_id}",
+    "http_method": "get",
+    "api": "external_applications_api",
+    "method": "get_external_application_by_id",
+    "arguments": {
+      "path:application_id": "application_id",
+      "path:application_type": "application_type"
+    },
+    "wire_path": "/platform/integration/v1/external-application/{application_type}/id/{application_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/external-application-management/external-applications.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/integration/v1/external-application/{application_type}/id/{application_id}",
+    "http_method": "delete",
+    "api": "external_applications_api",
+    "method": "delete_application",
+    "arguments": {
+      "path:application_id": "application_id",
+      "path:application_type": "application_type"
+    },
+    "wire_path": "/platform/integration/v1/external-application/{application_type}/id/{application_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/external-application-management/external-applications.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_investigations",
+    "arguments": {},
+    "wire_path": "/public_api/v1/forensics/investigations",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_investigation_collections",
+    "arguments": {
+      "body:investigation_id": "investigation_id"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections/hunt",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_hunt_results",
+    "arguments": {
+      "body:collection_id": "collection_id",
+      "body:investigation_id": "investigation_id",
+      "body:search_id": "search_id"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections/hunt",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections/triage",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_triage_results",
+    "arguments": {
+      "body:agent_id": "agent_id",
+      "body:collection_id": "collection_id",
+      "body:investigation_id": "investigation_id"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections/triage",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections/get_data",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_collection_data",
+    "arguments": {
+      "body:artifact_type": "artifact_type",
+      "body:collection_id": "collection_id",
+      "body:investigation_id": "investigation_id",
+      "body:agent_id": "agent_id",
+      "body:search_from": "search_from",
+      "body:search_id": "search_id",
+      "body:search_to": "search_to"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections/get_data",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections/triage/host_timeline",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_host_timeline",
+    "arguments": {
+      "body:agent_id": "agent_id",
+      "body:collection_id": "collection_id",
+      "body:investigation_id": "investigation_id",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections/triage/host_timeline",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/forensics/investigations/collections/triage/get_files",
+    "http_method": "post",
+    "api": "forensics_api",
+    "method": "get_forensics_triage_files",
+    "arguments": {
+      "body:agent_id": "agent_id",
+      "body:artifact_type": "artifact_type",
+      "body:collection_id": "collection_id",
+      "body:investigation_id": "investigation_id"
+    },
+    "wire_path": "/public_api/v1/forensics/investigations/collections/triage/get_files",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/forensics/forensics.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/api-key/{api_key_id}",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "get_api_key_by_id",
+    "arguments": {
+      "path:api_key_id": "api_key_id"
+    },
+    "wire_path": "/platform/iam/v1/api-key/{api_key_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/api-keys.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/api-key/{api_key_id}",
+    "http_method": "put",
+    "api": "iam_api",
+    "method": "edit_apikey",
+    "arguments": {
+      "path:api_key_id": "api_key_id",
+      "body:roles": "roles",
+      "body:security_level": "security_level",
+      "body:comment": "comment"
+    },
+    "wire_path": "/platform/iam/v1/api-key/{api_key_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/api-keys.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/role",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "list_roles",
+    "arguments": {},
+    "wire_path": "/platform/iam/v1/role",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/roles.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/role",
+    "http_method": "post",
+    "api": "iam_api",
+    "method": "create_role",
+    "arguments": {
+      "body:component_permissions": "component_permissions",
+      "body:pretty_name": "pretty_name",
+      "body:dataset_permissions": "dataset_permissions",
+      "body:description": "description"
+    },
+    "wire_path": "/platform/iam/v1/role",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/roles.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/role/{role_id}",
+    "http_method": "delete",
+    "api": "iam_api",
+    "method": "delete_role",
+    "arguments": {
+      "path:role_id": "role_id"
+    },
+    "wire_path": "/platform/iam/v1/role/{role_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/roles.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/role/permission-config",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "list_permission_configs",
+    "arguments": {},
+    "wire_path": "/platform/iam/v1/role/permission-config",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/roles.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/scope/{entity_type}/{entity_id}",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "get_scope",
+    "arguments": {
+      "path:entity_type": "entity_type",
+      "path:entity_id": "entity_id"
+    },
+    "wire_path": "/platform/iam/v1/scope/{entity_type}/{entity_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/scopes.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/scope/{entity_type}/{entity_id}",
+    "http_method": "put",
+    "api": "iam_api",
+    "method": "edit_scope",
+    "arguments": {
+      "path:entity_type": "entity_type",
+      "path:entity_id": "entity_id",
+      "body:assets": "assets",
+      "body:cases_issues": "cases_issues",
+      "body:datasets_rows": "datasets_rows",
+      "body:endpoints": "endpoints"
+    },
+    "wire_path": "/platform/iam/v1/scope/{entity_type}/{entity_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/scopes.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user-group",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "list_user_groups",
+    "arguments": {},
+    "wire_path": "/platform/iam/v1/user-group",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user-groups.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user-group",
+    "http_method": "post",
+    "api": "iam_api",
+    "method": "create_user_group",
+    "arguments": {
+      "body:group_name": "group_name",
+      "body:description": "description",
+      "body:idp_groups": "idp_groups",
+      "body:nested_group_ids": "nested_group_ids",
+      "body:role_id": "role_id",
+      "body:users": "users"
+    },
+    "wire_path": "/platform/iam/v1/user-group",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user-groups.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user-group/{group_id}",
+    "http_method": "delete",
+    "api": "iam_api",
+    "method": "delete_user_group",
+    "arguments": {
+      "path:group_id": "group_id"
+    },
+    "wire_path": "/platform/iam/v1/user-group/{group_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user-groups.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user-group/{group_id}",
+    "http_method": "patch",
+    "api": "iam_api",
+    "method": "edit_user_group",
+    "arguments": {
+      "path:group_id": "group_id",
+      "body:description": "description",
+      "body:group_name": "group_name",
+      "body:idp_groups": "idp_groups",
+      "body:nested_group_ids": "nested_group_ids",
+      "body:role_id": "role_id",
+      "body:users": "users"
+    },
+    "wire_path": "/platform/iam/v1/user-group/{group_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user-groups.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "list_users",
+    "arguments": {},
+    "wire_path": "/platform/iam/v1/user",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user/{user_email}",
+    "http_method": "get",
+    "api": "iam_api",
+    "method": "get_user_by_email",
+    "arguments": {
+      "path:user_email": "user_email"
+    },
+    "wire_path": "/platform/iam/v1/user/{user_email}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user.md"
+  },
+  {
+    "version": 5,
+    "path": "/platform/iam/v1/user/{user_email}",
+    "http_method": "patch",
+    "api": "iam_api",
+    "method": "edit_user",
+    "arguments": {
+      "path:user_email": "user_email",
+      "body:is_hidden": "is_hidden",
+      "body:phone_number": "phone_number",
+      "body:role_id": "role_id",
+      "body:status": "status",
+      "body:user_first_name": "user_first_name",
+      "body:user_groups": "user_groups",
+      "body:user_last_name": "user_last_name"
+    },
+    "wire_path": "/platform/iam/v1/user/{user_email}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/identity-and-access-management-iam/user.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/clcs/get_connected_devices",
+    "http_method": "get",
+    "api": "clcs_api",
+    "method": "get_clcs_connected_devices",
+    "arguments": {},
+    "wire_path": "/public_api/v1/clcs/get_connected_devices",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/logging-and-collection-service-management/clcs-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/clcs/disconnect_devices",
+    "http_method": "post",
+    "api": "clcs_api",
+    "method": "post_clcs_disconnect_devices",
+    "arguments": {
+      "body:csp_account_id": "csp_account_id",
+      "body:device_ids": "device_ids",
+      "body:region": "region"
+    },
+    "wire_path": "/public_api/v1/clcs/disconnect_devices",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/logging-and-collection-service-management/clcs-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/report/update/assign",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_update_report_assignment",
+    "arguments": {
+      "body:xsoar_source_id": "xsoar_source_id",
+      "body:user": "user",
+      "body:username": "username"
+    },
+    "wire_path": "/public_api/v1/mth/child/report/update/assign",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/assignment.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/add_comment",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_add_comment",
+    "arguments": {
+      "body:comment_created_by": "comment_created_by",
+      "body:comment_text": "comment_text",
+      "body:xsoar_source_id": "xsoar_source_id",
+      "body:extract_zip_file": "extract_zip_file",
+      "body:path_to_file": "path_to_file"
+    },
+    "wire_path": "/public_api/v1/mth/child/add_comment",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/comments.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/get_comments",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_get_comments",
+    "arguments": {
+      "body:end_time": "end_time",
+      "body:start_time": "start_time",
+      "body:xsoar_source_id": "xsoar_source_id"
+    },
+    "wire_path": "/public_api/v1/mth/child/get_comments",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/comments.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/get_reports_by_source_id",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_get_reports_by_source_id",
+    "arguments": {
+      "body:xsoar_source_ids": "xsoar_source_ids"
+    },
+    "wire_path": "/public_api/v1/mth/child/get_reports_by_source_id",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/reports.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/get_reports_by_incident_id",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_get_reports_by_incident_id",
+    "arguments": {
+      "body:incident_ids": "incident_ids"
+    },
+    "wire_path": "/public_api/v1/mth/child/get_reports_by_incident_id",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/reports.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/get_all_reports",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_get_all_reports",
+    "arguments": {},
+    "wire_path": "/public_api/v1/mth/child/get_all_reports",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/reports.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/get_reports_by_statuses",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_get_reports_by_statuses",
+    "arguments": {
+      "body:report_statuses": "report_statuses"
+    },
+    "wire_path": "/public_api/v1/mth/child/get_reports_by_statuses",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/reports.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/mth/child/report/update/status",
+    "http_method": "post",
+    "api": "managed_services_api",
+    "method": "post_update_report_status",
+    "arguments": {
+      "body:report_status": "report_status",
+      "body:xsoar_source_id": "xsoar_source_id"
+    },
+    "wire_path": "/public_api/v1/mth/child/report/update/status",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/managed-services/status.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/run",
+    "http_method": "get",
+    "api": "netscan_api",
+    "method": "public_scan_definition_run_status",
+    "arguments": {
+      "query:id": "id",
+      "query:fields": "fields",
+      "header:User-Agent": "user_agent"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/run",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/run",
+    "http_method": "post",
+    "api": "netscan_api",
+    "method": "public_launch_scan_run",
+    "arguments": {
+      "header:User-Agent": "user_agent",
+      "body:definition_id": "definition_id",
+      "body:target": "target"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/run",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/run/{id}",
+    "http_method": "get",
+    "api": "netscan_api",
+    "method": "public_get_scan_definition_run_status",
+    "arguments": {
+      "path:id": "id",
+      "query:fields": "fields",
+      "header:User-Agent": "user_agent"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/run/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/run/{id}",
+    "http_method": "post",
+    "api": "netscan_api",
+    "method": "public_launch_scan_run_by_id",
+    "arguments": {
+      "path:id": "id",
+      "header:User-Agent": "user_agent",
+      "body:definition_id": "definition_id",
+      "body:target": "target"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/run/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/definition",
+    "http_method": "post",
+    "api": "netscan_api",
+    "method": "configure_new_scan",
+    "arguments": {
+      "header:User-Agent": "user_agent",
+      "body:port_list_id": "port_list_id",
+      "body:scan_ports": "scan_ports",
+      "body:credential_ids": "credential_ids",
+      "body:description": "description",
+      "body:enable_report": "enable_report",
+      "body:excluded_targets": "excluded_targets",
+      "body:name": "name",
+      "body:network": "network",
+      "body:network_scanner_ids": "network_scanner_ids",
+      "body:override_target_exclusions": "override_target_exclusions",
+      "body:schedule_cadence": "schedule_cadence",
+      "body:schedule_dates": "schedule_dates",
+      "body:schedule_days": "schedule_days",
+      "body:schedule_quiet_hours": "schedule_quiet_hours",
+      "body:schedule_start_date": "schedule_start_date",
+      "body:schedule_time": "schedule_time",
+      "body:schedule_timezone": "schedule_timezone",
+      "body:target_ids": "target_ids",
+      "body:targets": "targets",
+      "body:vt_config_id": "vt_config_id",
+      "body:alive_test_methods": "alive_test_methods",
+      "body:alive_test_ports": "alive_test_ports",
+      "body:auth_port_ssh": "auth_port_ssh",
+      "body:checks_read_timeout": "checks_read_timeout",
+      "body:disable_cgi_cache": "disable_cgi_cache",
+      "body:disable_win_cmd_exec": "disable_win_cmd_exec",
+      "body:disable_wmi_search": "disable_wmi_search",
+      "body:exclude_fragile_devices": "exclude_fragile_devices",
+      "body:exclude_printers": "exclude_printers",
+      "body:expand_vhosts": "expand_vhosts",
+      "body:max_checks": "max_checks",
+      "body:max_hosts": "max_hosts",
+      "body:non_simult_ports": "non_simult_ports",
+      "body:open_sock_max_attempts": "open_sock_max_attempts",
+      "body:optimize_test": "optimize_test",
+      "body:plugins_timeout": "plugins_timeout",
+      "body:safe_checks": "safe_checks",
+      "body:scanner_plugins_timeout": "scanner_plugins_timeout",
+      "body:strict_unauthenticated": "strict_unauthenticated",
+      "body:timeout_retry": "timeout_retry",
+      "body:asset_groups": "asset_groups",
+      "body:definition_id": "definition_id"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/definition",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/netscan/v1/scan/run/{id}/command",
+    "http_method": "post",
+    "api": "netscan_api",
+    "method": "public_scan_definition_run_action",
+    "arguments": {
+      "path:id": "id",
+      "header:User-Agent": "user_agent",
+      "body:type": "type"
+    },
+    "wire_path": "/public_api/netscan/v1/scan/run/{id}/command",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/netscan/vulnerability-network-scan-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/policy",
+    "http_method": "post",
+    "api": "cloud_security_policies_api",
+    "method": "create_cloud_security_policy",
+    "arguments": {
+      "body:asset_matching_type": "asset_matching_type",
+      "body:description": "description",
+      "body:name": "name",
+      "body:rule_matching_type": "rule_matching_type",
+      "body:associated_asset_group_ids": "associated_asset_group_ids",
+      "body:associated_cloud_account_ids": "associated_cloud_account_ids",
+      "body:associated_rule_filter": "associated_rule_filter",
+      "body:associated_rule_ids": "associated_rule_ids",
+      "body:enabled": "enabled",
+      "body:labels": "labels"
+    },
+    "wire_path": "/public_api/v1/policy",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/policy/search",
+    "http_method": "post",
+    "api": "cloud_security_policies_api",
+    "method": "list_cloud_security_policies",
+    "arguments": {
+      "body:filter": "filter",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort"
+    },
+    "wire_path": "/public_api/v1/policy/search",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/policy/{policy_id}",
+    "http_method": "get",
+    "api": "cloud_security_policies_api",
+    "method": "get_cloud_security_policy",
+    "arguments": {
+      "path:policy_id": "policy_id"
+    },
+    "wire_path": "/public_api/v1/policy/{policy_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/policy/{policy_id}",
+    "http_method": "delete",
+    "api": "cloud_security_policies_api",
+    "method": "delete_cloud_security_policy",
+    "arguments": {
+      "path:policy_id": "policy_id"
+    },
+    "wire_path": "/public_api/v1/policy/{policy_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/policy/{policy_id}",
+    "http_method": "patch",
+    "api": "cloud_security_policies_api",
+    "method": "update_cloud_security_policy",
+    "arguments": {
+      "path:policy_id": "policy_id",
+      "body:asset_matching_type": "asset_matching_type",
+      "body:associated_asset_group_ids": "associated_asset_group_ids",
+      "body:associated_cloud_account_ids": "associated_cloud_account_ids",
+      "body:associated_rule_filter": "associated_rule_filter",
+      "body:associated_rule_ids": "associated_rule_ids",
+      "body:description": "description",
+      "body:enabled": "enabled",
+      "body:labels": "labels",
+      "body:name": "name",
+      "body:rule_matching_type": "rule_matching_type"
+    },
+    "wire_path": "/public_api/v1/policy/{policy_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/policies/cloud-security-policies.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/v1/distributions/restore",
+    "http_method": "post",
+    "api": "restore_distributions_api",
+    "method": "restore_distribution",
+    "arguments": {
+      "body:distribution_id": "distribution_id"
+    },
+    "wire_path": "/public_api/v1/distributions/restore",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/restore-distributions/restore-distributions.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/appsec/v1/unified-rules",
+    "http_method": "get",
+    "api": "unified_rules_api",
+    "method": "list_unified_rules",
+    "arguments": {
+      "query:severities": "severities",
+      "query:categories": "categories",
+      "query:cloudProviders": "cloud_providers",
+      "query:offset": "offset",
+      "query:limit": "limit"
+    },
+    "wire_path": "/public_api/appsec/v1/unified-rules",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/unified-rules/unified-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/appsec/v1/unified-rules",
+    "http_method": "post",
+    "api": "unified_rules_api",
+    "method": "create_unified_rule",
+    "arguments": {
+      "body:appsec": "appsec",
+      "body:cspm": "cspm"
+    },
+    "wire_path": "/public_api/appsec/v1/unified-rules",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/unified-rules/unified-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "http_method": "get",
+    "api": "unified_rules_api",
+    "method": "get_unified_rule",
+    "arguments": {
+      "path:ruleId": "rule_id"
+    },
+    "wire_path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/unified-rules/unified-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "http_method": "put",
+    "api": "unified_rules_api",
+    "method": "update_unified_rule",
+    "arguments": {
+      "path:ruleId": "rule_id",
+      "body:appsec": "appsec",
+      "body:cspm": "cspm"
+    },
+    "wire_path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/unified-rules/unified-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "http_method": "delete",
+    "api": "unified_rules_api",
+    "method": "delete_unified_rule",
+    "arguments": {
+      "path:ruleId": "rule_id"
+    },
+    "wire_path": "/public_api/appsec/v1/unified-rules/{ruleId}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/unified-rules/unified-rules.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvem/v1/get_affected_software",
+    "http_method": "post",
+    "api": "vulnerability_intelligence_api",
+    "method": "get_affected_software",
+    "arguments": {
+      "body:filters": "filters",
+      "body:next_page_token": "next_page_token",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort",
+      "body:use_page_token": "use_page_token"
+    },
+    "wire_path": "/public_api/uvem/v1/get_affected_software",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-intelligence/affected-software.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvem/v1/get_vulnerabilities",
+    "http_method": "post",
+    "api": "vulnerability_intelligence_api",
+    "method": "get_list_of_vulnerabilities",
+    "arguments": {
+      "body:filters": "filters",
+      "body:next_page_token": "next_page_token",
+      "body:search_from": "search_from",
+      "body:search_to": "search_to",
+      "body:sort": "sort",
+      "body:use_page_token": "use_page_token"
+    },
+    "wire_path": "/public_api/uvem/v1/get_vulnerabilities",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-intelligence/vulnerabilities.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvem/v1/vulnerabilities",
+    "http_method": "get",
+    "api": "vulnerability_intelligence_api",
+    "method": "get_vulnerability_details",
+    "arguments": {
+      "query:vulnerabilityId": "vulnerability_id"
+    },
+    "wire_path": "/public_api/uvem/v1/vulnerabilities",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-intelligence/vulnerabilities.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/vulnerability-management/v1/external-scans/assets",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "import_vulnerable_assets",
+    "arguments": {
+      "body:assets": "assets",
+      "body:product": "product",
+      "body:vendor": "vendor",
+      "body:version": "version"
+    },
+    "wire_path": "/public_api/vulnerability-management/v1/external-scans/assets",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/bring-your-own-scanner.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/vulnerability-management/v1/external-scans/assets/jobs/{job_id}",
+    "http_method": "get",
+    "api": "vulnerability_management_api",
+    "method": "get_byos_import_job_status",
+    "arguments": {
+      "path:job_id": "job_id"
+    },
+    "wire_path": "/public_api/vulnerability-management/v1/external-scans/assets/jobs/{job_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/bring-your-own-scanner.md"
+  },
+  {
+    "version": 5,
+    "path": "/vulnerability-management/v1/vulnerability-finding/snapshot",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "get_vulnerability_findings_snapshot",
+    "arguments": {
+      "body:filter": "filter",
+      "body:limit": "limit",
+      "body:timeframe": "timeframe"
+    },
+    "wire_path": "/vulnerability-management/v1/vulnerability-finding/snapshot",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-findings-snapshot.md"
+  },
+  {
+    "version": 5,
+    "path": "/vulnerability-management/v1/vulnerability-finding/search",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "get_vulnerability_findings",
+    "arguments": {
+      "body:filter": "filter",
+      "body:next_page_token": "next_page_token",
+      "body:page_size": "page_size",
+      "body:sort": "sort"
+    },
+    "wire_path": "/vulnerability-management/v1/vulnerability-finding/search",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-findings.md"
+  },
+  {
+    "version": 5,
+    "path": "/vulnerability-management/v1/vulnerability-finding/{platform_id}",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "get_vulnerability_finding_by_id",
+    "arguments": {
+      "path:platform_id": "platform_id"
+    },
+    "wire_path": "/vulnerability-management/v1/vulnerability-finding/{platform_id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-findings.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvm_public/v1/list_policies",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "get_policies_list",
+    "arguments": {
+      "body:filter_data": "filter_data"
+    },
+    "wire_path": "/public_api/uvm_public/v1/list_policies",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvm_public/v1/create_policy",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "create_policy_public",
+    "arguments": {
+      "body:action": "action",
+      "body:action_category": "action_category",
+      "body:asset_group_scope": "asset_group_scope",
+      "body:match_criteria": "match_criteria",
+      "body:name": "name",
+      "body:priority": "priority",
+      "body:description": "description",
+      "body:exclusion_criteria": "exclusion_criteria",
+      "body:issue_type": "issue_type",
+      "body:policy_type": "policy_type",
+      "body:severity": "severity",
+      "body:status": "status"
+    },
+    "wire_path": "/public_api/uvm_public/v1/create_policy",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvm_public/v1/update_policy/{id}",
+    "http_method": "put",
+    "api": "vulnerability_management_api",
+    "method": "update_policy",
+    "arguments": {
+      "path:id": "id",
+      "body:action": "action",
+      "body:action_category": "action_category",
+      "body:asset_group_scope": "asset_group_scope",
+      "body:match_criteria": "match_criteria",
+      "body:name": "name",
+      "body:priority": "priority",
+      "body:description": "description",
+      "body:exclusion_criteria": "exclusion_criteria",
+      "body:issue_type": "issue_type",
+      "body:policy_type": "policy_type",
+      "body:severity": "severity",
+      "body:status": "status"
+    },
+    "wire_path": "/public_api/uvm_public/v1/update_policy/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvm_public/v1/get_policy/{id}",
+    "http_method": "get",
+    "api": "vulnerability_management_api",
+    "method": "get_policy_by_id",
+    "arguments": {
+      "path:id": "id"
+    },
+    "wire_path": "/public_api/uvm_public/v1/get_policy/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/uvm_public/v1/delete_policy/{id}",
+    "http_method": "delete",
+    "api": "vulnerability_management_api",
+    "method": "delete_policy",
+    "arguments": {
+      "path:id": "id"
+    },
+    "wire_path": "/public_api/uvm_public/v1/delete_policy/{id}",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
+  },
+  {
+    "version": 5,
+    "path": "/public_api/vulnerability-management/v1/scan",
+    "http_method": "post",
+    "api": "vulnerability_management_api",
+    "method": "trigger_scan_for_an_asset_id",
+    "arguments": {
+      "body:asset_id": "asset_id",
+      "body:scanner_type": "scanner_type",
+      "body:cve_id": "cve_id",
+      "body:scan_target": "scan_target"
+    },
+    "wire_path": "/public_api/vulnerability-management/v1/scan",
+    "source": "https://cortex-docs.paloaltonetworks.com/xdr-5-api/vulnerability-management/vulnerability-management.md"
   }
 ]

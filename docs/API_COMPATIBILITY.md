@@ -1,6 +1,7 @@
 # Cortex XDR API compatibility audit
 
-Compared on 2026-09-22. The original client targeted the `/public_api/v1/`
+Compared on 2026-09-22 and expanded against all indexed 3.x/5.x pages on
+2026-09-29. The original client targeted the `/public_api/v1/`
 endpoint family now documented under XDR 3.x. Product versions 3 and 5 are not
 HTTP API path versions. Shared endpoints retain their published paths.
 
@@ -26,10 +27,12 @@ earlier 5.x tenants must be confirmed against that tenant's documentation.
 
 ## Coverage boundary
 
-Dedicated wrappers cover 24 of 124 published v3 operations and 34 of 218 v5
-operations across the downloaded and embedded references. This is partial API
-coverage. See [the coverage inventory](API_COVERAGE.md) for the per-family counts,
-missing operations and distinction between wrappers and generic transport.
+The expanded inventory has 124 XDR 3.x operations and 386 XDR 5.x operations,
+including 10 indexed Broker VM on-appliance operations. All 510 have dedicated
+methods. The initial seven downloads cover only a subset of the indexed 5.x
+families; see [the full coverage inventory](API_COVERAGE.md) for the source
+snapshot, method catalog and verification limits. Dedicated operation methods
+do not imply universal typed Pydantic request/response models.
 
 ## Compatibility decisions
 
@@ -41,11 +44,12 @@ missing operations and distinction between wrappers and generic transport.
   response. Fail locally when a typed API targets the wrong product generation.
 - Reuse the shared routes for endpoints, actions, scripts, XQL, indicators and
   downloads. Keep the wire field `incident_id` where v5 calls it a case ID.
-- Provide exact-path transport for the remaining published operations, with
-  JSON, query, multipart and all documented HTTP methods. This is not a generated
-  SDK or a claim of typed coverage for every operation. The caller supplies the
-  version-specific schema, including envelope differences such as `request`
-  versus `request_data` on dataset APIs.
+- Provide dedicated methods for every pinned operation, with named documented
+  fields, exact paths, JSON/query/multipart support and version guards. The
+  low-level exact-path transport remains available. New methods return complete
+  JSON, text, bytes or `None` according to the response and do not invent
+  universal typed models or local schema validation. They retain envelope
+  differences such as `request` versus `request_data` on dataset APIs.
 - Preserve HTTP errors, caller timeouts and explicit pagination. Do not
   automatically retry response actions after an uncertain result.
 
@@ -60,8 +64,21 @@ missing operations and distinction between wrappers and generic transport.
   of `actions/file_retrieval_details`; there is no separate download path in the
   core OpenAPI paths map.
 - Application Security contains a malformed path starting with
-  `/get /public_api/appsec/v1/package_explorer/...`. The operation inventory
-  preserves it as published. No corrected route is guessed or advertised.
+  `/get /public_api/appsec/v1/package_explorer/...`. The catalog preserves the
+  literal path and uses the inferred `/public_api/...` wire path. This
+  correction requires live tenant confirmation.
+- The indexed Broker VM on-appliance API uses a separate broker HTTPS origin,
+  password bootstrap and 10-minute Bearer token, so it has an explicit
+  `BrokerApplianceClient` and never reuses tenant API-key transport.
+- The Forensics server template is malformed and the Policy server is relative;
+  these methods use the caller-configured tenant HTTPS origin with the literal
+  published path. Three CWP registry operations expose the literal required
+  `Authentication` header separately from the normal tenant headers. These
+  effective-host/auth decisions still need live tenant confirmation.
+- Several indexed blocks omit declarations for placeholders retained in their
+  paths; those literal placeholders become required, percent-encoded method
+  parameters. The legacy XQL stream reference prints an invalid gzip header
+  name; the method sends a valid `Accept-Encoding` header instead.
 - Some schemas and examples disagree: legacy XQL `relativeTime` is typed as a
   string despite integer usage; script filters have differing empty/all
   examples; indicator expiration describes `Never` despite an integer schema.
@@ -74,9 +91,10 @@ missing operations and distinction between wrappers and generic transport.
 ## Verification
 
 `tests/fixtures/openapi_operations.json` records source URLs, downloaded-file
-SHA-256 values and published paths/methods for the seven downloads and the two
-embedded references. `core_responses.json` retains selected current vendor
-response examples. Tests run offline and do not depend on live documentation.
+SHA-256 values and published paths/methods for the seven original downloads and
+two embedded references. `indexed_openapi_blocks.json` pins the 190 indexed
+page URLs, hashes and embedded blocks. `core_responses.json` retains selected
+vendor response examples. Tests run offline and do not depend on live docs.
 
 Coverage includes both versions' shared typed calls, authentication, exact URLs,
 request nesting and enum serialization, current response examples, v5 native
@@ -92,9 +110,10 @@ missing authentication, empty bodies, ignored HTTP errors/timeouts, wrong script
 ID, lost script targets/parameters, wrong snippet code and ignored script timeout.
 These targeted probes are not an exhaustive mutation score or full API coverage.
 
-The compatibility layer passed 210 tests on Python 3.8.12 and 3.12.12.
-Client 2.0 adds the model migration regression suite; its current
-verification is recorded in [the migration notes](PYDANTIC_V2.md).
+The compatibility layer's earlier 210-test result predates the full-coverage
+work. The current operation-contract suite and build checks are reported on the
+follow-up pull request. Client 2.0 model migration is described in
+[the migration notes](PYDANTIC_V2.md).
 
 No live tenant credentials were supplied. These tests establish local behavior
 against published contracts, not successful authentication, licensing, data
