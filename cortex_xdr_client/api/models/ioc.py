@@ -1,10 +1,12 @@
 from enum import Enum
 from typing import List, Optional, Union, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
+
+from cortex_xdr_client.api.models.base import CortexResponseModel
 
 
-class ValidationError(BaseModel):
+class ValidationError(CortexResponseModel):
     """
     Validation Error Model
     Represents a validation error.
@@ -13,7 +15,7 @@ class ValidationError(BaseModel):
     error: str
 
 
-class IoCResponseItem(BaseModel):
+class IoCResponseItem(CortexResponseModel):
     """
     IoC Response Item Model
     Represents the response item of the IoC API.
@@ -22,12 +24,12 @@ class IoCResponseItem(BaseModel):
     validation_errors: List[ValidationError] = Field(default_factory=list)
 
 
-class IoCResponse(BaseModel):
+class IoCResponse(CortexResponseModel):
     """
     IoC Response Model
     Represents the response of the IoC API.
     """
-    reply: Optional[Union[IoCResponseItem, bool]]
+    reply: Optional[Union[IoCResponseItem, bool]] = None
 
 
 class Reputation(str, Enum):
@@ -51,8 +53,7 @@ class Vendor(BaseModel):
     reliability: str
     reputation: Reputation
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class IoCReliability(str, Enum):
@@ -102,13 +103,12 @@ class IoC(BaseModel):
     """
     indicator: str
     type: IoCType
-    expiration_date: Optional[Union[int, Literal["Never"]]]
-    comment: Optional[str]
-    reputation: Optional[Reputation]
-    reliability: Optional[IoCReliability]
+    expiration_date: Optional[Union[int, Literal["Never"]]] = None
+    comment: Optional[str] = None
+    reputation: Optional[Reputation] = None
+    reliability: Optional[IoCReliability] = None
     severity: IoCSeverity
-    vendors: Optional[List[Vendor]]
+    vendors: Optional[List[Vendor]] = None
     class_: Optional[str] = Field(None, alias='class')
 
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)

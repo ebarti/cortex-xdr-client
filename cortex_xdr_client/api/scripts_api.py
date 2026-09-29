@@ -88,7 +88,7 @@ class ScriptsAPI(BaseAPI):
             raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
 
-        return GetScriptsResponse.parse_obj(reply)
+        return GetScriptsResponse.model_validate(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-metadata.html
     def get_script_metadata(self, script_uid: str) -> Optional[GetScriptMetadataResponse]:
@@ -104,7 +104,7 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
-        return GetScriptMetadataResponse.parse_obj(reply)
+        return GetScriptMetadataResponse.model_validate(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-status.html
     def get_script_execution_status(self, action_id: int) -> Optional[GetScriptsExecutionStatus]:
@@ -120,7 +120,7 @@ class ScriptsAPI(BaseAPI):
         if "reply" not in resp_json:
             raise InvalidResponseException(response, ["reply"])
         reply = resp_json["reply"]
-        return GetScriptsExecutionStatus.parse_obj(reply)
+        return GetScriptsExecutionStatus.model_validate(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-results.html
     def get_script_execution_results(self, action_id: int) -> Optional[GetScriptExecutionResults]:
@@ -138,7 +138,7 @@ class ScriptsAPI(BaseAPI):
         for result in reply.get('results') or []:
             if result.get('_return_value') is not None:
                 result['standard_output'] = result['_return_value']
-        return GetScriptExecutionResults.parse_obj(reply)
+        return GetScriptExecutionResults.model_validate(reply)
 
     # https://docs.paloaltonetworks.com/cortex/cortex-xdr/cortex-xdr-api/cortex-xdr-apis/script-execution/get-script-execution-result-files.html
     def get_script_execution_result_files(self, action_id: int, endpoint_id: str) -> Optional[str]:

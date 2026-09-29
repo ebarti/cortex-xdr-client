@@ -26,7 +26,7 @@ class ActionsAPI(BaseAPI):
 
         response = self._call(call_name="get_action_status",
                               json_value=request_data)
-        return GetActionStatus.parse_obj(response.json())
+        return GetActionStatus.model_validate(response.json())
 
     # https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/Cortex-XDR-API-Reference/File-Retrieval-Details
     def get_file_retrieval_details(self,
@@ -42,4 +42,4 @@ class ActionsAPI(BaseAPI):
 
         response = self._call(call_name="file_retrieval_details",
                               json_value=request_data)
-        return GetActionStatus.parse_obj(response.json())
+        return GetActionStatus.model_validate(response.json())

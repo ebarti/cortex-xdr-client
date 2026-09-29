@@ -18,7 +18,7 @@ class IocAPI(BaseAPI):
         :param validate: Whether to return an array of errors in the case of an unsuccessful update indicator API request.
         :return: Returns an IoCResponse object if successful.
         """
-        values = [indicator.dict(by_alias=True, exclude_none=True) for indicator in indicators]
+        values = [indicator.model_dump(by_alias=True, exclude_none=True) for indicator in indicators]
         for value in values:
             if value['severity'] == 'INFORMATIONAL':
                 value['severity'] = 'INFO'
@@ -31,4 +31,4 @@ class IocAPI(BaseAPI):
             "validate":     validate
         }
         response = self._call(call_name="insert_jsons", json_value=request_data)
-        return IoCResponse.parse_obj(response.json())
+        return IoCResponse.model_validate(response.json())

@@ -27,7 +27,7 @@ class IssuesAPI(BaseAPI):
         request_data = new_request_data(filters=filters, search_from=search_from,
                                         search_to=search_to, sort=sort, other=other)
         response = self._call("search", json_value=request_data)
-        return GetIssuesResponse.parse_obj(response.json())
+        return GetIssuesResponse.model_validate(response.json())
 
     def create_issue(self, issue: dict) -> dict:
         """Create an issue; returns external_id and detection_method (HTTP 202)."""
